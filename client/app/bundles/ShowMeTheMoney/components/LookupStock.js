@@ -23,7 +23,6 @@ export default class LookupStock extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.getStockData(this.props.stockTicker);
-
   }
 
   render() {
