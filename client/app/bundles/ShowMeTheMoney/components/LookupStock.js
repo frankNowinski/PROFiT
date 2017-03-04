@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 
 export default class LookupStock extends React.Component {
   static propTypes = {
+    getStockData: PropTypes.func.isRequired,
     updateStockTicker: PropTypes.func.isRequired,
     stockTicker: PropTypes.string.isRequired
   }
@@ -21,7 +22,7 @@ export default class LookupStock extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.props.stockTicker);
+    this.props.getStockData(this.props.stockTicker);
   }
 
   render() {

@@ -6,8 +6,10 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails', '~> 5.0.2'
+gem 'react_on_rails', '~> 6'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
+gem 'uglifier'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '~> 5.0'
 gem 'jquery-rails'
@@ -18,8 +20,6 @@ gem 'rspec-rails'
 
 gem 'devise'
 gem 'omniauth-facebook'
-
-gem 'react_on_rails', '~> 6'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
@@ -43,6 +43,10 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+gem 'rails_12factor', group: :production
+
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'mini_racer', platforms: :ruby
+
+ruby '2.3.0'
