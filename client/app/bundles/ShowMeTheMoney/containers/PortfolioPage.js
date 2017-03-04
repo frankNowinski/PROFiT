@@ -13,13 +13,13 @@ function select(state) {
 const PortfolioPage = (props) => {
   const { dispatch, $$stocksStore } = props;
   const actions = bindActionCreators(stockActions, dispatch);
-  const { updateStockTicker } = actions;
+  const { getStockData, updateStockTicker } = actions;
   const stocks = $$stocksStore.get('stocks');
   const stockTicker = $$stocksStore.get('stockTicker');
 
   return (
     <div>
-      <LookupStock {...{ updateStockTicker, stockTicker }}/>
+      <LookupStock {...{ getStockData, updateStockTicker, stockTicker }}/>
     </div>
   );
 };
