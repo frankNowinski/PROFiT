@@ -38080,8 +38080,10 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function getStockData(stockTicker) {
+	  var stock = { stock_ticker: stockTicker };
+
 	  return function (dispatch) {
-	    return _axios2.default.get('/api/v1/stock_lookup', { params: { stockTicker: stockTicker } }).then(function (response) {
+	    return _axios2.default.get('/api/v1/stock_lookup', { params: { stock: stock } }).then(function (response) {
 	      dispatch({ type: 'GET_STOCK_DATA', response: response });
 	    }).catch(function (error) {
 	      console.log(error);
@@ -39668,7 +39670,13 @@
 	            "Submit"
 	          )
 	        ),
-	        _react2.default.createElement("hr", null)
+	        _react2.default.createElement("hr", null),
+	        _react2.default.createElement(
+	          "p",
+	          { className: "lead" },
+	          "Here: ",
+	          this.props.stockTicker
+	        )
 	      );
 	    }
 	  }]);

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'sessions#index'
 
+  get '/sessions/show', to: 'sessions#show'
+
   get '/home', to: 'home#index'
 
   namespace :api do
