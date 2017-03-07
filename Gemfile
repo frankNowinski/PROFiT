@@ -15,7 +15,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
-gem 'haml'
+gem 'haml-rails'
 gem 'rspec-rails'
 
 gem 'devise'
