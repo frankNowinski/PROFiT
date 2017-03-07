@@ -45,6 +45,7 @@ export default class LookupStock extends React.Component {
           <button type="submit" className="btn btn-default">Submit</button>
         </form>
         <hr />
+        <p className="lead">Here: {this.props.stockTicker}</p>
       </div>
     );
   }
