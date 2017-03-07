@@ -10,7 +10,7 @@ gem 'react_on_rails', '~> 6'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 gem 'uglifier'
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'sass-rails', '~> 5.0'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
@@ -20,6 +20,7 @@ gem 'rspec-rails'
 
 gem 'devise'
 gem 'omniauth-facebook'
+gem 'faraday'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'

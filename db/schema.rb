@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170304233832) do
+ActiveRecord::Schema.define(version: 20170307223329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20170304233832) do
 
   create_table "stocks", force: :cascade do |t|
     t.string   "ticker"
-    t.integer  "shares"
+    t.decimal  "shares",     null: false
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

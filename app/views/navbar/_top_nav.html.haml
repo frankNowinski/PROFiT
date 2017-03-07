@@ -1,15 +1,7 @@
-%nav.navbar.navbar-default
-  .container-fluid
-    .container
-      .navbar-header
-        %p.navbar-brand Show Me the Money
+%nav.navbar.navbar-toggleable-md.navbar-light.bg-faded.navbar-inverse.bg-inverse
+  .container
+    = link_to 'Show Me the Money', home_path, { class: 'navbar-brand' }
 
-      - if user_signed_in?
-        = button_to 'Logout', destroy_user_session_path, id: 'facebook-logout-button',
-          class: 'btn btn-default navbar-btn navbar-right', method: :delete
-
-        %p.navbar-text.navbar-right
-          Signed in as
-          %a.navbar-link{ href: '#' }
-            = "#{current_user.name}"
+    - if user_signed_in?
+      = render 'navbar/signed_in_nav'
 

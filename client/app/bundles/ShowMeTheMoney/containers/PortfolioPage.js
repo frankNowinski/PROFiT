@@ -19,7 +19,6 @@ const PortfolioPage = (props) => {
 
   return (
     <div>
-      <LookupStock {...{ getStockData, updateStockTicker, stockTicker }}/>
     </div>
   );
 };
