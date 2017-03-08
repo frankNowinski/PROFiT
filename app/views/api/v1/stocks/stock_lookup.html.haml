@@ -1,0 +1,15 @@
+.container.text-center
+  %table.table
+    %thead
+      %tr
+        %th.text-center Symbol
+        %th.text-center Price
+        %th.text-center Percent Change
+    %tbody
+      %tr
+        %td
+          = @stock['symbol'].upcase
+        %td
+          = "$#{current_price(@stock)}"
+        %td
+          = @stock['PercentChange']

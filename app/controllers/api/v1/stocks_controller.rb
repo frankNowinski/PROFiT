@@ -1,15 +1,12 @@
 class Api::V1::StocksController < ApplicationController
-  def lookup
-    binding.pry
+  def stock_lookup
     @stock = StockFetcher.new(stock_params).fetch_stock
-
-    render json: @stock
   end
 
   private
 
   def stock_params
-    params.permit(:ticker)
+    params.require(:ticker)
   end
 end
 

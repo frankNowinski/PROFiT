@@ -4,3 +4,5 @@
 - else 
   Redirect user to the Facebook login page. 
 
+2. Add validation to Lookup Stock feature
+

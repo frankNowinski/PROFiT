@@ -1,6 +1,6 @@
 class StockFetcher
-  def initialize(stock)
-    @ticker = stock[:ticker]
+  def initialize(ticker)
+    @ticker = ticker
   end
 
   def fetch_stock
