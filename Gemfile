@@ -45,9 +45,11 @@ group :development do
 end
 
 gem 'rails_12factor', group: :production
-
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
 gem 'mini_racer', platforms: :ruby
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.3.3'
+end
 
 ruby '2.3.0'
