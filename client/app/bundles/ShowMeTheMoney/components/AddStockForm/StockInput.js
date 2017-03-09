@@ -6,33 +6,41 @@ export default class StockInput extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { errors: {} }
+    this.state = { errorMsg: '' }
   }
 
   validateStockExists(e) {
     const ticker = this.props.ticker;
+    let invalid, errorMsg = this.state.errorMsg;
 
     if (ticker != '') {
-      let errors = this.state.errors;
-
       stockExists(ticker).then(response => {
         if (response.data.query.results.quote.Name !== null) {
-          errors.ticker = '';
+          errorMsg = '';
+          invalid = false;
         } else {
-          errors.ticker = `${ticker.toUpperCase()} is an invalid stock.`
+          errorMsg = `${ticker.toUpperCase()} is an invalid stock.`
+          invalid = true;
         }
 
-        this.setState({ errors });
+        this.setState({ errorMsg });
+        this.props.setInvalidState(invalid);
       });
+    } else {
+      invalid = true;
+      errorMsg = 'You must enter a stock ticker';
+
+      this.setState({ errorMsg });
+      this.props.setInvalidState(invalid);
     }
   }
 
   render() {
-    const errors = this.state.errors;
+    const errorMsg = this.state.errorMsg;
     const { ticker, handleChange } = this.props;
 
     return (
-      <div className={classnames("form-group", "row", { 'has-danger': errors.ticker })}>
+      <div className={classnames("form-group", "row", { 'has-danger': errorMsg != '' })}>
         <label htmlFor="input-ticker" className="col-sm-4 col-form-label">Stock Ticker: </label>
 
         <div className="col-7">
@@ -47,10 +55,17 @@ export default class StockInput extends React.Component {
             placeholder="AAPL"
           />
 
-          <div className="form-control-feedback">{errors.ticker}</div>
+          <div className="form-control-feedback">{errorMsg}</div>
         </div>
       </div>
     )
   }
 }
+
+StockInput.propTypes = {
+  ticker: React.PropTypes.string.isRequired,
+  handleChange: React.PropTypes.func.isRequired,
+  setInvalidState: React.PropTypes.func.isRequired
+}
+
 

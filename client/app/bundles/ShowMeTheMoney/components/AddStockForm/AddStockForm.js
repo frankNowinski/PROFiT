@@ -12,15 +12,20 @@ export default class AddStockForm extends React.Component {
       ticker: '',
       shares: '',
       purchasedDate: moment(),
+      invalid: false
     }
 
     this.handleChange         = this.handleChange.bind(this);
     this.handleSubmit         = this.handleSubmit.bind(this);
     this.handleCalendarChange = this.handleCalendarChange.bind(this);
+    this.setInvalidState      = this.setInvalidState.bind(this);
+  }
+
+  setInvalidState(invalid) {
+    this.setState({ invalid });
   }
 
   handleChange(e) {
-    e.preventDefault();
     this.setState({ [e.target.name]: e.target.value })
   }
 
@@ -55,11 +60,13 @@ export default class AddStockForm extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                   <StockInput
                     ticker={this.state.ticker}
-                    handleChange={this.handleChange} />
+                    handleChange={this.handleChange}
+                    setInvalidState={this.setInvalidState} />
 
                   <SharesInput
                     shares={this.state.shares}
-                    handleChange={this.handleChange} />
+                    handleChange={this.handleChange}
+                    setInvalidState={this.setInvalidState} />
 
                   <PurchasedDateCalendar
                     purchasedDate={this.state.purchasedDate}
@@ -67,7 +74,7 @@ export default class AddStockForm extends React.Component {
 
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" className="btn btn-outline-primary" onClick={this.handleSubmit}>Add Stock</button>
+                    <button type="submit" className="btn btn-outline-primary" disabled={this.state.invalid}onClick={this.handleSubmit}>Add Stock</button>
                   </div>
                 </form>
               </div>

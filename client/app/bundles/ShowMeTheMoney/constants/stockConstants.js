@@ -1,8 +1,7 @@
 import mirrorCreator from 'mirror-creator';
 
 const actionTypes = mirrorCreator([
-  'GET_STOCK_DATA',
-  'UPDATE_STOCK_TICKER'
+  'GET_STOCK_DATA'
 ]);
 
 export default actionTypes;
