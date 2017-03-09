@@ -1,6 +1,12 @@
 import React, { PropTypes } from 'react';
+import StockInput from './StockInput';
 import classnames from 'classnames';
-import stockExists from '../utils/validations/stockValidation';
+import stockExists from '../../utils/validations/stockValidation';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
+import '../../css/addStockForm.css';
 
 export default class AddStockForm extends React.Component {
   constructor(props) {
@@ -9,18 +15,24 @@ export default class AddStockForm extends React.Component {
     this.state = {
       ticker: '',
       shares: '',
+      purchasedDate: moment(),
       errors: {},
       invalid: false
     }
 
     this.handleChange         = this.handleChange.bind(this);
     this.handleSubmit         = this.handleSubmit.bind(this);
+    this.handleCalendarChange = this.handleCalendarChange.bind(this);
     this.validateStockExists  = this.validateStockExists.bind(this);
   }
 
   handleChange(e) {
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value })
+  }
+
+  handleCalendarChange(date) {
+    this.setState({ purchasedDate: date })
   }
 
   handleSubmit(e) {
@@ -99,6 +111,20 @@ export default class AddStockForm extends React.Component {
                     />
                   </div>
                 </div>
+
+                <div className="form-group row">
+                  <label htmlFor="input-date-purchased" className="col-sm-4 col-form-label">Date Purchased: </label>
+                  <div className="col-7">
+                    <DatePicker
+                      name="startDate"
+                      className="form-control datepicker-calandar"
+                      value={this.state.purchasedDate}
+                      selected={this.state.purchasedDate}
+                      onChange={this.handleCalendarChange}
+                    />
+                  </div>
+                </div>
+
                 <div className="modal-footer">
                   <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                   <button type="submit" className="btn btn-outline-primary" onClick={this.handleSubmit}>Add Stock</button>
@@ -117,5 +143,6 @@ AddStockForm.propTypes = {
   stocks: React.PropTypes.object.isRequired,
   getStockData: React.PropTypes.func.isRequired
 }
+
 
 
