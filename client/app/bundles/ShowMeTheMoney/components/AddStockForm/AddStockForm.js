@@ -1,12 +1,8 @@
 import React, { PropTypes } from 'react';
 import StockInput from './StockInput';
-import classnames from 'classnames';
-import stockExists from '../../utils/validations/stockValidation';
-import DatePicker from 'react-datepicker';
+import SharesInput from './SharesInput';
+import PurchasedDateCalendar from './PurchasedDateCalendar';
 import moment from 'moment';
-
-import 'react-datepicker/dist/react-datepicker.css';
-import '../../css/addStockForm.css';
 
 export default class AddStockForm extends React.Component {
   constructor(props) {
@@ -16,14 +12,11 @@ export default class AddStockForm extends React.Component {
       ticker: '',
       shares: '',
       purchasedDate: moment(),
-      errors: {},
-      invalid: false
     }
 
     this.handleChange         = this.handleChange.bind(this);
     this.handleSubmit         = this.handleSubmit.bind(this);
     this.handleCalendarChange = this.handleCalendarChange.bind(this);
-    this.validateStockExists  = this.validateStockExists.bind(this);
   }
 
   handleChange(e) {
@@ -39,31 +32,10 @@ export default class AddStockForm extends React.Component {
     e.preventDefault();
     console.log(this.state);
     $('#add-stock-modal').modal('hide');
-    this.setState({ ticker: '', shares: '' });
-  }
-
-  validateStockExists(e) {
-    const ticker = e.target.value;
-
-    if (ticker != '') {
-      let errors = this.state.errors;
-
-      stockExists(this.state.ticker).then(response => {
-        if (response.data.query.results.quote.Name !== null) {
-          errors.ticker = '';
-        } else {
-          errors.ticker = `${ticker.toUpperCase()} is an invalid stock.`
-        }
-
-        this.setState({ errors });
-      });
-
-    }
+    this.setState({ ticker: '', shares: '', purchasedDate: moment() });
   }
 
   render() {
-    const { errors } = this.state;
-
     return (
       <div>
         <button className='btn btn-outline-primary' type="button" data-toggle="modal" data-target="#add-stock-modal">Add Stock</button>
@@ -81,61 +53,29 @@ export default class AddStockForm extends React.Component {
 
               <div className="modal-body text-center">
                 <form onSubmit={this.handleSubmit}>
-                <div className={classnames("form-group", "row", { 'has-danger': errors.ticker })}>
-                  <label htmlFor="input-ticker" className="col-sm-4 col-form-label">Stock Ticker: </label>
-                  <div className="col-7">
-                    <input
-                      name="ticker"
-                      className="form-control form-control-danger"
-                      id="input-ticker"
-                      type="text"
-                      value={this.state.ticker}
-                      onChange={this.handleChange}
-                      onBlur={this.validateStockExists}
-                      placeholder="AAPL"
-                    />
-                    <div className="form-control-feedback">{errors.ticker}</div>
-                  </div>
-                </div>
+                  <StockInput
+                    ticker={this.state.ticker}
+                    handleChange={this.handleChange} />
 
-                <div className="form-group row">
-                  <label htmlFor="input-shares" className="col-sm-4 col-form-label">Shares: </label>
-                  <div className="col-7">
-                    <input
-                      name="shares"
-                      className="form-control"
-                      id="input-shares"
-                      value={this.state.shares}
-                      onChange={this.handleChange}
-                      placeholder="Shares"
-                    />
-                  </div>
-                </div>
+                  <SharesInput
+                    shares={this.state.shares}
+                    handleChange={this.handleChange} />
 
-                <div className="form-group row">
-                  <label htmlFor="input-date-purchased" className="col-sm-4 col-form-label">Date Purchased: </label>
-                  <div className="col-7">
-                    <DatePicker
-                      name="startDate"
-                      className="form-control datepicker-calandar"
-                      value={this.state.purchasedDate}
-                      selected={this.state.purchasedDate}
-                      onChange={this.handleCalendarChange}
-                    />
-                  </div>
-                </div>
+                  <PurchasedDateCalendar
+                    purchasedDate={this.state.purchasedDate}
+                    handleCalendarChange={this.handleCalendarChange} />
 
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" className="btn btn-outline-primary" onClick={this.handleSubmit}>Add Stock</button>
-                </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" className="btn btn-outline-primary" onClick={this.handleSubmit}>Add Stock</button>
+                  </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -143,6 +83,4 @@ AddStockForm.propTypes = {
   stocks: React.PropTypes.object.isRequired,
   getStockData: React.PropTypes.func.isRequired
 }
-
-
 
