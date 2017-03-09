@@ -5,14 +5,12 @@ import reducers from '../reducers';
 import { initialStates } from '../reducers';
 
 export default props => {
-  const { stocks} = props;
-  const stockTicker = '';
+  const { stocks } = props;
   const { $$stocksState } = initialStates;
 
   const initialState = {
     $$stocksStore: $$stocksState.merge({
-      stocks,
-      stockTicker
+      stocks
     })
   };
 

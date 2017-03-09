@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import * as stockActions from '../actions/stockActions';
 
-import LookupStock from '../components/LookupStock';
+import AddStockForm from '../components/AddStockForm';
 
 function select(state) {
   return { $$stocksStore: state.$$stocksStore };
@@ -13,12 +13,12 @@ function select(state) {
 const PortfolioPage = (props) => {
   const { dispatch, $$stocksStore } = props;
   const actions = bindActionCreators(stockActions, dispatch);
-  const { getStockData, updateStockTicker } = actions;
+  const { getStockData } = actions;
   const stocks = $$stocksStore.get('stocks');
-  const stockTicker = $$stocksStore.get('stockTicker');
 
   return (
     <div>
+      <AddStockForm {...{ getStockData, stocks }} />
     </div>
   );
 };

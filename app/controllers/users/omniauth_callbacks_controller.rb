@@ -4,7 +4,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     @user.save unless @user.persisted?
     sign_in(:user, @user)
-    redirect_to home_path
+    redirect_to portfolio_path
   end
 
   def failure

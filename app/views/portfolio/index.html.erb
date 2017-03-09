@@ -1,0 +1,13 @@
+<div class="container">
+  <h1 class="text-center display-4">Portfolio</h1>
+  <hr />
+
+  <%= react_component('App', props: { stocks: @stocks }, prerender: false) %>
+</div>
+
+<script>
+  $('#add-stock-modal').on('shown.bs.modal', function () {
+    $('#input-ticker').focus()
+  });
+</script>
+

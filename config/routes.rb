@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'sessions#index'
 
-  get '/home', to: 'home#index'
+  get '/portfolio', to: 'portfolio#index'
   get '/stock_lookup', to: 'api/v1/stocks#stock_lookup'
 
   # namespace :api do

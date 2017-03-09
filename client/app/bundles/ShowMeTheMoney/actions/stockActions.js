@@ -13,10 +13,3 @@ export function getStockData(stockTicker) {
   }
 }
 
-export function updateStockTicker(stockTicker) {
-  return {
-    type: actionTypes.UPDATE_STOCK_TICKER,
-    stockTicker
-  }
-}
-
