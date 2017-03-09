@@ -40,7 +40,7 @@ export default class AddStockForm extends React.Component {
         if (response.data.query.results.quote.Name !== null) {
           errors.ticker = '';
         } else {
-          errors.ticker = `${ticker} is an invalid stock.`
+          errors.ticker = `${ticker.toUpperCase()} is an invalid stock.`
         }
 
         this.setState({ errors });
