@@ -9,11 +9,11 @@ export default class SharesInput extends React.Component {
   }
 
   validateShares(e) {
-    const shares = this.props.shares;
+    const shares = parseInt(this.props.shares);
     let invalid, errorMsg = this.state.errorMsg;
 
-    if (shares == '') {
-      errorMsg = 'Enter the number of shares you own.';
+    if (isNaN(shares) || shares < 0 || shares === 0) {
+      errorMsg = 'You must enter a positive number.';
       invalid = true;
     } else {
       errorMsg = '';

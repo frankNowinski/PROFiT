@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import AlertMessage from './AlertMessage';
 import StockInput from './StockInput';
 import SharesInput from './SharesInput';
 import PurchasedDateCalendar from './PurchasedDateCalendar';
@@ -12,17 +13,23 @@ export default class AddStockForm extends React.Component {
       ticker: '',
       shares: '',
       purchasedDate: moment(),
-      invalid: false
+      invalid: false,
+      submitted: false
     }
 
     this.handleChange         = this.handleChange.bind(this);
     this.handleSubmit         = this.handleSubmit.bind(this);
     this.handleCalendarChange = this.handleCalendarChange.bind(this);
     this.setInvalidState      = this.setInvalidState.bind(this);
+    this.setSubmittedState    = this.setSubmittedState.bind(this);
   }
 
   setInvalidState(invalid) {
     this.setState({ invalid });
+  }
+
+  setSubmittedState() {
+    this.setState({ ticker: '', submitted: false });
   }
 
   handleChange(e) {
@@ -35,15 +42,31 @@ export default class AddStockForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
+    const { ticker, shares } = this.state;
+
+    if (ticker != '' && shares != '') {
+      this.setState({
+        shares: '',
+        purchasedDate: moment(),
+        invalid: false,
+        submitted: true
+      });
+    } else {
+      this.setState({ invalid: true, submitted: true });
+    }
+
     $('#add-stock-modal').modal('hide');
-    this.setState({ ticker: '', shares: '', purchasedDate: moment() });
   }
 
   render() {
     return (
       <div>
-        <button className='btn btn-outline-primary' type="button" data-toggle="modal" data-target="#add-stock-modal">Add Stock</button>
+        { this.state.submitted ?
+          <AlertMessage invalid={this.state.invalid} ticker={this.state.ticker} />
+          : null
+        }
+
+        <button className='btn btn-outline-primary' type="button" data-toggle="modal" data-target="#add-stock-modal" onClick={this.setSubmittedState}>Add Stock</button>
 
         <div className="modal fade" id="add-stock-modal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
