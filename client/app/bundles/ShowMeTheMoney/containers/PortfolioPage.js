@@ -13,12 +13,12 @@ function select(state) {
 const PortfolioPage = (props) => {
   const { dispatch, $$stocksStore } = props;
   const actions = bindActionCreators(stockActions, dispatch);
-  const { getStockData } = actions;
+  const { getStockData, addStock } = actions;
   const stocks = $$stocksStore.get('stocks');
 
   return (
     <div>
-      <AddStockForm {...{ getStockData, stocks }} />
+      <AddStockForm {...{ addStock, getStockData, stocks }} />
     </div>
   );
 };

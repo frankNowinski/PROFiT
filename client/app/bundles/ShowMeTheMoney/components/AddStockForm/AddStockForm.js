@@ -45,6 +45,14 @@ export default class AddStockForm extends React.Component {
     const { ticker, shares } = this.state;
 
     if (ticker != '' && shares != '') {
+      this.props.addStock(this.state)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
       this.setState({
         shares: '',
         purchasedDate: moment(),
@@ -111,6 +119,7 @@ export default class AddStockForm extends React.Component {
 
 AddStockForm.propTypes = {
   stocks: React.PropTypes.object.isRequired,
+  addStock: React.PropTypes.func.isRequired,
   getStockData: React.PropTypes.func.isRequired
 }
 

@@ -1,6 +1,6 @@
 = form_tag(stock_lookup_path, method: 'get',
   class: 'form-inline my-2 my-lg-0') do
   = label_tag :ticker
-  = text_field_tag :ticker, nil, class: 'form-control mr-sm-2', placeholder: 'Lookup Stock'
+  = text_field_tag :ticker, nil, class: 'form-control mr-sm-2', placeholder: 'Lookup Stock', required: true
   = submit_tag 'Search', class: 'btn btn-outline-success my-2 my-sm-0', type: 'submit'
 
