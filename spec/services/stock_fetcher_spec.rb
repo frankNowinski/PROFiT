@@ -2,39 +2,55 @@ require 'rails_helper'
 
 RSpec.describe StockFetcher, type: :services do
   describe '#initialize' do
-    context 'when initialized without a stock ticker' do
+    context 'when initialized without any arguments' do
       it 'should raise an Argument Error' do
         expect{ described_class.new }.to raise_error ArgumentError
       end
     end
 
     context 'when initialized with a stock ticker' do
-      let(:stock_ticker) { described_class.new('aapl') }
+      let(:stock_fetcher) { described_class.new('AAPL') }
 
       it 'should return true' do
-        expect(stock_ticker).to be_truthy
+        expect(stock_fetcher).to be_truthy
       end
 
-      context 'when it is a valid stock ticker' do
-        let(:stock_object) { double(:stock_object) }
-        let(:stock) do
-          { query: {
-              results: {
-                quote: stock_object
-              }
-            }
-          }.with_indifferent_access
-        end
+      it 'should not set the start date' do
+        expect(stock_fetcher.instance_variable_get(:@start_date)).to eq nil
+      end
 
-        before do
-          allow(Faraday).to receive_message_chain(:get, :body).and_return(stock)
-          allow(JSON).to receive(:parse).and_return(stock)
-        end
+      it 'should set the appropriate url' do
+        expect(stock_fetcher.instance_variable_get(:@url)).to eq yahoo_api_url
+      end
+    end
 
-        it 'should return the stock object' do
-          expect(stock_ticker.fetch_stock).to eq stock_object
+    context 'when initialized with a ticker and start date' do
+      let(:stock_fetcher) { described_class.new('AAPL', Date.today.to_datetime) }
+      let(:start_date)    { (Date.today - 5).strftime('%Y-%m-%d') }
+      let(:end_date)      { Date.today.strftime('%Y-%m-%d') }
+
+      it 'should set start and end date' do
+        expect(stock_fetcher.instance_variable_get(:@start_date)).to eq start_date
+        expect(stock_fetcher.instance_variable_get(:@end_date)).to eq end_date
+      end
+
+      it 'should set the appropriate url' do
+        expect(stock_fetcher.instance_variable_get(:@url)).to eq yahoo_api_url_with_dates
+      end
+    end
+  end
+
+  describe '#fetch_stock'do
+    context 'when the start date is not ' do
+      let(:stock) { described_class.new('AAPL').fetch_stock }
+
+      it 'should return the stock object' do
+        VCR.use_cassette('stock') do
+          expect(stock['symbol']).to eq 'AAPL'
+          expect(stock['Ask']).to eq '139.12'
         end
       end
     end
   end
 end
+
