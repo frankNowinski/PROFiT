@@ -5,9 +5,3 @@
   <%= react_component('App', props: { stocks: @stocks }, prerender: false) %>
 </div>
 
-<script>
-  $('#add-stock-modal').on('shown.bs.modal', function () {
-    $('#input-ticker').focus()
-  });
-</script>
-

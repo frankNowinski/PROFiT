@@ -249,10 +249,6 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
-  # ==> Facebook OmniAuth
-  # config.omniauth :facebook, "101355470384687", "c392181e8f77266fe1bcf65a6de49504",
-    # scope: 'email', info_fields: 'email, name'
-
   config.omniauth :facebook, ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_APP_SECRET"],
     scope: 'email', info_fields: 'email, name'
 

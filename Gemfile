@@ -22,19 +22,16 @@ gem 'devise'
 gem 'omniauth-facebook'
 gem 'faraday'
 
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 group :development, :test do
   gem 'pry'
   gem 'pry-remote'
   gem 'pry-nav'
   gem 'dotenv-rails'
   gem 'rails-controller-testing'
+  gem 'capybara'
+  gem 'warden'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
 end
 
 group :development do
