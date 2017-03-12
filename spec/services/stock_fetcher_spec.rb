@@ -25,11 +25,11 @@ RSpec.describe StockFetcher, type: :services do
     end
 
     context 'when initialized with a ticker and start date' do
-      let(:stock_fetcher) { described_class.new('AAPL', Date.today.to_datetime) }
-      let(:start_date)    { (Date.today - 5).strftime('%Y-%m-%d') }
-      let(:end_date)      { Date.today.strftime('%Y-%m-%d') }
+      let(:stock_fetcher) { described_class.new('AAPL', stubbed_date) }
+      let(:start_date)    { (stubbed_date - 5).strftime('%Y-%m-%d') }
+      let(:end_date)      { stubbed_date.strftime('%Y-%m-%d') }
 
-      it 'should set start and end date' do
+      it 'should set start and end stubbed_date' do
         expect(stock_fetcher.instance_variable_get(:@start_date)).to eq start_date
         expect(stock_fetcher.instance_variable_get(:@end_date)).to eq end_date
       end
@@ -47,7 +47,7 @@ RSpec.describe StockFetcher, type: :services do
       it 'should return the stock object' do
         VCR.use_cassette('stock') do
           expect(stock['symbol']).to eq 'AAPL'
-          expect(stock['Ask']).to eq '139.12'
+          expect(stock['Ask']).to eq '139.13'
         end
       end
     end

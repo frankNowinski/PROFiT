@@ -18,7 +18,7 @@ class StockFetcher
 
   def stock_data_from_yahoo_api
     stock = JSON.parse(yahoo_api_response).with_indifferent_access
-    stock[:query][:results][:quote]
+    stock[:query][:results].nil? ? {} : stock[:query][:results][:quote]
   end
 
   def yahoo_api_response

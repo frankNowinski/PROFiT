@@ -1,9 +1,8 @@
 class Stock < ApplicationRecord
   belongs_to :user
 
-  def set_purchased_price
-    self.purchased_price = closing_price_on_purchased_date
-  end
+  validates_with StockValidator
+  validates_presence_of :ticker, :shares, :purchased_date
 
   private
 

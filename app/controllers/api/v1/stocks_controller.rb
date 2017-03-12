@@ -3,9 +3,12 @@ class Api::V1::StocksController < ApplicationController
 
   def create
     @stock = current_user.stocks.new(stock_params)
-    @stock.set_purchased_price
 
-    render json: @stock
+    if @stock.save
+      render json: @stock
+    else
+      render json: @stock.errors
+    end
   end
 
   def stock_lookup
