@@ -12,7 +12,7 @@ export default class SharesInput extends React.Component {
     const shares = parseInt(this.props.shares);
     let invalid, errorMsg = this.state.errorMsg;
 
-    if (isNaN(shares) || shares < 0 || shares === 0) {
+    if (isNaN(shares) || shares <= 0) {
       errorMsg = 'You must enter a positive number.';
       invalid = true;
     } else {

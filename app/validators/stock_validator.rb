@@ -23,7 +23,7 @@ class StockValidator < ActiveModel::Validator
   end
 
   def valid_shares?
-    true
+    @stock.shares > 0
   end
 
   def fetch_stock

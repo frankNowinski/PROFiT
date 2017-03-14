@@ -24,11 +24,11 @@ RSpec.describe Stock, type: :model do
 
       it 'should return false and add an error to the stock obj' do
         expect(stock.save).to be_falsey
-        expect(stock.errors[:base]).to include('Invalid Stock')
+        expect(stock.errors[:base]).to include('Invalid stock.')
       end
     end
 
-    context 'when a stock is created with a valid stock' do
+    context 'when a stock is created with a valid stock ticker' do
       let(:ticker)          { 'AAPL' }
       let(:shares)          { 3 }
       let(:purchased_date)  { stubbed_date }
@@ -46,7 +46,30 @@ RSpec.describe Stock, type: :model do
           expect(stock.save).to be_truthy
         end
       end
+    end
 
+    context 'when a stock is created with no shares' do
+      let(:ticker)          { 'AAPL' }
+      let(:shares)          { 0 }
+      let(:purchased_date)  { stubbed_date }
+      let(:purchased_price) { '138.679993' }
+
+      it 'should return false and add an error msg' do
+        expect(stock.save).to be_falsey
+        expect(stock.errors[:base]).to include('Invalid stock.')
+      end
+    end
+
+    context 'when a stock is created with negative shares' do
+      let(:ticker)          { 'AAPL' }
+      let(:shares)          { -1 }
+      let(:purchased_date)  { stubbed_date }
+      let(:purchased_price) { '138.679993' }
+
+      it 'should return false and add an error msg' do
+        expect(stock.save).to be_falsey
+        expect(stock.errors[:base]).to include('Invalid stock.')
+      end
     end
   end
 end
