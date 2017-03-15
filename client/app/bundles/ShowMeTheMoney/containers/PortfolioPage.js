@@ -5,6 +5,7 @@ import Immutable from 'immutable';
 import * as stockActions from '../actions/stockActions';
 
 import AddStockForm from '../components/AddStockForm/AddStockForm';
+import UserStocks from '../components/Userstocks';
 
 function select(state) {
   return { $$stocksStore: state.$$stocksStore };
@@ -17,8 +18,14 @@ const PortfolioPage = (props) => {
   const stocks = $$stocksStore.get('stocks');
 
   return (
-    <div>
-      <AddStockForm {...{ addStock, getStockData, stocks }} />
+    <div className="row">
+      <div className="col-3">
+        <AddStockForm {...{ addStock, getStockData, stocks }} />
+      </div>
+
+      <div className="col-8">
+        <UserStocks {... { stocks }} />
+      </div>
     </div>
   );
 };

@@ -14,17 +14,41 @@ RSpec.describe Api::V1::StocksController, type: :controller do
       }
     end
 
-    before do
-      allow(Stock).to receive(:new).and_return(stock)
-      allow(controller).to receive(:current_user).and_return(user)
+    context 'when it is a valid stock' do
+      before do
+        allow(Stock).to receive(:new).and_return(stock)
+        allow(controller).to receive(:current_user).and_return(user)
+      end
+
+      it 'responds successfully with the stock object' do
+        post :create, params: stock_params
+
+        VCR.use_cassette('stock_history') do
+          expect(response).to be_success
+          expect(response.body).to eq(stock.to_json)
+        end
+      end
     end
 
-    it 'responds successfully with the stock object' do
-      post :create, params: stock_params
+    context 'when it is an invalid stock' do
+      before do
+        allow(controller).to receive(:current_user).and_return(user)
+      end
 
-      VCR.use_cassette('stock_history') do
-        expect(response).to be_success
-        expect(response.body).to eq(stock.to_json)
+      let(:invalid_stock_params) do
+        {
+          stock: {
+            ticker: 'APPLE',
+            shares: '3',
+            purchased_date: stubbed_date
+          }
+        }
+      end
+
+      it 'should response with an error msg on the stock' do
+        post :create, params: invalid_stock_params
+
+        expect(response.body).to include('Invalid stock')
       end
     end
   end

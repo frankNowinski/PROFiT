@@ -47,18 +47,17 @@ export default class AddStockForm extends React.Component {
     if (ticker != '' && shares != '') {
       this.props.addStock(this.state)
         .then(response => {
-          console.log(response);
+          this.setState({
+            shares: '',
+            purchasedDate: moment(),
+            invalid: false,
+            submitted: true
+          });
         })
         .catch(error => {
-          console.log(error);
+          console.log(`Error adding stock: ${error}`);
         });
 
-      this.setState({
-        shares: '',
-        purchasedDate: moment(),
-        invalid: false,
-        submitted: true
-      });
     } else {
       this.setState({ invalid: true, submitted: true });
     }
