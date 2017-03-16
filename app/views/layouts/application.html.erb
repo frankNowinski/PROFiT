@@ -12,6 +12,8 @@
 
     <%= yield %>
 
+    <%= render 'layouts/footer' %>
+
     <!-- Removes '#_=_' from Facebooks Omniauth return url -->
     <script type="text/javascript">
       if (window.location.hash && window.location.hash == '#_=_') {
@@ -28,13 +30,6 @@
         }
       }
     </script>
-
-<script>
-  $('#add-stock-modal').on('shown.bs.modal', function () {
-    $('#input-ticker').focus();
-  });
-</script>
-
   </body>
 </html>
 

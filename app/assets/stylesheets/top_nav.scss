@@ -1,7 +1,18 @@
 .navbar-inverse {
   margin-bottom: 30px;
+  background-color: rgba(16, 119, 207, 0.78);
 }
 
 #facebook-logout-button {
   margin-left: 60px;
+
 }
+
+.navbar-btn {
+ color: white;
+ border-color: #4dacda;
+ &:hover {
+  background-color: #4dacda;
+ }
+}
+

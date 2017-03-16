@@ -23,7 +23,7 @@ const PortfolioPage = (props) => {
         <AddStockForm {...{ addStock, getStockData, stocks }} />
       </div>
 
-      <div className="col-8">
+      <div className="col-9">
         <UserStocks {... { stocks }} />
       </div>
     </div>
