@@ -3,6 +3,7 @@ import AlertMessage from './AlertMessage';
 import StockInput from './StockInput';
 import SharesInput from './SharesInput';
 import PurchasedDateCalendar from './PurchasedDateCalendar';
+import futureDate from '../../utils/validations/datePurchasedValidator';
 import moment from 'moment';
 
 export default class AddStockForm extends React.Component {
@@ -42,9 +43,9 @@ export default class AddStockForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { ticker, shares } = this.state;
+    const { ticker, shares, purchasedDate } = this.state;
 
-    if (ticker != '' && shares != '') {
+    if (ticker != '' && shares != '' && !futureDate(purchasedDate)) {
       this.props.addStock(this.state)
         .then(response => {
           this.setState({
@@ -100,7 +101,8 @@ export default class AddStockForm extends React.Component {
 
                   <PurchasedDateCalendar
                     purchasedDate={this.state.purchasedDate}
-                    handleCalendarChange={this.handleCalendarChange} />
+                    handleCalendarChange={this.handleCalendarChange}
+                    setInvalidState={this.setInvalidState} />
 
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>

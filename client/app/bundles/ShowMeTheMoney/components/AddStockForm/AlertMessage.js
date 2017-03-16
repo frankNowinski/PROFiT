@@ -20,7 +20,7 @@ export default function AlertMessage(props) {
         <button type="button" className="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        Unable to add {stockTicker} your portfolio.
+        Unable to add stock to your portfolio.
       </div>
     )
   }

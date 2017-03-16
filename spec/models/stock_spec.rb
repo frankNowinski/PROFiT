@@ -71,5 +71,29 @@ RSpec.describe Stock, type: :model do
         expect(stock.errors[:base]).to include('Invalid stock.')
       end
     end
+
+    context 'when a stock is created with an invalid date' do
+      let(:ticker)          { 'AAPL' }
+      let(:shares)          { 3 }
+      let(:purchased_date)  { Date.today + 1 }
+      let(:purchased_price) { '138.679993' }
+
+      it 'should return false and add an error msg' do
+        expect(stock.save).to be_falsey
+        expect(stock.errors[:base]).to include('Invalid stock.')
+      end
+    end
+
+    context 'when a stock is created with an valid date' do
+      let(:ticker)          { 'AAPL' }
+      let(:shares)          { 3 }
+      let(:purchased_date)  { Date.today }
+      let(:purchased_price) { '138.679993' }
+
+      it 'should return false and add an error msg' do
+        expect(stock.save).to be_truthy
+        expect(stock.purchased_date).to eq(Date.today)
+      end
+    end
   end
 end

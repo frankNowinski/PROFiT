@@ -10,7 +10,7 @@ class StockValidator < ActiveModel::Validator
   private
 
   def valid_attributes?
-    valid_ticker? && valid_shares?
+    valid_ticker? && valid_shares? && valid_purchased_date?
   end
 
   def valid_ticker?
@@ -24,6 +24,10 @@ class StockValidator < ActiveModel::Validator
 
   def valid_shares?
     @stock.shares > 0
+  end
+
+  def valid_purchased_date?
+    @stock.purchased_date <= Date.today
   end
 
   def fetch_stock

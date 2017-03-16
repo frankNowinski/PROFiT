@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import stockExists from '../../utils/validations/stockValidation';
+import stockExists from '../../utils/validations/stockValidator';
 
 export default class StockInput extends React.Component {
   constructor(props) {
