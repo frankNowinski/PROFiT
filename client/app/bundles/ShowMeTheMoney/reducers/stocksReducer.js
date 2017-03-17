@@ -10,8 +10,10 @@ export default function stocksReducer($$state = $$initialState, action) {
 
   switch (type) {
     case actionTypes.ADD_STOCK:
-      let stockList = $$state.get('stocks').push(Map(action.response.data));
-      return $$state.set('stocks', stockList)
+      if (action.response.data !== null) {
+        let stockList = $$state.get('stocks').push(Map(action.response.data));
+        return $$state.set('stocks', stockList)
+      }
     case actionTypes.GET_STOCK_DATA:
       return $$state.set('stockTicker', action.response.data);
     default:

@@ -2,6 +2,7 @@
 @import "top_nav";
 @import "footer";
 @import "portfolio_page";
+@import "add_stock_form";
 
 html {
   position: relative;
@@ -9,8 +10,6 @@ html {
 }
 
 body {
-  background-color: black;
-  color: white;
   margin-bottom: 100px;
 }
 
