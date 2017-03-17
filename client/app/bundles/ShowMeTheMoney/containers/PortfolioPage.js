@@ -14,13 +14,13 @@ function select(state) {
 const PortfolioPage = (props) => {
   const { dispatch, $$stocksStore } = props;
   const actions = bindActionCreators(stockActions, dispatch);
-  const { getStockData, addStock } = actions;
+  const { addStock } = actions;
   const stocks = $$stocksStore.get('stocks');
 
   return (
     <div className="row">
       <div className="col-3">
-        <AddStockForm {...{ addStock, getStockData, stocks }} />
+        <AddStockForm {...{ addStock, stocks }} />
       </div>
 
       <div className="col-9">

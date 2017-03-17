@@ -11,38 +11,17 @@ export default class StockItem extends React.Component {
     this.formatUniqueId = this.formatUniqueId.bind(this);
   }
 
-  getLastTradedPrice(price) {
-    return price.split('-')[1].trim().replace(/(<([^>]+)>)/ig,"");
+  getLastTradedPrice() {
+    return this.props.stock.getIn(['stock_data', 'LastTradeWithTime']).split('-')[1].trim().replace(/(<([^>]+)>)/ig,"");
   }
 
-  getLastTradedTime(time) {
-    return time.split('-')[0].trim();
+  getLastTradedTime() {
+    return this.props.stock.getIn(['stock_data', 'LastTradeWithTime']).LastTradeWithTime.split('-')[0].trim();
   }
 
-  componentDidMount() {
-    let ticker = this.props.stock.get('ticker');
-    let url = `https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22${ticker}%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=`;
-
-    axios.get(url)
-      .then(response => {
-        let stockData = response.data.query.results.quote;
-
-        let lastTradedTime = moment(this.getLastTradedTime(stockData.LastTradeWithTime), 'h:mma');
-        let now = moment();
-        let fourPM = moment('16:00', 'hh:mm');
-
-        if (now.isAfter(fourPM) && lastTradedTime.format('h:mma') != '4:00pm') {
-          console.log('RETREIVING STALE DATA');
-        } else {
-          stockData.lastTradedPrice = this.getLastTradedPrice(stockData.LastTradeWithTime);
-          stockData.lastTradedTime  = this.getLastTradedTime(stockData.LastTradeWithTime);
-
-          let profit =  stockData.lastTradedPrice - stockData.PreviousClose;
-
-          stockData.daysProfit = parseFloat(profit).toFixed(2);
-      }
-        this.setState({ stockData });
-      })
+  getTodaysProfit(lastTradedPrice, PreviousClose) {
+    let profit = (lastTradedPrice - PreviousClose) * this.props.stock.get('shares');
+    return parseFloat(profit).toFixed(2)
   }
 
   formatUniqueId(hashtag) {
@@ -52,18 +31,20 @@ export default class StockItem extends React.Component {
 
   render() {
     const { ticker, shares, purchased_date, purchased_price } = this.props.stock.toObject()
-    const { symbol, Ask, Name, PercentChange, PreviousClose, lastTradedPrice, lastTradedTime, daysProfit } = this.state.stockData;
+    const { Ask, Name, PercentChange, PreviousClose } = this.props.stock.get('stock_data').toObject();
+    const lastTradedPrice = this.getLastTradedPrice();
+    const lastTradedTime = this.getLastTradedTime;
+    const todaysProfit = this.getTodaysProfit(lastTradedPrice, PreviousClose);
 
-    console.log(this.state.stockData);
     return (
       <div className="card card-outline-success text-center">
         <div className="card-header mb-0" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href={this.formatUniqueId(true)} aria-expanded="true" aria-controls={this.formatUniqueId()} >
           <div className="row">
-            <div className="col-2">
+            <div className="col-3">
               {Name}
             </div>
 
-            <div className="col-4">
+            <div className="col-3">
               {PercentChange}
             </div>
 
@@ -72,7 +53,7 @@ export default class StockItem extends React.Component {
             </div>
 
             <div className="col-3">
-              ${daysProfit}
+              ${todaysProfit}
             </div>
           </div>
         </div>
@@ -86,3 +67,29 @@ export default class StockItem extends React.Component {
     )
   }
 }
+
+  // componentDidMount() {
+    // let ticker = this.props.stock.get('ticker');
+    // let url = `https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22${ticker}%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=`;
+
+    // axios.get(url)
+      // .then(response => {
+        // let stockData = response.data.query.results.quote;
+
+        // let lastTradedTime = moment(this.getLastTradedTime(stockData.LastTradeWithTime), 'h:mma');
+        // let now = moment();
+        // let fourPM = moment('16:00', 'hh:mm');
+
+        // if (now.isAfter(fourPM) && lastTradedTime.format('h:mma') != '4:00pm') {
+          // console.log('RETREIVING STALE DATA');
+        // } else {
+          // stockData.lastTradedPrice = this.getLastTradedPrice(stockData.LastTradeWithTime);
+          // stockData.lastTradedTime  = this.getLastTradedTime(stockData.LastTradeWithTime);
+
+          // let profit =  stockData.lastTradedPrice - stockData.PreviousClose;
+
+          // stockData.daysProfit = parseFloat(profit).toFixed(2);
+      // }
+        // this.setState({ stockData });
+      // })
+  // }

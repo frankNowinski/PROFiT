@@ -14,10 +14,12 @@ class StockValidator < ActiveModel::Validator
   end
 
   def valid_ticker?
-    if fetch_stock.empty?
+    stock_data = fetch_stock
+
+    if stock_data.empty?
       false
     else
-      @stock.purchased_price = fetch_stock.first['Close']
+      @stock.purchased_price = stock_data.first['Close']
       true
     end
   end

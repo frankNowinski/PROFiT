@@ -5,7 +5,7 @@ class Api::V1::StocksController < ApplicationController
     @stock = current_user.stocks.new(stock_params)
 
     if @stock.save
-      render json: @stock
+      render json: @stock.get_stock_data
     else
       render json: @stock.errors
     end

@@ -120,7 +120,6 @@ export default class AddStockForm extends React.Component {
 
 AddStockForm.propTypes = {
   stocks: React.PropTypes.object.isRequired,
-  addStock: React.PropTypes.func.isRequired,
-  getStockData: React.PropTypes.func.isRequired
+  addStock: React.PropTypes.func.isRequired
 }
 

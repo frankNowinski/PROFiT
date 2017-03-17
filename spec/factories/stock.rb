@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :stock do
-    id 1
+    id SecureRandom.uuid
     ticker 'AAPL'
     shares 3
     purchased_date '2017-03-10'
