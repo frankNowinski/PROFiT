@@ -4,6 +4,10 @@ RSpec.describe Stock, type: :model do
   let(:user) { create(:user) }
 
   describe '#initialize' do
+    let(:ticker)          { 'AAPL' }
+    let(:shares)          { 3 }
+    let(:purchased_date)  { stubbed_purchased_date }
+    let(:purchased_price) { '138.679993' }
     let(:stock) do
       described_class.new({
         ticker: ticker,
@@ -13,14 +17,15 @@ RSpec.describe Stock, type: :model do
       })
     end
 
+    before do
+      allow(stock).to receive(:purchased_date=).with(purchased_date)
+    end
+
     it { should validate_presence_of(:ticker) }
     it { should validate_presence_of(:shares) }
-    it { should validate_presence_of(:purchased_date) }
 
     context 'when a stock is created with an invalid stock ticker' do
       let(:ticker)         { 'APPLE' }
-      let(:shares)         { 3 }
-      let(:purchased_date) { stubbed_date }
 
       it 'should return false and add an error to the stock obj' do
         expect(stock.save).to be_falsey
@@ -29,10 +34,6 @@ RSpec.describe Stock, type: :model do
     end
 
     context 'when a stock is created with a valid stock ticker' do
-      let(:ticker)          { 'AAPL' }
-      let(:shares)          { 3 }
-      let(:purchased_date)  { stubbed_date }
-      let(:purchased_price) { '138.679993' }
 
       it 'should set the purchsed price' do
         VCR.use_cassette('stock_history') do
@@ -49,10 +50,7 @@ RSpec.describe Stock, type: :model do
     end
 
     context 'when a stock is created with no shares' do
-      let(:ticker)          { 'AAPL' }
       let(:shares)          { 0 }
-      let(:purchased_date)  { stubbed_date }
-      let(:purchased_price) { '138.679993' }
 
       it 'should return false and add an error msg' do
         expect(stock.save).to be_falsey
@@ -61,10 +59,7 @@ RSpec.describe Stock, type: :model do
     end
 
     context 'when a stock is created with negative shares' do
-      let(:ticker)          { 'AAPL' }
       let(:shares)          { -1 }
-      let(:purchased_date)  { stubbed_date }
-      let(:purchased_price) { '138.679993' }
 
       it 'should return false and add an error msg' do
         expect(stock.save).to be_falsey
@@ -73,10 +68,7 @@ RSpec.describe Stock, type: :model do
     end
 
     context 'when a stock is created with an invalid date' do
-      let(:ticker)          { 'AAPL' }
-      let(:shares)          { 3 }
-      let(:purchased_date)  { Date.today + 1 }
-      let(:purchased_price) { '138.679993' }
+      let(:purchased_date)  { (Date.today + 1).to_s }
 
       it 'should return false and add an error msg' do
         expect(stock.save).to be_falsey
@@ -85,10 +77,7 @@ RSpec.describe Stock, type: :model do
     end
 
     context 'when a stock is created with an valid date' do
-      let(:ticker)          { 'AAPL' }
-      let(:shares)          { 3 }
-      let(:purchased_date)  { Date.today }
-      let(:purchased_price) { '138.679993' }
+      let(:purchased_date)  { Date.today.to_s }
 
       it 'should return false and add an error msg' do
         expect(stock.save).to be_truthy

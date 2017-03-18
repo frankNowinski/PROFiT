@@ -38,7 +38,7 @@ export default class AddStockForm extends React.Component {
   }
 
   handleCalendarChange(date) {
-    this.setState({ purchasedDate: date })
+    this.setState({ purchasedDate: date });
   }
 
   handleSubmit(e) {
@@ -91,6 +91,7 @@ export default class AddStockForm extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                   <StockInput
                     ticker={this.state.ticker}
+                    alreadyOwned={this.props.alreadyOwned}
                     handleChange={this.handleChange}
                     setInvalidState={this.setInvalidState} />
 
@@ -120,6 +121,7 @@ export default class AddStockForm extends React.Component {
 
 AddStockForm.propTypes = {
   stocks: React.PropTypes.object.isRequired,
-  addStock: React.PropTypes.func.isRequired
+  addStock: React.PropTypes.func.isRequired,
+  alreadyOwned: React.PropTypes.func.isRequired
 }
 

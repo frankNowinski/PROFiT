@@ -52,3 +52,10 @@ export default class PurchasedDateCalendar extends React.Component {
     )
   }
 }
+
+PurchasedDateCalendar.propTypes = {
+  purchasedDate: React.PropTypes.object.isRequired,
+  handleCalendarChange: React.PropTypes.func.isRequired,
+  setInvalidState: React.PropTypes.func.isRequired
+}
+

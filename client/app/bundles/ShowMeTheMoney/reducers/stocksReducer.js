@@ -10,7 +10,7 @@ export default function stocksReducer($$state = $$initialState, action) {
 
   switch (type) {
     case actionTypes.ADD_STOCK:
-      if (action.response.data !== null) {
+      if (action.response.data.id !== undefined) {
         let stock = action.response.data;
         stock.stock_data = Map(stock.stock_data);
 

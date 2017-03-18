@@ -11,9 +11,19 @@ export default class StockInput extends React.Component {
 
   validateStockExists(e) {
     const ticker = this.props.ticker;
+    const setErrors = (errorMsg, invalid) => {
+      this.setState({ errorMsg });
+      this.props.setInvalidState(invalid);
+    }
+
     let invalid, errorMsg = this.state.errorMsg;
 
-    if (ticker != '') {
+    if (this.props.alreadyOwned(ticker)) {
+      invalid = true;
+      errorMsg = 'You already own this stock.';
+
+      setErrors(errorMsg, invalid);
+    } else if(ticker != '') {
       stockExists(ticker).then(response => {
         if (response.data.query.results.quote.Name !== null) {
           errorMsg = '';
@@ -23,16 +33,17 @@ export default class StockInput extends React.Component {
           invalid = true;
         }
 
-        this.setState({ errorMsg });
-        this.props.setInvalidState(invalid);
+        setErrors(errorMsg, invalid);
       });
     } else {
       invalid = true;
-      errorMsg = 'You must enter a stock ticker';
+      errorMsg = 'You must enter a stock ticker.';
 
-      this.setState({ errorMsg });
-      this.props.setInvalidState(invalid);
+      setErrors(errorMsg, invalid);
     }
+
+    this.setState({ errorMsg });
+    this.props.setInvalidState(invalid);
   }
 
   render() {
@@ -67,5 +78,4 @@ StockInput.propTypes = {
   handleChange: React.PropTypes.func.isRequired,
   setInvalidState: React.PropTypes.func.isRequired
 }
-
 

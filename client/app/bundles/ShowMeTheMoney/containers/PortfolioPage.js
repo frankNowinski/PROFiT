@@ -17,10 +17,17 @@ const PortfolioPage = (props) => {
   const { addStock } = actions;
   const stocks = $$stocksStore.get('stocks');
 
+  const alreadyOwned = (ticker) => {
+    let alreadyOwnedTickers = [];
+    stocks.map(stock => alreadyOwnedTickers.push(stock.toObject().ticker));
+
+    return alreadyOwnedTickers.includes(ticker);
+  }
+
   return (
     <div className="row">
       <div className="col-3">
-        <AddStockForm {...{ addStock, stocks }} />
+        <AddStockForm {...{ addStock, alreadyOwned, stocks }} />
       </div>
 
       <div className="col-9">

@@ -51,3 +51,8 @@ export default class SharesInput extends React.Component {
   }
 }
 
+SharesInput.propTypes = {
+  shares: React.PropTypes.string.isRequired,
+  handleChange: React.PropTypes.func.isRequired,
+  setInvalidState: React.PropTypes.func.isRequired
+}

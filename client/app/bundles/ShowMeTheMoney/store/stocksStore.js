@@ -5,7 +5,6 @@ import reducers from '../reducers';
 import { initialStates } from '../reducers';
 
 export default props => {
-  console.log(props.stocks);
   const { stocks } = props;
   const { $$stocksState } = initialStates;
 

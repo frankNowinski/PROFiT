@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::StocksController, type: :controller do
   describe 'POST create' do
-    let(:user)   { create(:user) }
+    let(:user)  { create(:user) }
     let(:stock) { create(:stock, user: user) }
     let(:stock_params) do
       {
         stock: {
           ticker: 'AAPL',
           shares: '3',
-          purchased_date: stubbed_date
+          purchased_date: stubbed_purchased_date
         }
       }
     end
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::StocksController, type: :controller do
           stock: {
             ticker: 'APPLE',
             shares: '3',
-            purchased_date: stubbed_date
+            purchased_date: stubbed_purchased_date
           }
         }
       end
