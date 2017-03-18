@@ -7,7 +7,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 
-module ShowMeTheMoney
+module PROFiT
   class Application < Rails::Application
 
     config.time_zone = 'Eastern Time (US & Canada)'
