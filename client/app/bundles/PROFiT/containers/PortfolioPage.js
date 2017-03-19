@@ -5,6 +5,7 @@ import Immutable from 'immutable';
 import * as stockActions from '../actions/stockActions';
 
 import AddStockForm from '../components/AddStockForm/AddStockForm';
+import TotalProfitView from '../components/TotalProfitView';
 import UserStocks from '../components/Userstocks';
 
 function select(state) {
@@ -14,7 +15,7 @@ function select(state) {
 const PortfolioPage = (props) => {
   const { dispatch, $$stocksStore } = props;
   const actions = bindActionCreators(stockActions, dispatch);
-  const { addStock } = actions;
+  const { addStock, removeStock } = actions;
   const stocks = $$stocksStore.get('stocks');
 
   const alreadyOwned = (ticker) => {
@@ -27,11 +28,13 @@ const PortfolioPage = (props) => {
   return (
     <div className="row">
       <div className="col-3">
-        <AddStockForm {...{ addStock, alreadyOwned, stocks }} />
+        <AddStockForm {...{ stocks, addStock, alreadyOwned }} />
+        <br />
+        <TotalProfitView {...{ stocks }} />
       </div>
 
       <div className="col-9">
-        <UserStocks {... { stocks }} />
+        <UserStocks {... { stocks, removeStock }} />
       </div>
     </div>
   );

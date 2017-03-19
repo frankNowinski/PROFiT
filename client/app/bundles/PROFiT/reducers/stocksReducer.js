@@ -14,11 +14,16 @@ export default function stocksReducer($$state = $$initialState, action) {
         let stock = action.response.data;
         stock.stock_data = Map(stock.stock_data);
 
-        let parsedStock = $$state.get('stocks').push(Map(stock));
-        return $$state.set('stocks', parsedStock);
+        let stockList = $$state.get('stocks').push(Map(stock));
+        return $$state.set('stocks', stockList);
       }
-    // case actionTypes.GET_STOCK_DATA:
-      // return $$state.set('stockTicker', action.response.data);
+    case actionTypes.REMOVE_STOCK:
+      let stockId = action.response.data;
+      let stockList = $$state.get('stocks');
+      let stockIndex = stockList.findIndex(stock => { return stock.get('id') === stockId });
+      let updatedStockList = stockList.delete(stockIndex);
+
+      return $$state.set('stocks', updatedStockList);
     default:
       return $$state;
   }

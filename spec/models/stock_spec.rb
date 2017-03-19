@@ -23,6 +23,10 @@ RSpec.describe Stock, type: :model do
 
     it { should validate_presence_of(:ticker) }
     it { should validate_presence_of(:shares) }
+    it 'should validate the uniqueness of a stock ticker' do
+      stock.save
+      should validate_uniqueness_of(:ticker)
+    end
 
     context 'when a stock is created with an invalid stock ticker' do
       let(:ticker)         { 'APPLE' }
