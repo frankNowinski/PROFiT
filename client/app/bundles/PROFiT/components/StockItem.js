@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 
-import RemoveStock from './RemoveStock';
+import StockData from './StockData/StockDataContainer';
 
 export default class StockItem extends React.Component {
   constructor(props) {
@@ -63,7 +63,7 @@ export default class StockItem extends React.Component {
 
          <div id={this.formatUniqueId()} className="collapse" role="tabpanel" aria-labelledby="headingOne">
           <div className="card-block">
-            <RemoveStock stock={this.props.stock} removeStock={this.props.removeStock}/>
+            <StockData stock={this.props.stock} removeStock={this.props.removeStock} />
           </div>
         </div>
       </div>
