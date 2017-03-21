@@ -4,7 +4,13 @@ import StockItem from './StockItem';
 export default function UserStocks(props) {
   const stockList = () => {
     return props.stocks.map(stock => {
-      return <StockItem key={stock} stock={stock} removeStock={props.removeStock} />
+      return (
+        <StockItem
+          key={stock.get('id')}
+          stock={stock}
+          editStock={props.editStock}
+          removeStock={props.removeStock} />
+      )
     });
   }
 
@@ -25,6 +31,7 @@ export default function UserStocks(props) {
 
 UserStocks.propTypes = {
   stocks: React.PropTypes.object.isRequired,
+  editStock: React.PropTypes.func.isRequired,
   removeStock: React.PropTypes.func.isRequired
 }
 

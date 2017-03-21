@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 
-import StockData from './StockData/StockDataContainer';
+import StockDataContainer from './StockData/StockDataContainer';
 
 export default class StockItem extends React.Component {
   constructor(props) {
@@ -15,7 +15,6 @@ export default class StockItem extends React.Component {
 
   getLastTradedPrice() {
     return this.props.stock.getIn(['stock_data', 'LastTradePriceOnly'])
-    // return this.props.stock.getIn(['stock_data', 'LastTradeWithTime']).split('-')[1].trim().replace(/(<([^>]+)>)/ig,"");
   }
 
   getLastTradedTime() {
@@ -33,6 +32,7 @@ export default class StockItem extends React.Component {
   }
 
   render() {
+    const { stock, editStock, removeStock } = this.props;
     const { ticker, shares, purchased_date, purchased_price } = this.props.stock.toObject()
     const { Ask, Name, PercentChange, PreviousClose } = this.props.stock.get('stock_data').toObject();
     const lastTradedPrice = this.getLastTradedPrice();
@@ -63,7 +63,7 @@ export default class StockItem extends React.Component {
 
          <div id={this.formatUniqueId()} className="collapse" role="tabpanel" aria-labelledby="headingOne">
           <div className="card-block">
-            <StockData stock={this.props.stock} removeStock={this.props.removeStock} />
+            <StockDataContainer stock={stock} editStock={editStock} removeStock={removeStock} />
           </div>
         </div>
       </div>
@@ -73,5 +73,6 @@ export default class StockItem extends React.Component {
 
 StockItem.propTypes = {
   stock: React.PropTypes.object.isRequired,
+  editStock: React.PropTypes.func.isRequired,
   removeStock: React.PropTypes.func.isRequired
 }

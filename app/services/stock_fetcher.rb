@@ -1,6 +1,6 @@
 class StockFetcher
   def initialize(ticker, start_date=nil)
-    @ticker = ticker
+    @ticker = [ticker].join('+')
     @url    = yahoo_api_url
 
     unless start_date.nil?

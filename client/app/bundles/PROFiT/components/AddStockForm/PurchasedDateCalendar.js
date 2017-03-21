@@ -17,7 +17,7 @@ export default class PurchasedDateCalendar extends React.Component {
     let invalid, errorMsg = this.state.errorMsg;
 
     if (futureDate(this.props.purchasedDate)) {
-      errorMsg = 'The purchased date cannot be in the future';
+      errorMsg = 'The purchased date cannot be in the future.';
       invalid = true;
     } else {
       errorMsg = '';

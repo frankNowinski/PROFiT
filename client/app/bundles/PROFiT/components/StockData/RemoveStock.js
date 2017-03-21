@@ -7,15 +7,15 @@ export default function RemoveStock(props) {
     props.removeStock(stockId);
   }
 
-  const closePrompt = () => {
-    props.removeStockPrompt(false);
+  const closeRemoveStockPrompt = (e) => {
+    props.closePrompt('removeStockPrompt');
   }
 
   return (
     <div>
       <p className="lead">Are you sure you want to remove {ticker} from your portfolio?</p>
       <button className="btn btn-outline-primary" onClick={callRemoveStock}>Yes</button>
-      <button className="btn btn-outline-danger" onClick={closePrompt}>No</button>
+      <button className="btn btn-outline-danger" onClick={closeRemoveStockPrompt}>No</button>
     </div>
   )
 }
@@ -23,5 +23,5 @@ export default function RemoveStock(props) {
 RemoveStock.propTypes = {
   stock: React.PropTypes.object.isRequired,
   removeStock: React.PropTypes.func.isRequired,
-  removeStockPrompt: React.PropTypes.func.isRequired
+  closePrompt: React.PropTypes.func.isRequired
 }

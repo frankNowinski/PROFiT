@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import AlertMessage from './AlertMessage';
 import StockInput from './StockInput';
 import SharesInput from './SharesInput';
@@ -107,7 +107,7 @@ export default class AddStockForm extends React.Component {
 
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" className="btn btn-outline-primary" disabled={this.state.invalid}onClick={this.handleSubmit}>Add Stock</button>
+                    <button type="submit" className="btn btn-outline-primary" disabled={this.state.invalid} onClick={this.handleSubmit}>Add Stock</button>
                   </div>
                 </form>
               </div>

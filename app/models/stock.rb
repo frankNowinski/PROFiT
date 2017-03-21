@@ -10,22 +10,7 @@ class Stock < ApplicationRecord
   end
 
   def get_stock_data
-    stock_data = StockFetcher.new(ticker).fetch_stock
-
-    if after_four? && last_traded_time_not_four?(stock_data['LastTradeTime'])
-      stock_data = StockFetcher.new(ticker).fetch_stock
-    end
-
+    stock_data = StockFetcher.new([ticker, ticker]).fetch_stock.first
     self.attributes.merge(stock_data: stock_data)
-  end
-
-  private
-
-  def after_four?
-    Time.now.hour >= 16
-  end
-
-  def last_traded_time_not_four?(time)
-    !(Time.parse(time).hour >= 16)
   end
 end

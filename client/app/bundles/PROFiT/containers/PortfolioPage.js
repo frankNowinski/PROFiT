@@ -15,7 +15,7 @@ function select(state) {
 const PortfolioPage = (props) => {
   const { dispatch, $$stocksStore } = props;
   const actions = bindActionCreators(stockActions, dispatch);
-  const { addStock, removeStock } = actions;
+  const { addStock, editStock, removeStock } = actions;
   const stocks = $$stocksStore.get('stocks');
 
   const alreadyOwned = (ticker) => {
@@ -34,7 +34,7 @@ const PortfolioPage = (props) => {
       </div>
 
       <div className="col-9">
-        <UserStocks {... { stocks, removeStock }} />
+        <UserStocks {... { stocks, editStock, removeStock }} />
       </div>
     </div>
   );

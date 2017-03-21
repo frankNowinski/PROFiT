@@ -13,14 +13,22 @@ export default function stocksReducer($$state = $$initialState, action) {
       if (action.response.data.id !== undefined) {
         let stock = action.response.data;
         stock.stock_data = Map(stock.stock_data);
-        let stockList = $$state.get('stocks').push(Map(stock));
 
-        return $$state.set('stocks', stockList);
+        return $$state.update('stocks', stocks => stocks.push(Map(stock)));
       }
+    case actionTypes.EDIT_STOCK:
+      let updatedStock = action.response.data;
+      updatedStock.stock_data = Map(updatedStock.stock_data);
+
+      const index = $$state.get('stocks').findIndex(stock => {
+        return stock.get('id') === updatedStock.id;
+      });
+
+      return $$state.setIn(['stocks', index], Map(updatedStock));
     case actionTypes.REMOVE_STOCK:
       let stockId = action.response.data;
       let stockList = $$state.get('stocks').filter(stock => {
-        return stock.get('id') !== stockId
+        return stock.get('id') !== stockId;
       });
 
       return $$state.set('stocks', stockList);
