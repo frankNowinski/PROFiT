@@ -7,7 +7,7 @@ export default function RemoveStock(props) {
     props.removeStock(stockId);
   }
 
-  const closeRemoveStockPrompt = (e) => {
+  const closeRemoveStockPrompt = () => {
     props.closePrompt('removeStockPrompt');
   }
 
