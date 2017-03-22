@@ -6,14 +6,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import '../../css/addStockForm.css';
 
 export default class PurchasedDateCalendar extends React.Component {
-  constructor(props) {
-    super(props);
+  state = { errorMsg: '' };
 
-    this.state = { errorMsg: '' };
-  }
-
-
-  handleBlur(e) {
+  handleBlur = (e) => {
     let invalid, errorMsg = this.state.errorMsg;
 
     if (futureDate(this.props.purchasedDate)) {
@@ -43,7 +38,7 @@ export default class PurchasedDateCalendar extends React.Component {
             value={purchasedDate}
             selected={purchasedDate}
             onChange={handleCalendarChange}
-            onBlur={this.handleBlur.bind(this)}
+            onBlur={this.handleBlur}
           />
 
           <div className="form-control-feedback">{errorMsg}</div>

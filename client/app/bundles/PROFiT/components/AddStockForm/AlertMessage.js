@@ -29,3 +29,8 @@ export default function AlertMessage(props) {
     <div> { props.invalid ? invalidAlert() : validAlert() }</div>
   )
 }
+
+AlertMessage.propTypes = {
+  invalid: React.PropTypes.bool.isRequired,
+  ticker: React.PropTypes.string.isRequired
+}

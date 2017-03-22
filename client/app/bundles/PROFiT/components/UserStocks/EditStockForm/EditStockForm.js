@@ -1,49 +1,38 @@
 import React from 'react';
-import SharesInput from '../AddStockForm/SharesInput';
-import PurchasedDateCalendar from '../AddStockForm/PurchasedDateCalendar';
-import futureDate from '../../utils/validations/datePurchasedValidator';
+import SharesInput from '../../AddStockForm/SharesInput';
+import PurchasedDateCalendar from '../../AddStockForm/PurchasedDateCalendar';
+import futureDate from '../../../utils/validations/datePurchasedValidator';
 import moment from 'moment';
 
 export default class EditStock extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      stockId: props.stock.get('id'),
-      shares: props.stock.get('shares'),
-      purchasedDate: this.getPurchasedDate(),
-      invalid: false,
-      submitted: false
-    }
-
-    this.setInvalidState      = this.setInvalidState.bind(this);
-    this.closePrompt          = this.closePrompt.bind(this);
-    this.handleChange         = this.handleChange.bind(this);
-    this.handleCalendarChange = this.handleCalendarChange.bind(this);
-    this.handleSubmit         = this.handleSubmit.bind(this);
+  state = {
+    stockId: this.props.stock.get('id'),
+    shares: this.props.stock.get('shares'),
+    purchasedDate: moment(this.props.stock.get('purchased_date'), 'YYYY-MM-DD'),
+    invalid: false
   }
 
-  getPurchasedDate() {
+  getPurchasedDate = () => {
     return moment(this.props.stock.get('purchased_date'), 'YYYY-MM-DD');
   }
 
-  setInvalidState(invalid) {
+  setInvalidState = (invalid) => {
     this.setState({ invalid });
   }
 
-  closePrompt() {
+  closePrompt = () => {
     this.props.closePrompt('editStockForm');
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({ shares: e.target.value });
   }
 
-  handleCalendarChange(date) {
+  handleCalendarChange = (date) => {
     this.setState({ purchasedDate: date });
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { shares, purchasedDate } = this.state;
 

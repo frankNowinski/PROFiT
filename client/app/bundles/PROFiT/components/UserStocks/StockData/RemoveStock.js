@@ -2,13 +2,15 @@ import React from 'react';
 
 export default function RemoveStock(props) {
   const ticker = props.stock.get('ticker').toUpperCase();
+  const { removeStock, closePrompt } = props;
+
   const callRemoveStock = () => {
     let stockId = props.stock.get('id');
-    props.removeStock(stockId);
+    removeStock(stockId);
   }
 
   const closeRemoveStockPrompt = () => {
-    props.closePrompt('removeStockPrompt');
+    closePrompt('removeStockPrompt');
   }
 
   return (

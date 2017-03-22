@@ -3,22 +3,18 @@ import classnames from 'classnames';
 import stockExists from '../../utils/validations/stockValidator';
 
 export default class StockInput extends React.Component {
-  constructor(props) {
-    super(props);
+  state = { errorMsg: '' }
 
-    this.state = { errorMsg: '' }
-  }
+  validateStockExists = (e) => {
+    let invalid, errorMsg = this.state.errorMsg;
+    const { ticker, alreadyOwned, setInvalidState } = this.props;
 
-  validateStockExists(e) {
-    const ticker = this.props.ticker;
     const setErrors = (errorMsg, invalid) => {
       this.setState({ errorMsg });
       this.props.setInvalidState(invalid);
     }
 
-    let invalid, errorMsg = this.state.errorMsg;
-
-    if (this.props.alreadyOwned(ticker)) {
+    if (alreadyOwned(ticker)) {
       invalid = true;
       errorMsg = 'You already own this stock.';
 
@@ -43,7 +39,7 @@ export default class StockInput extends React.Component {
     }
 
     this.setState({ errorMsg });
-    this.props.setInvalidState(invalid);
+    setInvalidState(invalid);
   }
 
   render() {
@@ -62,7 +58,7 @@ export default class StockInput extends React.Component {
             type="text"
             value={ticker}
             onChange={handleChange}
-            onBlur={this.validateStockExists.bind(this)}
+            onBlur={this.validateStockExists}
             placeholder="AAPL"
           />
 

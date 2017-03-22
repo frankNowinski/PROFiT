@@ -3,30 +3,20 @@ import RemoveStock from './RemoveStock';
 import EditStockForm from '../EditStockForm/EditStockForm';
 
 export default class StockDataContainer extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      removeStockPrompt: false,
-      editStockForm: false
-    };
-
-    this.handleRemoveStock    = this.handleRemoveStock.bind(this);
-    this.handleEditStock      = this.handleEditStock.bind(this);
-    this.closePrompt          = this.closePrompt.bind(this);
-    this.renderStockDataView  = this.renderStockDataView.bind(this);
-    this.stockDataView        = this.stockDataView.bind(this);
+  state = {
+    removeStockPrompt: false,
+    editStockForm: false
   }
 
-  handleRemoveStock() {
+  handleRemoveStock = () => {
     this.setState({ removeStockPrompt: true });
   }
 
-  handleEditStock() {
+  handleEditStock = () => {
     this.setState({ editStockForm: true });
   }
 
-  closePrompt(prompt) {
+  closePrompt = (prompt) => {
     if (prompt == 'removeStockPrompt') {
       this.setState({ removeStockPrompt: false });
     } else if (prompt === 'editStockForm') {
@@ -34,7 +24,7 @@ export default class StockDataContainer extends React.Component {
     }
   }
 
-  stockDataView() {
+  stockDataView = () => {
     const { stock, alreadyOwned } = this.props;
 
     return (
@@ -46,7 +36,7 @@ export default class StockDataContainer extends React.Component {
     )
   }
 
-  renderStockDataView() {
+  renderStockDataView = () => {
     const { stock, editStock, removeStock } = this.props;
 
     if (this.state.removeStockPrompt) {

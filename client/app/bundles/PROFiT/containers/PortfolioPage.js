@@ -6,7 +6,7 @@ import * as stockActions from '../actions/stockActions';
 
 import AddStockForm from '../components/AddStockForm/AddStockForm';
 import TotalProfitView from '../components/TotalProfitView';
-import UserStocks from '../components/Userstocks';
+import UserStocks from '../components/UserStocks/UserStocks';
 
 function select(state) {
   return { $$stocksStore: state.$$stocksStore };

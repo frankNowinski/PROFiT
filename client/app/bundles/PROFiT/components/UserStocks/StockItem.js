@@ -1,40 +1,33 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
-
-import StockDataContainer from './StockData/StockDataContainer';
+import StockDataContainer from './StockData/Container';
 
 export default class StockItem extends React.Component {
-  constructor(props) {
-    super(props);
+  state = { stockData: {} }
 
-    this.state = { stockData: {} }
-
-    this.formatUniqueId = this.formatUniqueId.bind(this);
-  }
-
-  getLastTradedPrice() {
+  getLastTradedPrice = () => {
     return this.props.stock.getIn(['stock_data', 'LastTradePriceOnly'])
   }
 
-  getLastTradedTime() {
+  getLastTradedTime = () => {
     return this.props.stock.getIn(['stock_data', 'LastTradeWithTime']).split('-')[0].trim();
   }
 
-  getTodaysProfit(lastTradedPrice, PreviousClose) {
+  getTodaysProfit = (lastTradedPrice, PreviousClose) => {
     let profit = (lastTradedPrice - PreviousClose) * this.props.stock.get('shares');
     return parseFloat(profit).toFixed(2)
   }
 
-  formatUniqueId(hashtag) {
+  formatUniqueId = (hashtag) => {
     const id = this.props.stock.toObject().id;
     return hashtag ? `#stock-container-${id}` : `stock-container-${id}`
   }
 
   render() {
     const { stock, editStock, removeStock } = this.props;
-    const { ticker, shares, purchased_date, purchased_price } = this.props.stock.toObject()
-    const { Ask, Name, PercentChange, PreviousClose } = this.props.stock.get('stock_data').toObject();
+    const { ticker, shares, purchased_date, purchased_price } = stock.toObject()
+    const { Ask, Name, PercentChange, PreviousClose } = stock.get('stock_data').toObject();
     const lastTradedPrice = this.getLastTradedPrice();
     const lastTradedTime = this.getLastTradedTime();
     const todaysProfit = this.getTodaysProfit(lastTradedPrice, PreviousClose);

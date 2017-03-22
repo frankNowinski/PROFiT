@@ -7,41 +7,31 @@ import futureDate from '../../utils/validations/datePurchasedValidator';
 import moment from 'moment';
 
 export default class AddStockForm extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+  state = {
       ticker: '',
       shares: '',
       purchasedDate: moment(),
       invalid: false,
       submitted: false
-    }
-
-    this.handleChange         = this.handleChange.bind(this);
-    this.handleSubmit         = this.handleSubmit.bind(this);
-    this.handleCalendarChange = this.handleCalendarChange.bind(this);
-    this.setInvalidState      = this.setInvalidState.bind(this);
-    this.setSubmittedState    = this.setSubmittedState.bind(this);
   }
 
-  setInvalidState(invalid) {
+  setInvalidState = (invalid) => {
     this.setState({ invalid });
   }
 
-  setSubmittedState() {
+  setSubmittedState = () => {
     this.setState({ ticker: '', submitted: false });
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  handleCalendarChange(date) {
+  handleCalendarChange = (date) => {
     this.setState({ purchasedDate: date });
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { ticker, shares, purchasedDate } = this.state;
 

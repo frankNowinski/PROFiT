@@ -1,26 +1,22 @@
 import React from 'react';
 
 export default class TotalProfitView extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      todaysProfit: '',
-      totalProfit: ''
-    };
+  state = {
+    todaysProfit: '',
+    totalProfit: ''
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps = (nextProps) => {
     if (this.props != nextProps) {
       this.setMyState(nextProps.stocks);
     }
   }
 
-  componentWillMount() {
+  componentWillMount = () => {
     this.setMyState(this.props.stocks);
   }
 
-  setMyState(stocks) {
+  setMyState = (stocks) => {
     let todaysProfits = [];
     let totalProfits  = [];
 
@@ -43,7 +39,7 @@ export default class TotalProfitView extends React.Component {
     this.setState({ todaysProfit, totalProfit });
   }
 
-  computeProfit(profits) {
+  computeProfit = (profits) => {
     let profit = profits.reduce((a, b) => a + b, 0);
     return parseFloat(profit).toFixed(2);
   }
