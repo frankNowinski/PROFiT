@@ -26,7 +26,7 @@ export default class StockInput extends React.Component {
       setErrors(errorMsg, invalid);
     } else if(ticker != '') {
       stockExists(ticker).then(response => {
-        if (response.data.query.results.quote.Name !== null) {
+        if (response.data.query.results.quote.StockExchange !== null) {
           errorMsg = '';
           invalid = false;
         } else {

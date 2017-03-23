@@ -17,8 +17,7 @@ class Stock < ApplicationRecord
   private
 
   def fetch_stock_data
-    @stock_data = StockFetcher.new([ticker, ticker]).fetch_stock
-      .first.with_indifferent_access
+    @stock_data = StockFetcher.new(ticker).fetch_stock.with_indifferent_access
     update_days_profit
   end
 

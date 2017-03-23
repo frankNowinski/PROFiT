@@ -1,11 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import classnames from 'classnames';
 import StockDataContainer from './StockData/Container';
 
 export default class StockItem extends React.Component {
-  state = { stockData: {} }
-
   getLastTradedPrice = () => {
     return this.props.stock.getIn(['stock_data', 'LastTradePriceOnly'])
   }
@@ -29,12 +28,13 @@ export default class StockItem extends React.Component {
     const { ticker, shares, purchased_date, purchased_price } = stock.toObject()
     const { Ask, Name, PercentChange, PreviousClose, LastTradeDate} = stock.get('stock_data').toObject();
     const lastTradedPrice = this.getLastTradedPrice();
-    const lastTradedTime = this.getLastTradedTime();
-    const todaysProfit = this.getTodaysProfit(lastTradedPrice, PreviousClose);
+    const lastTradedTime  = this.getLastTradedTime();
+    const todaysProfit    = this.getTodaysProfit(lastTradedPrice, PreviousClose);
+    const days_profit     = stock.get('days_profit');
 
     return (
-      <div className="card card-outline-success text-center">
-        <div className="card-header mb-0" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href={this.formatUniqueId(true)} aria-expanded="true" aria-controls={this.formatUniqueId()} >
+      <div className={classnames("card", "text-center", { 'card-outline-success': days_profit >= 0 }, { 'card-outline-danger': days_profit < 0 })}>
+        <div className="card-header mb-0" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href={this.formatUniqueId(true)} aria-expanded="false" aria-controls={this.formatUniqueId()} >
           <div className="row">
             <div className="col-3">
               {Name}

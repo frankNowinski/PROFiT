@@ -41,12 +41,12 @@ RSpec.describe StockFetcher, type: :services do
   end
 
   describe '#fetch_stock'do
-    let(:stock) { described_class.new(['AAPL', 'AAPL']).fetch_stock }
+    let(:stock) { described_class.new('AAPL').fetch_stock }
 
     it 'should return the stock object' do
       VCR.use_cassette('stock') do
-        expect(stock.first[:symbol]).to eq 'AAPL'
-        expect(stock.first[:Ask]).to eq '141.49'
+        expect(stock['symbol']).to eq 'AAPL'
+        expect(stock['Ask']).to eq '141.55'
       end
     end
   end
