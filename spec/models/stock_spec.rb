@@ -38,7 +38,6 @@ RSpec.describe Stock, type: :model do
     end
 
     context 'when a stock is created with a valid stock ticker' do
-
       it 'should set the purchsed price' do
         VCR.use_cassette('stock_history') do
           stock.save
@@ -86,6 +85,29 @@ RSpec.describe Stock, type: :model do
       it 'should return false and add an error msg' do
         expect(stock.save).to be_truthy
         expect(stock.purchased_date).to eq(Date.today)
+      end
+    end
+  end
+
+  describe '#get_stock_data' do
+    let(:stock) { create(:stock, user: user) }
+
+    it 'should update the days profit' do
+      stock.get_stock_data
+      expect(stock.days_profit).to eq 4.74
+    end
+
+    context 'when a stock is retreived' do
+      let(:stock_data) { { ticker: 'AAPL', shares: '3' } }
+
+      before do
+        allow(stock).to receive(:update)
+      end
+
+      it 'should merge stock data to the stock object' do
+        VCR.use_cassette('stock') do
+          expect(stock.get_stock_data[:stock_data][:symbol]).to eq 'AAPL'
+        end
       end
     end
   end

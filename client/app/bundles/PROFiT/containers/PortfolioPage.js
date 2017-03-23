@@ -1,11 +1,11 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import * as stockActions from '../actions/stockActions';
 
 import AddStockForm from '../components/AddStockForm/AddStockForm';
-import TotalProfitView from '../components/TotalProfitView';
+import TotalProfit from '../components/TotalProfit';
 import UserStocks from '../components/UserStocks/UserStocks';
 
 function select(state) {
@@ -30,7 +30,7 @@ const PortfolioPage = (props) => {
       <div className="col-3">
         <AddStockForm {...{ stocks, addStock, alreadyOwned }} />
         <br />
-        <TotalProfitView {...{ stocks }} />
+        <TotalProfit {...{ stocks }} />
       </div>
 
       <div className="col-9">
@@ -41,8 +41,8 @@ const PortfolioPage = (props) => {
 };
 
 PortfolioPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  $$stocksStore: PropTypes.instanceOf(Immutable.Map).isRequired,
+  dispatch: React.PropTypes.func.isRequired,
+  $$stocksStore: React.PropTypes.instanceOf(Immutable.Map).isRequired,
 };
 
 export default connect(select)(PortfolioPage);

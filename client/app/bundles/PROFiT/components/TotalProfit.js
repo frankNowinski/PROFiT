@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class TotalProfitView extends React.Component {
+export default class TotalProfit extends React.Component {
   state = {
     todaysProfit: '',
     totalProfit: ''
@@ -8,29 +8,26 @@ export default class TotalProfitView extends React.Component {
 
   componentWillReceiveProps = (nextProps) => {
     if (this.props != nextProps) {
-      this.setMyState(nextProps.stocks);
+      this.writeToState(nextProps.stocks);
     }
   }
 
   componentWillMount = () => {
-    this.setMyState(this.props.stocks);
+    this.writeToState(this.props.stocks);
   }
 
-  setMyState = (stocks) => {
+  writeToState = (stocks) => {
     let todaysProfits = [];
     let totalProfits  = [];
 
     stocks.map(stock => {
-      // todays profit
-      let currentPrice  = stock.getIn(['stock_data', 'LastTradePriceOnly']);
-      let previousClose = stock.getIn(['stock_data', 'PreviousClose']);
-      let daysProfit  = ((currentPrice - previousClose) * stock.get('shares'));
-      todaysProfits.push(daysProfit);
+      let shares         = stock.get('shares');
+      let currentPrice   = stock.getIn(['stock_data', 'LastTradePriceOnly']);
+      let purchasedPrice = stock.get('purchased_price');
+      let profit         = ((currentPrice - purchasedPrice) * shares);
 
-      // total profit
-      let purchasedPrice   = stock.get('purchased_price');
-      let cumulativeProfit = ((currentPrice - purchasedPrice) * stock.get('shares'));
-      totalProfits.push(cumulativeProfit);
+      totalProfits.push(profit);
+      todaysProfits.push(stock.get('days_profit'));
     });
 
     let todaysProfit = this.computeProfit(todaysProfits);
@@ -53,4 +50,8 @@ export default class TotalProfitView extends React.Component {
       </div>
     )
   }
+}
+
+TotalProfit.propTypes = {
+  stocks: React.PropTypes.object.isRequired
 }

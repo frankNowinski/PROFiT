@@ -5,6 +5,11 @@ import stockExists from '../../utils/validations/stockValidator';
 export default class StockInput extends React.Component {
   state = { errorMsg: '' }
 
+  handleFocus = () => {
+    this.setState({ errorMsg: '' });
+    this.props.setInvalidState(false);
+  }
+
   validateStockExists = (e) => {
     let invalid, errorMsg = this.state.errorMsg;
     const { ticker, alreadyOwned, setInvalidState } = this.props;
@@ -58,6 +63,7 @@ export default class StockInput extends React.Component {
             type="text"
             value={ticker}
             onChange={handleChange}
+            onFocus={this.handleFocus}
             onBlur={this.validateStockExists}
             placeholder="AAPL"
           />

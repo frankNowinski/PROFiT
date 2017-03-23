@@ -3,7 +3,11 @@ import StockItem from './StockItem';
 
 export default function UserStocks(props) {
   const stockList = () => {
-    return props.stocks.map(stock => {
+    let list = props.stocks.sort(
+      (a, b) => a.getIn(['stock_data', 'PercentChange']) > b.getIn(['stock_data', 'PercentChange'])
+    )
+
+    return list.map(stock => {
       return (
         <StockItem
           key={stock.get('id')}

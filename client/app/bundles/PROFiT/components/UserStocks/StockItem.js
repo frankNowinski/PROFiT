@@ -27,7 +27,7 @@ export default class StockItem extends React.Component {
   render() {
     const { stock, editStock, removeStock } = this.props;
     const { ticker, shares, purchased_date, purchased_price } = stock.toObject()
-    const { Ask, Name, PercentChange, PreviousClose } = stock.get('stock_data').toObject();
+    const { Ask, Name, PercentChange, PreviousClose, LastTradeDate} = stock.get('stock_data').toObject();
     const lastTradedPrice = this.getLastTradedPrice();
     const lastTradedTime = this.getLastTradedTime();
     const todaysProfit = this.getTodaysProfit(lastTradedPrice, PreviousClose);
@@ -49,7 +49,7 @@ export default class StockItem extends React.Component {
             </div>
 
             <div className="col-3">
-              ${todaysProfit}
+              ${todaysProfit} -  <small className="text-muted">{LastTradeDate}</small>
             </div>
           </div>
         </div>

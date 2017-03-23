@@ -4,6 +4,11 @@ import classnames from 'classnames';
 export default class SharesInput extends React.Component {
   state = { errorMsg: '' }
 
+  handleFocus = () => {
+    this.setState({ errorMsg: '' });
+    this.props.setInvalidState(false);
+  }
+
   validateShares = (e) => {
     const shares = parseInt(this.props.shares);
     let invalid, errorMsg = this.state.errorMsg;
@@ -36,6 +41,7 @@ export default class SharesInput extends React.Component {
             id="input-shares"
             value={shares}
             onChange={handleChange}
+            onFocus={this.handleFocus}
             onBlur={this.validateShares}
             placeholder="Shares"
           />

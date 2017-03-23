@@ -23,6 +23,11 @@ export default class PurchasedDateCalendar extends React.Component {
     this.props.setInvalidState(invalid);
   }
 
+  handleFocus = () => {
+    this.setState({ errorMsg: '' });
+    this.props.setInvalidState(false);
+  }
+
   render() {
     const errorMsg = this.state.errorMsg;
     const { purchasedDate, handleCalendarChange } = this.props;
@@ -38,6 +43,7 @@ export default class PurchasedDateCalendar extends React.Component {
             value={purchasedDate}
             selected={purchasedDate}
             onChange={handleCalendarChange}
+            onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />
 
