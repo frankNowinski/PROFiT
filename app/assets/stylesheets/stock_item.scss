@@ -5,11 +5,20 @@
   color: $lime;
 }
 
-.card-header-col {
+.card-header-col-positive {
   border-right: 1px solid darkgray;
   font-size: 1.3em;
   font-weight: 300;
   padding-top: 7px;
+  color: $lime;
+}
+
+.card-header-col-negative {
+  border-right: 1px solid darkgray;
+  font-size: 1.3em;
+  font-weight: 300;
+  padding-top: 7px;
+  color: $red;
 }
 
 .table-headers {
@@ -23,8 +32,14 @@
   margin-left: -12px;
 }
 
-.card-header-col-price {
+.card-header-col-price-positive {
   border-right: 1px solid darkgray;
+  color: $lime;
+}
+
+.card-header-col-price-negative {
+  border-right: 1px solid darkgray;
+  color: $red;
 }
 
 .price {
@@ -32,10 +47,18 @@
   font-weight: 300;
 }
 
-.todays-profit-col {
+.todays-profit-col-positive {
   font-size: 1.3em;
   font-weight: 300;
   padding-top: 7px;
+  color: $lime;
+}
+
+.todays-profit-col-negative {
+  font-size: 1.3em;
+  font-weight: 300;
+  padding-top: 7px;
+  color: $red;
 }
 
 .card-outline-success {

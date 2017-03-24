@@ -1,4 +1,13 @@
-.returns-display {
+@import 'variables';
+
+.returns-display-positive div h2 {
   font-size: 1.4em;
   font-weight: 300;
+  color: $lime;
+}
+
+.returns-display-negative div h2 {
+  font-size: 1.4em;
+  font-weight: 300;
+  color: $red;
 }

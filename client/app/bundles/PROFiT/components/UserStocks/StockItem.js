@@ -5,14 +5,6 @@ import classnames from 'classnames';
 import StockDataContainer from './StockData/Container';
 
 export default class StockItem extends React.Component {
-  getLastTradedPrice = () => {
-    return this.props.stock.getIn(['stock_data', 'LastTradePriceOnly'])
-  }
-
-  getLastTradedTime = () => {
-    return this.props.stock.getIn(['stock_data', 'LastTradeWithTime']).split('-')[0].trim();
-  }
-
   getTodaysProfit = (lastTradedPrice, PreviousClose) => {
     let profit = (lastTradedPrice - PreviousClose) * this.props.stock.get('shares');
     return parseFloat(profit).toFixed(2)
@@ -26,40 +18,40 @@ export default class StockItem extends React.Component {
   render() {
     const { stock, editStock, removeStock } = this.props;
     const { ticker, shares, purchased_date, purchased_price } = stock.toObject()
-    const { Ask, Name, PercentChange, PreviousClose, LastTradeDate } = stock.get('stock_data').toObject();
-    const lastTradedPrice = this.getLastTradedPrice();
-    const lastTradedTime  = this.getLastTradedTime();
-    const todaysProfit    = this.getTodaysProfit(lastTradedPrice, PreviousClose);
-    const positive        = stock.get('days_profit') >= 0
-    const negative        = stock.get('days_profit') < 0
+    const { PercentChange, PreviousClose, LastTradePriceOnly, LastTradeDate, LastTradeTime } = stock.get('stock_data').toObject();
+    const todaysProfit = this.getTodaysProfit(LastTradePriceOnly, PreviousClose);
+    const cardOutlineColor  = stock.get('days_profit') >= 0 ? 'card-outline-success' : 'card-outline-danger';
+    const textColor         = stock.get('days_profit') >= 0 ? 'card-header-col-positive' : 'card-header-col-negative';
+    const priceTextColor    = stock.get('days_profit') >= 0 ? 'card-header-col-price-positive' : 'card-header-col-price-negative';
+    const todaysProfitColor = stock.get('days_profit') >= 0 ? 'todays-profit-col-positive' : 'todays-profit-col-negative';
 
     return (
-      <div className={classnames('card', 'text-center', { 'card-outline-success': positive }, { 'card-outline-danger': negative })}>
+      <div className={classnames('card', 'text-center', cardOutlineColor)}>
         <div className="card-header mb-0" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href={this.formatUniqueId(true)} aria-expanded="false" aria-controls={this.formatUniqueId()} >
           <div className="row stock-item-row">
-            <div className={classnames('col-2', 'card-header-col', { 'positive': positive }, { 'negative': negative } ) }>
+            <div className={classnames('col-2', textColor)}>
               {ticker.toUpperCase()}
             </div>
 
-            <div className={classnames('col-2', 'card-header-col', { 'positive': positive }, { 'negative': negative } ) }>
+            <div className={classnames('col-2', textColor)}>
               {PercentChange}
             </div>
 
-            <div className={classnames('col-4 card-header-col-price', { 'positive': positive }, { 'negative': negative } ) }>
+            <div className={classnames('col-4', priceTextColor)}>
               <div className="row">
-                <div className="col-6 price">${lastTradedPrice}</div>
+                <div className="col-6 price">${LastTradePriceOnly}</div>
                 <div className="col-6 price">${PreviousClose}</div>
               </div>
               <div className="row">
-                <div className="col-12"><small className="text-muted">Last traded on {LastTradeDate} at {lastTradedTime}</small></div>
+                <div className="col-12"><small className="text-muted">Last traded on {LastTradeDate} at {LastTradeTime}</small></div>
               </div>
             </div>
 
-            <div className={classnames('col-2', 'card-header-col', { 'positive': positive }, { 'negative': negative } ) }>
+            <div className={classnames('col-2', textColor)}>
               { shares }
             </div>
 
-            <div className="col-2 todays-profit-col" className={classnames('col-2', 'todays-profit-col', 'todays-profit', { 'positive': positive }, { 'negative': negative } ) }>
+            <div className={classnames('col-2', todaysProfitColor)}>
               ${todaysProfit}
             </div>
           </div>

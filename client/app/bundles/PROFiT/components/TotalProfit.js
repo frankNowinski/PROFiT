@@ -44,13 +44,32 @@ export default class TotalProfit extends React.Component {
 
   render() {
     const { todaysProfit, totalProfit } = this.state;
+    const todaysTextColor = todaysProfit >= 0 ? 'returns-display-positive' : 'returns-display-negative';
+    const totalTextColor  = totalProfit >= 0 ? 'returns-display-positive' : 'returns-display-negative';
 
     return (
       <div>
         <br />
-        <h2 className={classnames('returns-display', { 'positive': todaysProfit >= 0}, { 'negative': todaysProfit < 0 } )}>Todays Return: {todaysProfit}</h2>
+        <div className={classnames('row', todaysTextColor)}>
+          <div className="col-8">
+            <h2>Todays Return: </h2>
+          </div>
+          <div className="col-4 pull-right">
+            <h2>${todaysProfit}</h2>
+          </div>
+        </div>
+
         <br />
-        <h2 className={classnames('returns-display', { 'positive': totalProfit >= 0}, { 'negative': totalProfit < 0 } )}>Total Return: {totalProfit}</h2>
+
+        <div className={classnames('row', todaysTextColor)}>
+          <div className="col-8">
+            <h2>Total Return: </h2>
+          </div>
+          <div className="col-4 pull-right">
+            <h2>${totalProfit}</h2>
+          </div>
+        </div>
+
       </div>
     )
   }

@@ -24,7 +24,7 @@ class Stock < ApplicationRecord
   def update_days_profit
     current_price  = @stock_data[:LastTradePriceOnly]
     previous_close = @stock_data[:PreviousClose]
-    days_profit    = ((current_price.to_f - previous_close.to_f) * self.shares).round(2);
+    days_profit    = ((current_price.to_f - previous_close.to_f) * self.shares).round(2)
 
     self.update(days_profit: days_profit)
   end
