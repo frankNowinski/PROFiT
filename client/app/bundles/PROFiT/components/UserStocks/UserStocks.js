@@ -18,11 +18,17 @@ export default function UserStocks(props) {
 
   return (
     <div>
-      <div className="row text-center bold">
-        <div className="col-3"><strong>Name</strong></div>
-        <div className="col-3"><strong>Percent Change</strong></div>
-        <div className="col-3"><strong>Price</strong></div>
-        <div className="col-3"><strong>Days Profit</strong></div>
+      <div className="row text-center table-headers">
+        <div className="col-2">Symbol</div>
+        <div className="col-2">% Change</div>
+        <div className="col-4">
+          <div className="row">
+            <div className="col-6">Price</div>
+            <div className="col-6 text-left">Prev. Close</div>
+          </div>
+        </div>
+        <div className="col-2 shares-header">Shares</div>
+        <div className="col-2">Days Profit</div>
       </div>
       <div id="accordion" role="tablist" aria-multiselectable="true">
         {stockList()}
@@ -36,4 +42,3 @@ UserStocks.propTypes = {
   editStock: React.PropTypes.func.isRequired,
   removeStock: React.PropTypes.func.isRequired
 }
-

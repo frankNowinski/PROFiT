@@ -1,0 +1,47 @@
+@import 'variables';
+
+.card-header {
+  background-color: $black;
+  color: $lime;
+}
+
+.card-header-col {
+  border-right: 1px solid darkgray;
+  font-size: 1.3em;
+  font-weight: 300;
+  padding-top: 7px;
+}
+
+.table-headers {
+  font-size: 1.2em;
+  font-weight: 300;
+  padding-bottom: 7px;
+  color: white;
+}
+
+.shares-header {
+  margin-left: -12px;
+}
+
+.card-header-col-price {
+  border-right: 1px solid darkgray;
+}
+
+.price {
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+.todays-profit-col {
+  font-size: 1.3em;
+  font-weight: 300;
+  padding-top: 7px;
+}
+
+.card-outline-success {
+  border-color: $lime;
+}
+
+.card-outline-danger {
+  border-color: $red;
+}

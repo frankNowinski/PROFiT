@@ -93,8 +93,10 @@ RSpec.describe Stock, type: :model do
     let(:stock) { create(:stock, user: user) }
 
     it 'should update the days profit' do
-      stock.get_stock_data
-      expect(stock.days_profit).to eq 4.74
+      # VCR.use_cassette('stock') do
+        stock.get_stock_data
+        expect(stock.days_profit).to eq 4.74
+      # end
     end
 
     context 'when a stock is retreived' do

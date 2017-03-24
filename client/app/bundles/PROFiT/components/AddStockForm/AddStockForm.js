@@ -58,13 +58,13 @@ export default class AddStockForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="text-center">
         { this.state.submitted ?
           <AlertMessage invalid={this.state.invalid} ticker={this.state.ticker} />
           : null
         }
 
-        <button className='btn btn-outline-primary' type="button" data-toggle="modal" data-target="#add-stock-modal" onClick={this.setSubmittedState}>Add Stock</button>
+        <button className="btn btn-lg btn-outline-primary" type="button" data-toggle="modal" data-target="#add-stock-modal" onClick={this.setSubmittedState}>Add Stock</button>
 
         <div className="modal fade" id="add-stock-modal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">

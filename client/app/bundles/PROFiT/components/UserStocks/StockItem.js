@@ -26,30 +26,41 @@ export default class StockItem extends React.Component {
   render() {
     const { stock, editStock, removeStock } = this.props;
     const { ticker, shares, purchased_date, purchased_price } = stock.toObject()
-    const { Ask, Name, PercentChange, PreviousClose, LastTradeDate} = stock.get('stock_data').toObject();
+    const { Ask, Name, PercentChange, PreviousClose, LastTradeDate } = stock.get('stock_data').toObject();
     const lastTradedPrice = this.getLastTradedPrice();
     const lastTradedTime  = this.getLastTradedTime();
     const todaysProfit    = this.getTodaysProfit(lastTradedPrice, PreviousClose);
-    const days_profit     = stock.get('days_profit');
+    const positive        = stock.get('days_profit') >= 0
+    const negative        = stock.get('days_profit') < 0
 
     return (
-      <div className={classnames("card", "text-center", { 'card-outline-success': days_profit >= 0 }, { 'card-outline-danger': days_profit < 0 })}>
+      <div className={classnames('card', 'text-center', { 'card-outline-success': positive }, { 'card-outline-danger': negative })}>
         <div className="card-header mb-0" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href={this.formatUniqueId(true)} aria-expanded="false" aria-controls={this.formatUniqueId()} >
-          <div className="row">
-            <div className="col-3">
-              {Name}
+          <div className="row stock-item-row">
+            <div className={classnames('col-2', 'card-header-col', { 'positive': positive }, { 'negative': negative } ) }>
+              {ticker.toUpperCase()}
             </div>
 
-            <div className="col-3">
+            <div className={classnames('col-2', 'card-header-col', { 'positive': positive }, { 'negative': negative } ) }>
               {PercentChange}
             </div>
 
-            <div className="col-3">
-              ${lastTradedPrice} - <small className="text-muted">{lastTradedTime}</small>
+            <div className={classnames('col-4 card-header-col-price', { 'positive': positive }, { 'negative': negative } ) }>
+              <div className="row">
+                <div className="col-6 price">${lastTradedPrice}</div>
+                <div className="col-6 price">${PreviousClose}</div>
+              </div>
+              <div className="row">
+                <div className="col-12"><small className="text-muted">Last traded on {LastTradeDate} at {lastTradedTime}</small></div>
+              </div>
             </div>
 
-            <div className="col-3">
-              ${todaysProfit} -  <small className="text-muted">{LastTradeDate}</small>
+            <div className={classnames('col-2', 'card-header-col', { 'positive': positive }, { 'negative': negative } ) }>
+              { shares }
+            </div>
+
+            <div className="col-2 todays-profit-col" className={classnames('col-2', 'todays-profit-col', 'todays-profit', { 'positive': positive }, { 'negative': negative } ) }>
+              ${todaysProfit}
             </div>
           </div>
         </div>

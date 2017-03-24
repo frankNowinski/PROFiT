@@ -1,6 +1,9 @@
+@import 'variables';
+
 .navbar-inverse {
   margin-bottom: 30px;
-  background-color: rgba(16, 119, 207, 0.78);
+  background-color: $black;
+  border-bottom: 2px solid $blue;
 }
 
 #facebook-logout-button {
@@ -8,11 +11,7 @@
 
 }
 
-.navbar-btn {
- color: white;
- border-color: #4dacda;
- &:hover {
-  background-color: #4dacda;
- }
+.navbar-brand {
+  font-size: 1.4em;
 }
 

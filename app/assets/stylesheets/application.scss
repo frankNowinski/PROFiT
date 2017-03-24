@@ -3,6 +3,9 @@
 @import "footer";
 @import "portfolio_page";
 @import "add_stock_form";
+@import "stock_item";
+@import "total_profit";
+@import "variables";
 
 html {
   position: relative;
@@ -11,5 +14,13 @@ html {
 
 body {
   margin-bottom: 100px;
+  background-color: $black;
 }
 
+.postive {
+  color: $lime;
+}
+
+.negative {
+  color: $red;
+}

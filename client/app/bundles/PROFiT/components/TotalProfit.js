@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 
 export default class TotalProfit extends React.Component {
   state = {
@@ -42,11 +43,14 @@ export default class TotalProfit extends React.Component {
   }
 
   render() {
+    const { todaysProfit, totalProfit } = this.state;
+
     return (
       <div>
-        Todays Return: {this.state.todaysProfit}
         <br />
-        Total Return: {this.state.totalProfit}
+        <h2 className={classnames('returns-display', { 'positive': todaysProfit >= 0}, { 'negative': todaysProfit < 0 } )}>Todays Return: {todaysProfit}</h2>
+        <br />
+        <h2 className={classnames('returns-display', { 'positive': totalProfit >= 0}, { 'negative': totalProfit < 0 } )}>Total Return: {totalProfit}</h2>
       </div>
     )
   }

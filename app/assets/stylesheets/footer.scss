@@ -1,8 +1,12 @@
+@import '_variables';
+
 .footer {
   padding-top: 12px;
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: rgba(16, 119, 207, 0.78);
+  background-color: $black;
+  border-top: 2px solid $blue;
+  color: white;
 }
 
