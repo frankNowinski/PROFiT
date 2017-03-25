@@ -1,8 +1,8 @@
 import React from 'react';
 import AlertMessage from './AlertMessage';
-import StockInput from './StockInput';
-import SharesInput from './SharesInput';
-import PurchasedDateCalendar from './PurchasedDateCalendar';
+import StockInput from '../Inputs/StockInput';
+import SharesInput from '../Inputs/SharesInput';
+import PurchasedDateCalendar from '../Inputs/PurchasedDateCalendar';
 import futureDate from '../../utils/validations/datePurchasedValidator';
 import moment from 'moment';
 
@@ -12,7 +12,8 @@ export default class AddStockForm extends React.Component {
       shares: '',
       purchasedDate: moment(),
       invalid: false,
-      submitted: false
+      submitted: false,
+      message: ''
   }
 
   setInvalidState = (invalid) => {
@@ -38,12 +39,22 @@ export default class AddStockForm extends React.Component {
     if (ticker != '' && shares != '' && !futureDate(purchasedDate)) {
       this.props.addStock(this.state)
         .then(response => {
-          this.setState({
-            shares: '',
-            purchasedDate: moment(),
-            invalid: false,
-            submitted: true
-          });
+          if (response.base !== undefined) {
+            this.setState({
+              invalid: true,
+              submitted: true,
+              message: 'Unable to add stock to your portfolio.'
+            });
+          } else {
+            let message = `Added ${response.ticker.toUpperCase()} to your portfolio.`;
+            this.setState({
+              shares: '',
+              purchasedDate: moment(),
+              invalid: false,
+              submitted: true,
+              message: message
+            });
+          }
         })
         .catch(error => {
           console.log(`Error adding stock: ${error}`);
@@ -60,7 +71,7 @@ export default class AddStockForm extends React.Component {
     return (
       <div className="text-center">
         { this.state.submitted ?
-          <AlertMessage invalid={this.state.invalid} ticker={this.state.ticker} />
+          <AlertMessage invalid={this.state.invalid} message={this.state.message}/>
           : null
         }
 

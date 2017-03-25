@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function AlertMessage(props) {
-  const stockTicker = props.ticker.toUpperCase();
+  const message = props.message;
 
   const validAlert = () => {
     return (
@@ -9,7 +9,7 @@ export default function AlertMessage(props) {
         <button type="button" className="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        Added {stockTicker} to your portfolio.
+        {message}
       </div>
     )
   }
@@ -20,7 +20,7 @@ export default function AlertMessage(props) {
         <button type="button" className="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        Unable to add stock to your portfolio.
+        {message}
       </div>
     )
   }
@@ -32,5 +32,5 @@ export default function AlertMessage(props) {
 
 AlertMessage.propTypes = {
   invalid: React.PropTypes.bool.isRequired,
-  ticker: React.PropTypes.string.isRequired
+  message: React.PropTypes.string.isRequired
 }

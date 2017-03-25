@@ -50,26 +50,17 @@ export default class TotalProfit extends React.Component {
     return (
       <div>
         <br />
-        <div className={classnames('row', todaysTextColor)}>
-          <div className="col-8">
-            <h2>Todays Return: </h2>
-          </div>
-          <div className="col-4 pull-right">
-            <h2>${todaysProfit}</h2>
-          </div>
+        <div className={classnames('text-center', todaysTextColor)}>
+          <div>Todays Return: </div>
+          <div className="value">${todaysProfit}</div>
         </div>
 
         <br />
 
-        <div className={classnames('row', todaysTextColor)}>
-          <div className="col-8">
-            <h2>Total Return: </h2>
-          </div>
-          <div className="col-4 pull-right">
-            <h2>${totalProfit}</h2>
-          </div>
+        <div className={classnames('text-center', todaysTextColor)}>
+          <div>Total Return: </div>
+          <div className="value">${totalProfit}</div>
         </div>
-
       </div>
     )
   }

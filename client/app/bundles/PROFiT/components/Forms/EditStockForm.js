@@ -1,7 +1,8 @@
 import React from 'react';
-import SharesInput from '../../AddStockForm/SharesInput';
-import PurchasedDateCalendar from '../../AddStockForm/PurchasedDateCalendar';
-import futureDate from '../../../utils/validations/datePurchasedValidator';
+import SharesInput from '../Inputs/SharesInput';
+import PurchasedDateCalendar from '../Inputs/PurchasedDateCalendar';
+import AlertMessage from '../Forms/AlertMessage';
+import futureDate from '../../utils/validations/datePurchasedValidator';
 import moment from 'moment';
 
 export default class EditStock extends React.Component {
@@ -9,7 +10,9 @@ export default class EditStock extends React.Component {
     stockId: this.props.stock.get('id'),
     shares: this.props.stock.get('shares'),
     purchasedDate: moment(this.props.stock.get('purchased_date'), 'YYYY-MM-DD'),
-    invalid: false
+    invalid: false,
+    submitted: false,
+    message: ''
   }
 
   getPurchasedDate = () => {
@@ -39,10 +42,20 @@ export default class EditStock extends React.Component {
     if (shares != '' && !futureDate(purchasedDate)) {
       this.props.editStock(this.state)
         .then(response => {
-          this.closePrompt();
+          if (response.base !== undefined) {
+            let ticker = this.props.stock.get('ticker').toUpperCase();
+            this.setState({
+              submitted: true,
+              invalid: true,
+              message: `Unable to edit ${ticker}.`
+            });
+          } else {
+            this.setState({ submitted: true, invalid: false });
+            this.closePrompt();
+          }
         })
         .catch(error => {
-          console.log(`Error adding stock: ${error}`);
+          console.log(`Error editing stock: ${error}`);
         });
 
     } else {
@@ -52,12 +65,17 @@ export default class EditStock extends React.Component {
 
   render() {
     const ticker = this.props.stock.get('ticker').toUpperCase();
-    const { shares, purchasedDate } = this.state;
+    const { shares, purchasedDate, message } = this.state;
 
     return (
       <div>
         <p className="lead">Edit {ticker}</p>
         <br />
+
+        { this.state.submitted ?
+          <AlertMessage invalid={this.state.invalid} message={message}/>
+          : null
+        }
 
         <form onSubmit={this.handleSubmit}>
           <SharesInput

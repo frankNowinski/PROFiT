@@ -1,6 +1,6 @@
 import React from 'react';
 import RemoveStock from './RemoveStock';
-import EditStockForm from '../EditStockForm/EditStockForm';
+import EditStockForm from '../../Forms/EditStockForm';
 
 export default class StockDataContainer extends React.Component {
   state = {

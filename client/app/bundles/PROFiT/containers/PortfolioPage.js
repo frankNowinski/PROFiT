@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import * as stockActions from '../actions/stockActions';
 
-import AddStockForm from '../components/AddStockForm/AddStockForm';
+import AddStockForm from '../components/Forms/AddStockForm';
 import TotalProfit from '../components/TotalProfit';
 import UserStocks from '../components/UserStocks/UserStocks';
 
