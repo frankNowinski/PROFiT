@@ -1,8 +1,7 @@
 @import 'variables';
 
 .card-header {
-  background-color: $black;
-  color: $lime;
+  background-color: $white;
 }
 
 .card-header-col-positive {
@@ -10,7 +9,7 @@
   font-size: 1.3em;
   font-weight: 300;
   padding-top: 7px;
-  color: $lime;
+  color: $green;
 }
 
 .card-header-col-negative {
@@ -25,7 +24,6 @@
   font-size: 1.2em;
   font-weight: 300;
   padding-bottom: 7px;
-  color: white;
 }
 
 .shares-header {
@@ -34,7 +32,7 @@
 
 .card-header-col-price-positive {
   border-right: 1px solid darkgray;
-  color: $lime;
+  color: $green;
 }
 
 .card-header-col-price-negative {
@@ -51,7 +49,7 @@
   font-size: 1.3em;
   font-weight: 300;
   padding-top: 7px;
-  color: $lime;
+  color: $green;
 }
 
 .todays-profit-col-negative {
@@ -62,9 +60,20 @@
 }
 
 .card-outline-success {
-  border-color: $lime;
+  border-color: $green;
 }
 
 .card-outline-danger {
   border-color: $red;
+}
+
+.remove-stock {
+  color: $red;
+  opacity: 1;
+  float: none;
+  font-size: 2.7em;
+  &:hover {
+    color: #f45843;
+    opacity: 1;
+  }
 }

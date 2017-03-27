@@ -88,7 +88,7 @@ export default class EditStock extends React.Component {
             handleCalendarChange={this.handleCalendarChange}
             setInvalidState={this.setInvalidState} />
 
-          <button className="btn btn-outline-info" type="submit">Edit Stock</button>
+          <button className="btn btn-outline-primary" type="submit">Edit Stock</button>
           <button className="btn btn-outline-danger" onClick={this.closePrompt}>Cancel</button>
         </form>
       </div>

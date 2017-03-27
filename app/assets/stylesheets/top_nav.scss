@@ -1,9 +1,10 @@
 @import 'variables';
 
-.navbar-inverse {
+.navbar {
   margin-bottom: 30px;
-  background-color: $black;
   border-bottom: 2px solid $blue;
+  background-color: $white;
+  color: $blue;
 }
 
 #facebook-logout-button {

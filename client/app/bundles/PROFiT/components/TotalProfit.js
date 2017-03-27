@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import parseCurrency from '../utils/parseCurrency';
 
 export default class TotalProfit extends React.Component {
   state = {
@@ -52,14 +53,14 @@ export default class TotalProfit extends React.Component {
         <br />
         <div className={classnames('text-center', todaysTextColor)}>
           <div>Todays Return: </div>
-          <div className="value">${todaysProfit}</div>
+          <div className="value">${parseCurrency(todaysProfit)}</div>
         </div>
 
         <br />
 
         <div className={classnames('text-center', todaysTextColor)}>
           <div>Total Return: </div>
-          <div className="value">${totalProfit}</div>
+          <div className="value">${parseCurrency(totalProfit)}</div>
         </div>
       </div>
     )

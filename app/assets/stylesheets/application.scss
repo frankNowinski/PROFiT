@@ -5,6 +5,7 @@
 @import "add_stock_form";
 @import "stock_item";
 @import "total_profit";
+@import "stock_data";
 @import "variables";
 
 html {
@@ -14,13 +15,6 @@ html {
 
 body {
   margin-bottom: 100px;
-  background-color: $black;
+  background-color: $white;
 }
 
-.postive {
-  color: $lime;
-}
-
-.negative {
-  color: $red;
-}

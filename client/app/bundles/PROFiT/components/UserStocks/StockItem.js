@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import classnames from 'classnames';
+import parseCurrency from '../../utils/parseCurrency';
+
 import StockDataContainer from './StockData/Container';
 
 export default class StockItem extends React.Component {
@@ -39,8 +41,8 @@ export default class StockItem extends React.Component {
 
             <div className={classnames('col-4', priceTextColor)}>
               <div className="row">
-                <div className="col-6 price">${LastTradePriceOnly}</div>
-                <div className="col-6 price">${PreviousClose}</div>
+                <div className="col-6 price">${parseCurrency(LastTradePriceOnly)}</div>
+                <div className="col-6 price">${parseCurrency(PreviousClose)}</div>
               </div>
               <div className="row">
                 <div className="col-12"><small className="text-muted">Last traded on {LastTradeDate} at {LastTradeTime}</small></div>
@@ -48,19 +50,17 @@ export default class StockItem extends React.Component {
             </div>
 
             <div className={classnames('col-2', textColor)}>
-              { shares }
+              {parseCurrency(shares)}
             </div>
 
             <div className={classnames('col-2', todaysProfitColor)}>
-              ${todaysProfit}
+              ${parseCurrency(todaysProfit)}
             </div>
           </div>
         </div>
 
          <div id={this.formatUniqueId()} className="collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div className="card-block">
-            <StockDataContainer stock={stock} editStock={editStock} removeStock={removeStock} />
-          </div>
+          <StockDataContainer stock={stock} editStock={editStock} removeStock={removeStock} />
         </div>
       </div>
     )
