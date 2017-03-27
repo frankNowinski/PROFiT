@@ -3,6 +3,7 @@ import RemoveStock from './RemoveStock';
 import EditStockForm from '../../Forms/EditStockForm';
 import classnames from 'classnames';
 import parseCurrency from '../../../utils/parseCurrency';
+import moment from 'moment';
 
 export default class StockDataContainer extends React.Component {
   state = {
@@ -26,7 +27,16 @@ export default class StockDataContainer extends React.Component {
     }
   }
 
-  stockDataRow(key, value, currency=true) {
+  calculateTotalReturn = (currentPrice) => {
+    const { shares, purchased_price }= this.props.stock.toJS();
+    let total = (currentPrice - purchased_price) * shares;
+
+    return parseFloat(total).toFixed(2);
+  }
+
+  stockDataRow = (key, value, currency=true) => {
+    if (value === null) return;
+
     return (
       <div className="row">
         <span className="col-7 text-left lead">{key}:</span>
@@ -37,7 +47,9 @@ export default class StockDataContainer extends React.Component {
 
   stockDataView = () => {
     const { stock, alreadyOwned } = this.props;
-    const { DaysHigh, DaysLow, EarningsShare, FiftydayMovingAverage, TwoHundreddayMovingAverage, Name, OneyrTargetPrice, Open, PERatio, Volume, AverageDailyVolume, YearHigh, YearLow } = stock.get('stock_data').toJS();
+    const { DaysHigh, DaysLow, EarningsShare, FiftydayMovingAverage, TwoHundreddayMovingAverage, Name, OneyrTargetPrice, Open, PERatio, Volume, AverageDailyVolume, YearHigh, YearLow, LastTradePriceOnly } = stock.get('stock_data').toJS();
+    const purchased_date = moment(stock.get('purchased_date')).format('MM/DD/YYYY');
+    const totalReturn = this.calculateTotalReturn(LastTradePriceOnly);
 
     return (
       <div className="container">
@@ -55,8 +67,11 @@ export default class StockDataContainer extends React.Component {
             {this.stockDataRow('Price Per Earning', PERatio)}
           </div>
           <div className="col-5 text-left stock-data-card-second-column">
-            {this.stockDataRow('Purchased Date', '100')}
-            {this.stockDataRow('Total Return', '100')}
+            <div className="row">
+              <span className="col-7 text-left lead">Purchased Date:</span>
+              <span className="col-5 pull-right text-right lead">{purchased_date}</span>
+            </div>
+            {this.stockDataRow('Total Return', totalReturn)}
             {this.stockDataRow('Year High', YearHigh)}
             {this.stockDataRow('Year Low', YearLow)}
             {this.stockDataRow('One Year Target', OneyrTargetPrice)}
