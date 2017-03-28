@@ -11,12 +11,10 @@ const config = {
     'babel-polyfill',
     './app/bundles/PROFiT/startup/App',
   ],
-
   output: {
     filename: 'webpack-bundle.js',
     path: '../app/assets/webpack',
   },
-
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
