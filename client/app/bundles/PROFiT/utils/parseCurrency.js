@@ -1,5 +1,6 @@
 export default function parseCurrency(float) {
   if (float === null) return;
+  let parsedFloat = parseFloat(float).toFixed(2);
 
-  return float.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return parsedFloat.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
