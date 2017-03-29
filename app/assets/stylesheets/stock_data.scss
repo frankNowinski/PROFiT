@@ -3,11 +3,13 @@
 .card-block-positive {
   border-top: 1px solid $green;
   padding: 10px 0px 10px;
+  cursor: default;
 }
 
 .card-block-negative {
   border-top: 1px solid $red;
   padding: 10px 0px 10px;
+  cursor: default;
 }
 
 .stock-data-card-second-column {

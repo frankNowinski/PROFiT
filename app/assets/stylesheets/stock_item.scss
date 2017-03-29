@@ -1,5 +1,9 @@
 @import 'variables';
 
+.card {
+  cursor: pointer;
+}
+
 .card-header {
   background-color: $white;
 }
@@ -77,3 +81,12 @@
     opacity: 1;
   }
 }
+
+.stock-item-btn {
+  cursor: pointer;
+  &.yes {
+    margin-right: 20px;
+  }
+}
+
+

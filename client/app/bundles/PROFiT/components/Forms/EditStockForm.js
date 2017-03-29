@@ -68,8 +68,8 @@ export default class EditStock extends React.Component {
     const { shares, purchasedDate, message } = this.state;
 
     return (
-      <div>
-        <p className="lead">Edit {ticker}</p>
+      <div className="container">
+        <h3>Edit {ticker}</h3>
         <br />
 
         { this.state.submitted ?
@@ -88,8 +88,10 @@ export default class EditStock extends React.Component {
             handleCalendarChange={this.handleCalendarChange}
             setInvalidState={this.setInvalidState} />
 
-          <button className="btn btn-outline-primary" type="submit">Edit Stock</button>
-          <button className="btn btn-outline-danger" onClick={this.closePrompt}>Cancel</button>
+          <hr />
+
+          <button className="btn btn-outline-primary stock-item-btn yes" type="submit">Edit Stock</button>
+          <button className="btn btn-outline-danger stock-item-btn" onClick={this.closePrompt}>Cancel</button>
         </form>
       </div>
     )

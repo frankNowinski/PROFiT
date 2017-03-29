@@ -80,7 +80,7 @@ export default class StockDataContainer extends React.Component {
           </div>
           <div className="col-2">
             <br />
-            <div><button className='btn btn-outline-primary' onClick={this.handleEditStock}>Edit Stock</button></div><br />
+            <div><button className='btn btn-outline-primary stock-item-btn' onClick={this.handleEditStock}>Edit Stock</button></div><br />
 
             <button type="button" className="close text-left remove-stock" onClick={this.handleRemoveStock} aria-label="Close">
               <span aria-hidden="true">&times;</span>
