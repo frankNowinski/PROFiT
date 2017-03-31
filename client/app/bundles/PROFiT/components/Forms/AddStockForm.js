@@ -24,6 +24,12 @@ export default class AddStockForm extends React.Component {
     this.setState({ ticker: '', submitted: false });
   }
 
+  alreadyOwned = (ticker) => {
+    let ownedTickers = this.props.stocks.toJS().map(stock => stock.ticker);
+
+    return ownedTickers.includes(ticker);
+  }
+
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
   }
@@ -35,15 +41,16 @@ export default class AddStockForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { ticker, shares, purchasedDate } = this.state;
+    const errorMsg = 'Unable to add stock to your portfolio.';
 
-    if (ticker != '' && shares != '' && !futureDate(purchasedDate)) {
+    if (this.validForm()) {
       this.props.addStock(this.state)
         .then(response => {
           if (response.base !== undefined) {
             this.setState({
               invalid: true,
               submitted: true,
-              message: 'Unable to add stock to your portfolio.'
+              message: errorMsg
             });
           } else {
             let message = `Added ${response.ticker.toUpperCase()} to your portfolio.`;
@@ -61,10 +68,16 @@ export default class AddStockForm extends React.Component {
         });
 
     } else {
-      this.setState({ invalid: true, submitted: true });
+      this.setState({ invalid: true, submitted: true, message: errorMsg });
     }
 
     $('#add-stock-modal').modal('hide');
+  }
+
+  validForm() {
+    const { ticker, shares, purchasedDate } = this.state;
+
+    return (ticker !== '' && !this.alreadyOwned(ticker) && shares !== '' && !futureDate(purchasedDate))
   }
 
   render() {
@@ -92,7 +105,7 @@ export default class AddStockForm extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                   <StockInput
                     ticker={this.state.ticker}
-                    alreadyOwned={this.props.alreadyOwned}
+                    alreadyOwned={this.alreadyOwned}
                     handleChange={this.handleChange}
                     setInvalidState={this.setInvalidState} />
 
@@ -122,7 +135,6 @@ export default class AddStockForm extends React.Component {
 
 AddStockForm.propTypes = {
   stocks: React.PropTypes.object.isRequired,
-  addStock: React.PropTypes.func.isRequired,
-  alreadyOwned: React.PropTypes.func.isRequired
+  addStock: React.PropTypes.func.isRequired
 }
 

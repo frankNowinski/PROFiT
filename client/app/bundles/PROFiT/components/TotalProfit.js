@@ -51,16 +51,15 @@ export default class TotalProfit extends React.Component {
     return (
       <div>
         <br />
-        <div className={classnames('text-center', todaysTextColor)}>
-          <div>Todays Return: </div>
-          <div className="value">${parseCurrency(todaysProfit)}</div>
+        <div className='card returns-card text-center'>
+          <h3 className="card-header">Todays Return</h3>
+          <div className={classnames('value', todaysTextColor)}>${parseCurrency(todaysProfit)}</div>
         </div>
-
         <br />
 
-        <div className={classnames('text-center', todaysTextColor)}>
-          <div>Total Return: </div>
-          <div className="value">${parseCurrency(totalProfit)}</div>
+        <div className='card returns-card text-center'>
+          <h3 className="card-header">Total Return</h3>
+          <div className={classnames('value', totalTextColor)}>${parseCurrency(totalProfit)}</div>
         </div>
       </div>
     )

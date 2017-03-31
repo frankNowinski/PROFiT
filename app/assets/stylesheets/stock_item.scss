@@ -4,7 +4,7 @@
   cursor: pointer;
 }
 
-.card-header {
+.stock-item-header {
   background-color: $white;
 }
 
@@ -70,23 +70,4 @@
 .card-outline-danger {
   border-color: $red;
 }
-
-.remove-stock {
-  color: $red;
-  opacity: 1;
-  float: none;
-  font-size: 2.7em;
-  &:hover {
-    color: #f45843;
-    opacity: 1;
-  }
-}
-
-.stock-item-btn {
-  cursor: pointer;
-  &.yes {
-    margin-right: 20px;
-  }
-}
-
 

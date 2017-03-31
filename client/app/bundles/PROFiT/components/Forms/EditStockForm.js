@@ -68,31 +68,33 @@ export default class EditStock extends React.Component {
     const { shares, purchasedDate, message } = this.state;
 
     return (
-      <div className="container">
-        <h3>Edit {ticker}</h3>
+      <div>
+        <h3 className="card-header">Edit {ticker}</h3>
         <br />
 
-        { this.state.submitted ?
-          <AlertMessage invalid={this.state.invalid} message={message}/>
-          : null
-        }
+        <div className="card-text container">
+          { this.state.submitted ?
+            <AlertMessage invalid={this.state.invalid} message={message}/>
+            : null
+          }
 
-        <form onSubmit={this.handleSubmit}>
-          <SharesInput
-            shares={shares}
-            handleChange={this.handleChange}
-            setInvalidState={this.setInvalidState} />
+          <form onSubmit={this.handleSubmit}>
+            <SharesInput
+              shares={shares}
+              handleChange={this.handleChange}
+              setInvalidState={this.setInvalidState} />
 
-          <PurchasedDateCalendar
-            purchasedDate={purchasedDate}
-            handleCalendarChange={this.handleCalendarChange}
-            setInvalidState={this.setInvalidState} />
+            <PurchasedDateCalendar
+              purchasedDate={purchasedDate}
+              handleCalendarChange={this.handleCalendarChange}
+              setInvalidState={this.setInvalidState} />
 
-          <hr />
+            <hr />
 
-          <button className="btn btn-outline-primary stock-item-btn yes" type="submit">Edit Stock</button>
-          <button className="btn btn-outline-danger stock-item-btn" onClick={this.closePrompt}>Cancel</button>
-        </form>
+            <button className="btn btn-outline-primary edit-stock-btn yes" type="submit">Edit Stock</button>
+            <button className="btn btn-outline-danger edit-stock-btn" onClick={this.closePrompt}>Cancel</button>
+          </form>
+        </div>
       </div>
     )
   }

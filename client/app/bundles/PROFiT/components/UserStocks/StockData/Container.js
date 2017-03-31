@@ -52,11 +52,10 @@ export default class StockDataContainer extends React.Component {
     const totalReturn = this.calculateTotalReturn(LastTradePriceOnly);
 
     return (
-      <div className="container">
-        <div><h2>{Name}</h2></div>
-        <hr />
+      <div>
+        <h2 className="card-header">{Name}</h2>
 
-        <div className="row">
+        <div className="row card-text stock-data-container">
           <div className="col-5">
             {this.stockDataRow('Open', Open)}
             {this.stockDataRow('Days High', DaysHigh)}

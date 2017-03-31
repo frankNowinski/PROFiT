@@ -7,8 +7,8 @@ export function addStock(stock) {
   return dispatch => {
     return axios.post('/api/v1/stocks', stock)
     .then(response => {
-      if (response.data.base === undefined) {
-        dispatch({ type: actionTypes.ADD_STOCK, response })
+      if (valid(response)) {
+        dispatch({ type: actionTypes.ADD_STOCK, payload: response })
       }
       return response.data;
     });
@@ -22,8 +22,8 @@ export function editStock(stock) {
   return dispatch => {
     return axios.patch(`/api/v1/stocks/${stockId}`, stock)
     .then(response => {
-      if (response.data.base === undefined) {
-        dispatch({ type: actionTypes.EDIT_STOCK, response })
+      if (valid(response)) {
+        dispatch({ type: actionTypes.EDIT_STOCK, payload: response })
       }
       return response.data;
     }).catch(error => {
@@ -36,8 +36,8 @@ export function removeStock(stockId) {
   return dispatch => {
     return axios.delete(`/api/v1/stocks/${stockId}`)
     .then(response => {
-      if (response.data.base === undefined) {
-        dispatch({ type: actionTypes.REMOVE_STOCK, response })
+      if (valid(response)) {
+        dispatch({ type: actionTypes.REMOVE_STOCK, payload: response })
       }
       return response.data;
     }).catch(error => {
@@ -46,3 +46,6 @@ export function removeStock(stockId) {
   }
 }
 
+function valid(response) {
+  return response.data.base === undefined
+}

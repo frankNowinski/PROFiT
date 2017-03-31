@@ -15,9 +15,11 @@ export default function RemoveStock(props) {
 
   return (
     <div>
-      <p className="lead">Are you sure you want to remove {ticker} from your portfolio?</p>
-      <button className="btn btn-outline-primary stock-item-btn yes" onClick={callRemoveStock}>Yes</button>
-      <button className="btn btn-outline-danger stock-item-btn" onClick={closeRemoveStockPrompt}>No</button>
+      <h3 className="card-header">Are you sure you want to remove {ticker} from your portfolio?</h3>
+      <div className="card-text remove-stock-container">
+        <button className="btn btn-outline-primary remove-stock-btn yes" onClick={callRemoveStock}>Yes</button>
+        <button className="btn btn-outline-danger remove-stock-btn" onClick={closeRemoveStockPrompt}>No</button>
+      </div>
     </div>
   )
 }

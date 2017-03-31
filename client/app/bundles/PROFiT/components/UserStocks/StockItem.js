@@ -29,7 +29,7 @@ export default class StockItem extends React.Component {
 
     return (
       <div className={classnames('card', 'text-center', cardOutlineColor)}>
-        <div className="card-header mb-0" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href={this.formatUniqueId(true)} aria-expanded="false" aria-controls={this.formatUniqueId()} >
+        <div className="card-header mb-0 stock-item-header" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href={this.formatUniqueId(true)} aria-expanded="false" aria-controls={this.formatUniqueId()} >
           <div className="row stock-item-row">
             <div className={classnames('col-2', textColor)}>
               {ticker.toUpperCase()}
