@@ -1,0 +1,13 @@
+@import 'variables';
+
+.stock-lookup-card {
+  box-shadow: 0px 2px 8px lightgray;
+}
+
+.positive {
+  color: $green;
+}
+
+.negative {
+  color: $red
+}

@@ -1,0 +1,14 @@
+.container
+  .card.stock-lookup-card
+    %h3.card-header.text-center
+      = @stock['Name']
+    .card-block
+      .row
+        .col-6
+          - @stock_data_kv[:first_col].each do |stock_data|
+            - unless @stock[stock_data.last].nil?
+              = render 'stock_data_row', stock_data: stock_data
+        .col-6
+          - @stock_data_kv[:second_col].each do |stock_data|
+            - unless @stock[stock_data.last].nil?
+              = render 'stock_data_row', stock_data: stock_data

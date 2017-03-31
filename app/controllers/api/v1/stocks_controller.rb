@@ -2,6 +2,8 @@ class Api::V1::StocksController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :find_stock, only: [:update, :destroy]
 
+  include StockData
+
   def create
     @stock = current_user.stocks.new(stock_params)
 
@@ -29,7 +31,8 @@ class Api::V1::StocksController < ApplicationController
   end
 
   def stock_lookup
-    @stock = StockFetcher.new(stock_ticker_params).fetch_stock
+    @stock_data_kv = STOCK_DATA
+    @stock         = StockFetcher.new(stock_ticker_params).fetch_stock
   end
 
   private

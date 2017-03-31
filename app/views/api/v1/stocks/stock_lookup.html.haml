@@ -1,22 +1,5 @@
 - if @stock['Name'].present?
-  .container.text-center
-    %table.table
-      %thead
-        %tr
-          %th.text-center Symbol
-          %th.text-center Percent Change
-          %th.text-center Price
-          %th.text-center Last Traded Time
-      %tbody
-        %tr
-          %td
-            = @stock['symbol'].upcase
-          %td
-            = @stock['PercentChange']
-          %td
-            = "$#{current_price(@stock)}"
-          %td
-            = last_traded_time(@stock)
+  = render 'stock_table'
 - else
   .container.text-center
     .alert.alert-danger

@@ -1,9 +1,9 @@
 module StockLookupHelper
-  def current_price(stock)
-    ActionView::Base.full_sanitizer.sanitize(stock['LastTradeWithTime'].split(' - ').last)
+  def percent_change_color(stock_data)
+    stock_data['PercentChange'].to_f >= 0 ? 'positive' : 'negative'
   end
 
-  def last_traded_time(stock)
-    stock['LastTradeWithTime'].split(' - ').first
+  def non_currency(stock_data_attr)
+    ['Volume', 'AverageDailyVolume'].include?(stock_data_attr)
   end
 end

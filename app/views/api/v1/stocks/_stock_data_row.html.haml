@@ -1,0 +1,13 @@
+- unless stock_data.last.nil?
+  .row
+    %span.col-6.text-left.lead
+      = "#{stock_data.first}:"
+    - if non_currency(stock_data.last)
+      %span.col-6.text-right.lead
+        = @stock[stock_data.last]
+    - elsif stock_data.last == 'PercentChange'
+      %span.col-6.text-right.lead{class: percent_change_color(@stock)}
+        = "$#{@stock[stock_data.last]}"
+    - else
+      %span.col-6.text-right.lead
+        = "$#{@stock[stock_data.last]}"
