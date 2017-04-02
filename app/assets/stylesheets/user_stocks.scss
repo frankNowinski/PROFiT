@@ -1,0 +1,21 @@
+@import 'variables';
+
+.user-stocks-container {
+  background-color: $white;
+  box-shadow: 0px 2px 8px lightgray;
+  border-radius: 5px;
+}
+
+.table-headers {
+  font-size: 1.2em;
+  font-weight: 400;
+  padding: 11px 0px;
+  color: $teal;
+  background-color: #f7f7f9;
+  border: 1px solid lightgray;
+  margin: 0px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+

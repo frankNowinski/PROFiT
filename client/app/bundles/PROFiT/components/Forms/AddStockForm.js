@@ -88,7 +88,7 @@ export default class AddStockForm extends React.Component {
           : null
         }
 
-        <button className="btn btn-lg btn-outline-primary" type="button" data-toggle="modal" data-target="#add-stock-modal" onClick={this.setSubmittedState}>Add Stock</button>
+        <button className="btn btn-lg btn-primary add-stock-form-btn" type="button" data-toggle="modal" data-target="#add-stock-modal" onClick={this.setSubmittedState}>Add Stock</button>
 
         <div className="modal fade" id="add-stock-modal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">

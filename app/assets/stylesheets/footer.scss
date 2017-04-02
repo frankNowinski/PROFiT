@@ -5,6 +5,18 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  border-top: 2px solid $blue;
+  background-color: $teal;
+  color: $white;
+  font-size: .9em;
+  span {
+    padding-right: 15px;
+  }
+  a {
+    padding: 0px 15px;
+    color: $white;
+    &:focus {
+      text-decoration: none;
+    }
+  }
 }
 

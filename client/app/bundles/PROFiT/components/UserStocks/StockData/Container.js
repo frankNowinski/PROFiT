@@ -66,11 +66,11 @@ export default class StockDataContainer extends React.Component {
             {this.stockDataRow('Price Per Earning', PERatio)}
           </div>
           <div className="col-5 text-left stock-data-card-second-column">
+            {this.stockDataRow('Shares', stock.get('shares'), false)}
             <div className="row">
               <span className="col-7 text-left lead">Purchased Date:</span>
               <span className="col-5 pull-right text-right lead">{purchased_date}</span>
             </div>
-            {this.stockDataRow('Total Return', totalReturn)}
             {this.stockDataRow('Year High', YearHigh)}
             {this.stockDataRow('Year Low', YearLow)}
             {this.stockDataRow('One Year Target', OneyrTargetPrice)}

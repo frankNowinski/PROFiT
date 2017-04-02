@@ -17,7 +17,7 @@ export default function UserStocks(props) {
   }
 
   return (
-    <div>
+    <div className="user-stocks-container">
       <div className="row text-center table-headers">
         <div className="col-2">Symbol</div>
         <div className="col-2">% Change</div>
