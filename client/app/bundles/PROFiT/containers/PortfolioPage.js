@@ -22,7 +22,6 @@ const PortfolioPage = (props) => {
     <div className="row">
       <div className="col-3">
         <AddStockForm {...{ stocks, addStock }} />
-        <br />
         <TotalProfit {...{ stocks }} />
       </div>
 

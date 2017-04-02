@@ -3,7 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import classnames from 'classnames';
 import parseCurrency from '../../utils/parseCurrency';
-
+import calculateTotalReturn from '../../utils/calculateReturns';
 import StockDataContainer from './StockData/Container';
 
 export default class StockItem extends React.Component {
@@ -19,9 +19,10 @@ export default class StockItem extends React.Component {
 
   render() {
     const { stock, editStock, removeStock } = this.props;
-    const { ticker, shares, purchased_date, purchased_price } = stock.toObject()
-    const { PercentChange, PreviousClose, LastTradePriceOnly, LastTradeDate, LastTradeTime } = stock.get('stock_data').toObject();
+    const { ticker, shares, purchased_date, purchased_price } = stock.toJS();
+    const { PercentChange, PreviousClose, LastTradePriceOnly, LastTradeDate, LastTradeTime } = stock.get('stock_data').toJS();
     const todaysProfit = this.getTodaysProfit(LastTradePriceOnly, PreviousClose);
+    const totalProfit  = calculateTotalReturn(stock.toJS());
     const cardOutlineColor  = stock.get('days_profit') >= 0 ? 'card-outline-success' : 'card-outline-danger';
     const textColor         = stock.get('days_profit') >= 0 ? 'card-header-col-positive' : 'card-header-col-negative';
     const priceTextColor    = stock.get('days_profit') >= 0 ? 'card-header-col-price-positive' : 'card-header-col-price-negative';
@@ -50,11 +51,11 @@ export default class StockItem extends React.Component {
             </div>
 
             <div className={classnames('col-2', textColor)}>
-              {parseCurrency(shares)}
+              ${parseCurrency(todaysProfit)}
             </div>
 
             <div className={classnames('col-2', todaysProfitColor)}>
-              ${parseCurrency(todaysProfit)}
+              ${parseCurrency(totalProfit)}
             </div>
           </div>
         </div>
