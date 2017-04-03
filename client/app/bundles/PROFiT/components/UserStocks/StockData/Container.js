@@ -1,6 +1,6 @@
 import React from 'react';
-import RemoveStock from './RemoveStock';
-import EditStockForm from '../../Forms/EditStockForm';
+import EditStockForm from '../../forms/EditStockForm';
+import RemoveStock from '../../forms/RemoveStock';
 import classnames from 'classnames';
 import parseCurrency from '../../../utils/parseCurrency';
 import moment from 'moment';
@@ -78,11 +78,8 @@ export default class StockDataContainer extends React.Component {
             {this.stockDataRow('Avg Daily Volume', AverageDailyVolume, false)}
           </div>
           <div className="col-2">
-            <div><button className='btn btn-outline-primary stock-edit-btn' onClick={this.handleEditStock}>Edit Stock</button></div>
-
-            <button type="button" className="close text-left remove-stock" onClick={this.handleRemoveStock} aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <div><button className='btn btn-outline-primary stock-edit-btn btn-block' onClick={this.handleEditStock}>Edit</button></div>
+            <div><button className='btn btn-outline-danger btn-block' onClick={this.handleRemoveStock}>Remove</button></div>
           </div>
         </div>
       </div>

@@ -50,7 +50,7 @@ export default class TotalProfit extends React.Component {
       <div>
         <br />
         <div className='card returns-card text-center'>
-          <h3 className="card-header total-card-header">Todays Return</h3>
+          <h3 className="card-header total-card-header">Today's Return</h3>
           <div className={classnames('value', todaysTextColor)}>${parseCurrency(todaysProfit)}</div>
         </div>
         <br />

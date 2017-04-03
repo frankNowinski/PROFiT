@@ -18,6 +18,9 @@
 .nav-link {
   color: $white;
   &:hover {
-    color: gray;
+    color: lightgray;
+  }
+  &:focus {
+    color: lightgray;
   }
 }

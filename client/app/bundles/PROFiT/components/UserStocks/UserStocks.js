@@ -27,7 +27,7 @@ export default function UserStocks(props) {
             <div className="col-6 text-left">Prev. Close</div>
           </div>
         </div>
-        <div className="col-2 days-profit-header">Days Profit</div>
+        <div className="col-2 days-profit-header">Day's Profit</div>
         <div className="col-2">Total Profit</div>
       </div>
       <div id="accordion" role="tablist" aria-multiselectable="true">

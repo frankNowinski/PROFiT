@@ -5,9 +5,10 @@
 }
 
 .add-stock-form-btn {
-  background-color: $dark-blue;
+  background-color: #16619c;
   &:hover {
     cursor: pointer;
+    background-color: rgba(2, 90, 165, .85);
   }
   &:focus {
     border-color: $teal;

@@ -4,7 +4,7 @@ import moment from 'moment';
 import classnames from 'classnames';
 import parseCurrency from '../../utils/parseCurrency';
 import calculateTotalReturn from '../../utils/calculateReturns';
-import StockDataContainer from './StockData/Container';
+import StockDataContainer from './stockData/Container';
 
 export default class StockItem extends React.Component {
   getTodaysProfit = (lastTradedPrice, PreviousClose) => {

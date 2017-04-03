@@ -1,7 +1,7 @@
 import React from 'react';
-import SharesInput from '../Inputs/SharesInput';
-import PurchasedDateCalendar from '../Inputs/PurchasedDateCalendar';
-import AlertMessage from '../Forms/AlertMessage';
+import SharesInput from '../inputs/SharesInput';
+import PurchasedDateCalendar from '../inputs/PurchasedDateCalendar';
+import AlertMessage from '../forms/AlertMessage';
 import futureDate from '../../utils/validations/datePurchasedValidator';
 import moment from 'moment';
 

@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import * as stockActions from '../actions/stockActions';
 
-import AddStockForm from '../components/Forms/AddStockForm';
+import AddStockForm from '../components/forms/AddStockForm';
 import TotalProfit from '../components/TotalProfit';
-import UserStocks from '../components/UserStocks/UserStocks';
+import UserStocks from '../components/userStocks/UserStocks';
 
 function select(state) {
   return { $$stocksStore: state.$$stocksStore };
