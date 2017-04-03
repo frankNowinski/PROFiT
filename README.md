@@ -6,6 +6,8 @@ A Ruby on Rails and React application that allows a user to monitor their daily 
 
 In the root directory, execute `foreman start -f Procfile.dev` in the terminal. 
 
+You can visit this website at https://profit-app.herokuapp.com/.
+
 ## Contributing
 
 1. Fork the repo on GitHub
