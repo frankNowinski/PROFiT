@@ -5,6 +5,10 @@ require 'warden'
 include Warden::Test::Helpers
 
 def stubbed_purchased_date
+  Time.local(2017, 3, 9)
+end
+
+def stubbed_purchased_date_string
   Time.local(2017, 3, 9).to_s
 end
 

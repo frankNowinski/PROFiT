@@ -59,7 +59,7 @@ RSpec.describe Api::V1::StocksController, type: :controller do
     let(:stock_params) { { 'ticker': 'AAPL' } }
 
     before do
-      allow(StockFetcher).to receive_message_chain(:new, :fetch_stock)
+      allow(StockFetcher).to receive_message_chain(:new, :fetch_stock_data)
     end
 
     it 'responds successfully with the stock object' do

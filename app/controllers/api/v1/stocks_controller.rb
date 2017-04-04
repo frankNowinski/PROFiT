@@ -32,7 +32,7 @@ class Api::V1::StocksController < ApplicationController
 
   def stock_lookup
     @stock_data_kv = STOCK_DATA
-    @stock         = StockFetcher.new(stock_ticker_params).fetch_stock
+    @stock         = StockFetcher.new(stock_ticker_params).fetch_stock_data
   end
 
   private

@@ -3,3 +3,5 @@
     * declare as HOLD
     - if approaching 200 day moving average 
       * declare as sell
+
+

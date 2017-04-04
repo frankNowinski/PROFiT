@@ -19,7 +19,7 @@ class StockValidator < ActiveModel::Validator
     if stock_data.empty?
       false
     else
-      @stock.purchased_price = stock_data.first['Close']
+      @stock.purchased_price = stock_data['Close']
       true
     end
   end
@@ -33,6 +33,6 @@ class StockValidator < ActiveModel::Validator
   end
 
   def fetch_stock
-    StockFetcher.new(@stock.ticker, @stock.purchased_date).fetch_stock
+    StockFetcher.new(@stock.ticker, @stock.purchased_date).fetch_historical_stock_data
   end
 end

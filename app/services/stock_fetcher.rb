@@ -10,15 +10,19 @@ class StockFetcher
     end
   end
 
-  def fetch_stock
+  def fetch_stock_data
     stock_data_from_yahoo_api
+  end
+
+  def fetch_historical_stock_data
+    historical_stock_data_from_yahoo_api
   end
 
   private
 
   def stock_data_from_yahoo_api
-    stock_data = JSON.parse(yahoo_api_response)['query']['results']
-    stock_data.nil? ? {} : stock_data['quote']
+    stock_data = JSON.parse(yahoo_api_response)['query']['results']['quote']
+    stock_data['StockExchange'].nil? ? {} : stock_data
   end
 
   def yahoo_api_response
@@ -30,6 +34,11 @@ class StockFetcher
     "yahoo.finance.quotes%20where%20symbol%20in%20(%22#{@ticker}%22)&"\
     "format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&"\
     "callback="
+  end
+
+  def historical_stock_data_from_yahoo_api
+    stock_data = JSON.parse(yahoo_api_response)['query']['results']
+    stock_data.nil? ? {} : stock_data['quote'].first
   end
 
   def yahoo_api_url_with_dates
