@@ -1,8 +1,9 @@
-1. 
-- If the user is signed in
-  Redirect user to Portfolio homepage when 'PROFiT' navbar brand is clicked.
-- else 
-  Redirect user to the Facebook login page. 
-
-2. Add validation to Lookup Stock feature
+1. Owned stock
+  - if 50 day moving average is above 200 day moving average
+    * declare as HOLD
+    - if approaching 200 day moving average 
+      * declare as sell
+  - if 50 day moving avg is belove 200 day
+    - if 50 day moving avg is close to 200 moving average
+          
 
