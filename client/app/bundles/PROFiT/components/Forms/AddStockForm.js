@@ -13,6 +13,7 @@ export default class AddStockForm extends React.Component {
       shares: '',
       purchasedDate: moment(),
       notifyTrendChange: false,
+      notifyEmail: this.props.user.get('email'),
       invalid: false,
       submitted: false,
       message: ''
@@ -47,7 +48,6 @@ export default class AddStockForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { ticker, shares, purchasedDate } = this.state;
     const errorMsg = 'Unable to add stock to your portfolio.';
 
     if (this.validForm()) {
@@ -65,6 +65,7 @@ export default class AddStockForm extends React.Component {
               shares: '',
               purchasedDate: moment(),
               notifyTrendChange: false,
+              notifyEmail: '',
               invalid: false,
               submitted: true,
               message: message
@@ -130,7 +131,9 @@ export default class AddStockForm extends React.Component {
                     setInvalidState={this.setInvalidState} />
 
                   <NotifyTrendChangeCheckbox
+                    notifyEmail={this.state.notifyEmail}
                     notifyTrendChange={notifyTrendChange}
+                    handleChange={this.handleChange}
                     handleCheckboxClick={this.handleCheckboxClick} />
 
                   <div className="modal-footer">
@@ -148,6 +151,7 @@ export default class AddStockForm extends React.Component {
 }
 
 AddStockForm.propTypes = {
+  user: React.PropTypes.object.isRequired,
   stocks: React.PropTypes.object.isRequired,
   addStock: React.PropTypes.func.isRequired
 }

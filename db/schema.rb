@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404065658) do
+ActiveRecord::Schema.define(version: 20170405074955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,15 +34,17 @@ ActiveRecord::Schema.define(version: 20170404065658) do
 
   create_table "stocks", force: :cascade do |t|
     t.string   "ticker"
-    t.decimal  "shares",                             null: false
+    t.decimal  "shares",                              null: false
     t.integer  "user_id"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.date     "purchased_date"
     t.string   "purchased_price"
-    t.float    "days_profit",        default: 0.0
-    t.boolean  "trending_upward",    default: false
+    t.float    "days_profit",         default: 0.0
+    t.boolean  "trending_upward",     default: false
     t.date     "last_trending_date"
+    t.boolean  "notify_trend_change", default: false
+    t.string   "notify_email"
     t.index ["user_id"], name: "index_stocks_on_user_id", using: :btree
   end
 

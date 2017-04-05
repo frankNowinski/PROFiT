@@ -2,10 +2,10 @@ import axios from 'axios';
 import actionTypes from '../constants/stockConstants';
 
 export function addStock(stock) {
-  stock.purchased_date = stock.purchasedDate;
+  let formattedStock = formatKeys(stock);
 
   return dispatch => {
-    return axios.post('/api/v1/stocks', stock)
+    return axios.post('/api/v1/stocks', formattedStock)
     .then(response => {
       if (valid(response)) {
         dispatch({ type: actionTypes.ADD_STOCK, payload: response })
@@ -44,6 +44,14 @@ export function removeStock(stockId) {
       console.log(error);
     });
   }
+}
+
+function formatKeys(stock) {
+  stock.purchased_date      = stock.purchasedDate;
+  stock.notify_email        = stock.notifyEmail;
+  stock.notify_trend_change = stock.notifyTrendChange;
+
+  return stock;
 }
 
 function valid(response) {
