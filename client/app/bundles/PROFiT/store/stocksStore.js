@@ -9,10 +9,8 @@ export default props => {
   const { $$stocksState, $$userState } = initialStates;
 
   const initialState = {
-    $$stocksStore: $$stocksState.merge({
-      stocks,
-      user
-    })
+    $$stocksStore: $$stocksState.merge({ stocks }),
+    $$userStore: $$userState.merge({ user })
   };
 
   const reducer = combineReducers(reducers);

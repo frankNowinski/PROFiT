@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 export default function NotifyTrendChangeCheckbox(props) {
-  const { notifyEmail, notifyTrendChange, handleChange, handleCheckboxClick } = props;
+  const { notifyEmail, notifyTrendChange, handleChange, handleCheckboxClick, updateEmail } = props;
   const checked = notifyTrendChange === true ? true : false;
 
   const renderEmailInput = () => {
@@ -21,6 +21,15 @@ export default function NotifyTrendChangeCheckbox(props) {
         </div>
       </div>
     )
+  }
+
+  const updateUserEmail = (user) => {
+    const userId         = user.get('id');
+    const persistedEmail = user.get('email');
+
+    if (persistedEmail != notifyEmail) {
+      updateEmail(userId, { email: notifyEmail });
+    }
   }
 
   return (
@@ -42,14 +51,18 @@ export default function NotifyTrendChangeCheckbox(props) {
         </span>
       </div>
 
-      { notifyTrendChange ? renderEmailInput() : ''}
+      { notifyTrendChange ? renderEmailInput() : '' }
+      { props.submitted  ? updateUserEmail(props.user) : '' }
     </div>
   )
 }
 
 NotifyTrendChangeCheckbox.propTypes = {
+  user: React.PropTypes.object.isRequired,
+  updateEmail: React.PropTypes.func.isRequired,
   notifyEmail: React.PropTypes.string.isRequired,
   notifyTrendChange: React.PropTypes.bool.isRequired,
+  submitted: React.PropTypes.bool.isRequired,
   handleChange: React.PropTypes.func.isRequired,
   handleCheckboxClick: React.PropTypes.func.isRequired
 }

@@ -65,7 +65,6 @@ export default class AddStockForm extends React.Component {
               shares: '',
               purchasedDate: moment(),
               notifyTrendChange: false,
-              notifyEmail: '',
               invalid: false,
               submitted: true,
               message: message
@@ -90,12 +89,12 @@ export default class AddStockForm extends React.Component {
   }
 
   render() {
-    const { ticker, shares, purchasedDate, notifyTrendChange } = this.state;
+    const { ticker, shares, purchasedDate, notifyEmail, notifyTrendChange, message, submitted, invalid } = this.state;
 
     return (
       <div className="text-center">
-        { this.state.submitted ?
-          <AlertMessage invalid={this.state.invalid} message={this.state.message}/>
+        { submitted ?
+          <AlertMessage invalid={invalid} message={message}/>
           : null
         }
 
@@ -131,14 +130,17 @@ export default class AddStockForm extends React.Component {
                     setInvalidState={this.setInvalidState} />
 
                   <NotifyTrendChangeCheckbox
-                    notifyEmail={this.state.notifyEmail}
+                    user={this.props.user}
+                    updateEmail={this.props.updateEmail}
+                    submitted={submitted}
+                    notifyEmail={notifyEmail}
                     notifyTrendChange={notifyTrendChange}
                     handleChange={this.handleChange}
                     handleCheckboxClick={this.handleCheckboxClick} />
 
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" className="btn btn-outline-primary" disabled={this.state.invalid} onClick={this.handleSubmit}>Add Stock</button>
+                    <button type="submit" className="btn btn-outline-primary" disabled={invalid} onClick={this.handleSubmit}>Add Stock</button>
                   </div>
                 </form>
               </div>
@@ -153,6 +155,7 @@ export default class AddStockForm extends React.Component {
 AddStockForm.propTypes = {
   user: React.PropTypes.object.isRequired,
   stocks: React.PropTypes.object.isRequired,
-  addStock: React.PropTypes.func.isRequired
+  addStock: React.PropTypes.func.isRequired,
+  updateEmail: React.PropTypes.func.isRequired
 }
 
