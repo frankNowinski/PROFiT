@@ -7,12 +7,12 @@ export default class NotifyTrendChangeCheckbox extends React.Component {
     const checked = notifyTrendChange === true ? true : false;
 
     return (
-      <div className="text-center">
-        <div>
-          <p>Receive an email alert when this stock changes trends:</p>
-        </div>
+      <div className="row checkbox notify-trend-checkbox">
+        <label className="col-10 text-right">
+          Receive an email when this stock changes trends:
+        </label>
 
-        <div className="text-center">
+        <span className="col-2 text-left">
           <input
             name="notifyTrendChange"
             type="checkbox"
@@ -21,7 +21,7 @@ export default class NotifyTrendChangeCheckbox extends React.Component {
             onClick={handleCheckboxClick}
             checked={checked}
           />
-        </div> <br />
+        </span>
       </div>
     )
   }

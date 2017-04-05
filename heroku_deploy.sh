@@ -1,8 +1,7 @@
 #!/bin/bash
 
+bundle install
 rails assets:precompile
 
-heroku run rails db:migrate
-heroku restart
+git push heroku master && heroku run rake db:migrate && heroku restart
 
-git push heroku master
