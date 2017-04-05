@@ -3,6 +3,7 @@ import AlertMessage from './AlertMessage';
 import StockInput from '../inputs/StockInput';
 import SharesInput from '../inputs/SharesInput';
 import PurchasedDateCalendar from '../inputs/PurchasedDateCalendar';
+import NotifyTrendChangeCheckbox from '../inputs/NotifyTrendChangeCheckbox';
 import futureDate from '../../utils/validations/datePurchasedValidator';
 import moment from 'moment';
 
@@ -11,6 +12,7 @@ export default class AddStockForm extends React.Component {
       ticker: '',
       shares: '',
       purchasedDate: moment(),
+      notifyTrendChange: false,
       invalid: false,
       submitted: false,
       message: ''
@@ -38,6 +40,11 @@ export default class AddStockForm extends React.Component {
     this.setState({ purchasedDate: date });
   }
 
+  handleCheckboxClick = (e) =>{
+    let checked = e.target.value === 'false' ? true : false;
+    this.setState({ notifyTrendChange: checked });
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     const { ticker, shares, purchasedDate } = this.state;
@@ -57,6 +64,7 @@ export default class AddStockForm extends React.Component {
             this.setState({
               shares: '',
               purchasedDate: moment(),
+              notifyTrendChange: false,
               invalid: false,
               submitted: true,
               message: message
@@ -81,6 +89,8 @@ export default class AddStockForm extends React.Component {
   }
 
   render() {
+    const { ticker, shares, purchasedDate, notifyTrendChange } = this.state;
+
     return (
       <div className="text-center">
         { this.state.submitted ?
@@ -104,20 +114,24 @@ export default class AddStockForm extends React.Component {
               <div className="modal-body text-center">
                 <form onSubmit={this.handleSubmit}>
                   <StockInput
-                    ticker={this.state.ticker}
+                    ticker={ticker}
                     alreadyOwned={this.alreadyOwned}
                     handleChange={this.handleChange}
                     setInvalidState={this.setInvalidState} />
 
                   <SharesInput
-                    shares={this.state.shares}
+                    shares={shares}
                     handleChange={this.handleChange}
                     setInvalidState={this.setInvalidState} />
 
                   <PurchasedDateCalendar
-                    purchasedDate={this.state.purchasedDate}
+                    purchasedDate={purchasedDate}
                     handleCalendarChange={this.handleCalendarChange}
                     setInvalidState={this.setInvalidState} />
+
+                  <NotifyTrendChangeCheckbox
+                    notifyTrendChange={notifyTrendChange}
+                    handleCheckboxClick={this.handleCheckboxClick} />
 
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>

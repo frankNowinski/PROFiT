@@ -17,11 +17,12 @@ const PortfolioPage = (props) => {
   const actions = bindActionCreators(stockActions, dispatch);
   const { addStock, editStock, removeStock } = actions;
   const stocks = $$stocksStore.get('stocks');
+  const user   = $$stocksStore.get('user');
 
   return (
     <div className="row">
       <div className="col-3">
-        <AddStockForm {...{ stocks, addStock }} />
+        <AddStockForm {...{ stocks, user, addStock }} />
         <TotalProfit {...{ stocks }} />
       </div>
 
