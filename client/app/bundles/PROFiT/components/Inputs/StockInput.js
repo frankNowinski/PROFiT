@@ -2,82 +2,70 @@ import React from 'react';
 import classnames from 'classnames';
 import stockExists from '../../utils/validations/stockValidator';
 
-export default class StockInput extends React.Component {
-  state = { errorMsg: '' }
+export default function StockInput(props) {
+  const { ticker, alreadyOwned, setInvalidState, setErrorsState, errors, handleChange } = props;
 
-  handleFocus = () => {
-    this.setState({ errorMsg: '' });
-    this.props.setInvalidState(false);
-  }
-
-  validateStockExists = (e) => {
-    let invalid, errorMsg = this.state.errorMsg;
-    const { ticker, alreadyOwned, setInvalidState } = this.props;
-
-    const setErrors = (errorMsg, invalid) => {
-      this.setState({ errorMsg });
-      this.props.setInvalidState(invalid);
-    }
-
-    if (alreadyOwned(ticker)) {
-      invalid = true;
-      errorMsg = 'You already own this stock.';
-
-      setErrors(errorMsg, invalid);
-    } else if(ticker != '') {
-      stockExists(ticker).then(response => {
-        if (response.data.query.results.quote.StockExchange !== null) {
-          errorMsg = '';
-          invalid = false;
-        } else {
-          errorMsg = `${ticker.toUpperCase()} is an invalid stock.`
-          invalid = true;
-        }
-
-        setErrors(errorMsg, invalid);
-      });
-    } else {
-      invalid = true;
-      errorMsg = 'You must enter a stock ticker.';
-
-      setErrors(errorMsg, invalid);
-    }
-
-    this.setState({ errorMsg });
+  const setErrors = (errors, invalid) => {
+    setErrorsState(errors);
     setInvalidState(invalid);
   }
 
-  render() {
-    const errorMsg = this.state.errorMsg;
-    const { ticker, handleChange } = this.props;
+  const validateStockExists = (e) => {
+    let invalid, errors = {};
 
-    return (
-      <div className={classnames("form-group", "row", { 'has-danger': errorMsg != '' })}>
-        <label htmlFor="input-ticker" className="col-sm-4 col-form-label">Stock Ticker: </label>
+    if (alreadyOwned(ticker)) {
+      invalid = true;
+      errors.ticker = 'You already own this stock.';
 
-        <div className="col-7">
-          <input
-            name="ticker"
-            className="form-control form-control-danger"
-            id="input-ticker"
-            type="text"
-            value={ticker}
-            onChange={handleChange}
-            onFocus={this.handleFocus}
-            onBlur={this.validateStockExists}
-            placeholder="AAPL"
-          />
+      setErrors(errors, invalid);
+    } else if (ticker != '') {
+      stockExists(ticker).then(response => {
+        if (response.data.query.results.quote.StockExchange !== null) {
+          errors.ticker = '';
+          invalid = false;
+        } else {
+          errors.ticker = `${ticker.toUpperCase()} is an invalid stock.`
+          invalid = true;
+        }
 
-          <div className="form-control-feedback">{errorMsg}</div>
-        </div>
-      </div>
-    )
+        setErrors(errors, invalid);
+      });
+    } else {
+      invalid = true;
+      errors.ticker = 'You must enter a stock ticker.';
+
+      setErrors(errors, invalid);
+    }
   }
+
+  return (
+    <div className={classnames("form-group", "row", { 'has-danger': errors.ticker })}>
+      <label htmlFor="input-ticker" className="col-sm-4 col-form-label">Stock Ticker: </label>
+
+      <div className="col-7">
+        <input
+          name="ticker"
+          className="form-control form-control-danger"
+          id="input-ticker"
+          type="text"
+          value={ticker}
+          onChange={handleChange}
+          onBlur={validateStockExists}
+          placeholder="AAPL"
+        />
+
+        {errors.ticker && <div className="form-control-feedback">{errors.ticker}</div>}
+      </div>
+    </div>
+  )
 }
 
 StockInput.propTypes = {
   ticker: React.PropTypes.string.isRequired,
+  errors: React.PropTypes.object.isRequired,
   handleChange: React.PropTypes.func.isRequired,
+  alreadyOwned: React.PropTypes.func.isRequired,
+  setErrorsState: React.PropTypes.func.isRequired,
   setInvalidState: React.PropTypes.func.isRequired
 }
 

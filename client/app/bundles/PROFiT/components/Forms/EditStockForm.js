@@ -12,7 +12,8 @@ export default class EditStock extends React.Component {
     purchasedDate: moment(this.props.stock.get('purchased_date'), 'YYYY-MM-DD'),
     invalid: false,
     submitted: false,
-    message: ''
+    message: '',
+    errors: {}
   }
 
   getPurchasedDate = () => {
@@ -21,6 +22,11 @@ export default class EditStock extends React.Component {
 
   setInvalidState = (invalid) => {
     this.setState({ invalid });
+  }
+
+  setErrorsState = (newErrors) => {
+    let errors = Object.assign({}, this.state.errors, newErrors);
+    this.setState({ errors });
   }
 
   closePrompt = () => {
@@ -65,7 +71,7 @@ export default class EditStock extends React.Component {
 
   render() {
     const ticker = this.props.stock.get('ticker').toUpperCase();
-    const { shares, purchasedDate, message } = this.state;
+    const { shares, purchasedDate, message, errors } = this.state;
 
     return (
       <div>
@@ -81,12 +87,16 @@ export default class EditStock extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <SharesInput
               shares={shares}
+              errors={errors}
               handleChange={this.handleChange}
+              setErrorsState={this.setErrorsState}
               setInvalidState={this.setInvalidState} />
 
             <PurchasedDateCalendar
+              errors={errors}
               purchasedDate={purchasedDate}
               handleCalendarChange={this.handleCalendarChange}
+              setErrorsState={this.setErrorsState}
               setInvalidState={this.setInvalidState} />
 
             <hr />

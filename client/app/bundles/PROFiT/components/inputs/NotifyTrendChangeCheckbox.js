@@ -1,33 +1,17 @@
 import React from 'react';
 import classnames from 'classnames';
+import EmailInput from './EmailInput';
+import validateEmail from '../../utils/validations/validateEmail';
 
 export default function NotifyTrendChangeCheckbox(props) {
-  const { notifyEmail, notifyTrendChange, handleChange, handleCheckboxClick, updateEmail } = props;
+  const { notifyEmail, notifyTrendChange, handleChange, handleCheckboxClick, updateEmail, errors } = props;
   const checked = notifyTrendChange === true ? true : false;
-
-  const renderEmailInput = () => {
-    return (
-      <div className="form-group row">
-        <label className="col-5 col-form-label">Email to send alert: </label>
-
-        <div className="col-7">
-          <input
-            name="notifyEmail"
-            type="email"
-            className="form-control"
-            id="user-email"
-            value={notifyEmail}
-            onChange={handleChange} />
-        </div>
-      </div>
-    )
-  }
 
   const updateUserEmail = (user) => {
     const userId         = user.get('id');
     const persistedEmail = user.get('email');
 
-    if (persistedEmail != notifyEmail) {
+    if ((persistedEmail !== notifyEmail)) {
       updateEmail(userId, { email: notifyEmail });
     }
   }
@@ -51,7 +35,14 @@ export default function NotifyTrendChangeCheckbox(props) {
         </span>
       </div>
 
-      { notifyTrendChange ? renderEmailInput() : '' }
+      { notifyTrendChange ?
+        <EmailInput
+          notifyEmail={notifyEmail}
+          notifyTrendChange={notifyTrendChange}
+          handleChange={handleChange}
+          errors={errors} />
+        : ''
+      }
       { props.submitted  ? updateUserEmail(props.user) : '' }
     </div>
   )
@@ -59,6 +50,7 @@ export default function NotifyTrendChangeCheckbox(props) {
 
 NotifyTrendChangeCheckbox.propTypes = {
   user: React.PropTypes.object.isRequired,
+  errors: React.PropTypes.object.isRequired,
   updateEmail: React.PropTypes.func.isRequired,
   notifyEmail: React.PropTypes.string.isRequired,
   notifyTrendChange: React.PropTypes.bool.isRequired,

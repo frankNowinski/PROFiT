@@ -1,60 +1,51 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default class SharesInput extends React.Component {
-  state = { errorMsg: '' }
+export default function SharesInput(props) {
+  const { shares, errors, handleChange, setInvalidState, setErrorsState } = props;
 
-  handleFocus = () => {
-    this.setState({ errorMsg: '' });
-    this.props.setInvalidState(false);
-  }
+  const validateShares = (e) => {
+    const inputtedShares = parseInt(shares);
+    let invalid, errors = {};
 
-  validateShares = (e) => {
-    const shares = parseInt(this.props.shares);
-    let invalid, errorMsg = this.state.errorMsg;
-
-    if (isNaN(shares) || shares <= 0) {
-      errorMsg = 'You must enter a positive number.';
+    if (isNaN(inputtedShares) || inputtedShares <= 0) {
+      errors.shares = 'You must enter a positive number.';
       invalid = true;
     } else {
-      errorMsg = '';
+      errors.shares = '';
       invalid = false;
     }
 
-    this.setState({ errorMsg });
-    this.props.setInvalidState(invalid);
+    setInvalidState(invalid);
+    setErrorsState(errors);
   }
 
-  render() {
-    const errorMsg = this.state.errorMsg;
-    const { shares, handleChange } = this.props;
+  return (
+    <div className={classnames("form-group", "row", { 'has-danger': errors.shares })}>
+      <label htmlFor="input-shares" className="col-sm-4 col-form-label">Shares: </label>
 
-    return (
-      <div className={classnames("form-group", "row", { 'has-danger': errorMsg != '' })}>
-        <label htmlFor="input-shares" className="col-sm-4 col-form-label">Shares: </label>
+      <div className="col-7">
+        <input
+          name="shares"
+          type="number"
+          className="form-control"
+          id="input-shares"
+          value={shares}
+          onChange={handleChange}
+          onBlur={validateShares}
+          placeholder="Shares"
+        />
 
-        <div className="col-7">
-          <input
-            name="shares"
-            type="number"
-            className="form-control"
-            id="input-shares"
-            value={shares}
-            onChange={handleChange}
-            onFocus={this.handleFocus}
-            onBlur={this.validateShares}
-            placeholder="Shares"
-          />
-
-          <div className="form-control-feedback">{errorMsg}</div>
-        </div>
+        {errors.shares && <div className="form-control-feedback">{errors.shares}</div>}
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 SharesInput.propTypes = {
   shares: React.PropTypes.string.isRequired,
+  errors: React.PropTypes.object.isRequired,
   handleChange: React.PropTypes.func.isRequired,
-  setInvalidState: React.PropTypes.func.isRequired
+  setInvalidState: React.PropTypes.func.isRequired,
+  setErrorsState: React.PropTypes.func.isRequired
 }
