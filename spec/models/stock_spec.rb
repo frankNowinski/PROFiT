@@ -19,6 +19,7 @@ RSpec.describe Stock, type: :model do
 
     before do
       allow(stock).to receive(:purchased_date=).with(purchased_date)
+      allow(User).to receive(:find).and_return(user)
     end
 
     it { should validate_presence_of(:ticker) }
@@ -120,20 +121,59 @@ RSpec.describe Stock, type: :model do
       end
     end
 
-    context 'when today is not after the last trending date' do
+    context 'when the last trending date was updated today' do
       let(:date) { Date.today }
 
+      before do
+        allow(StockFetcher).to receive_message_chain(:new, :fetch_stock_data, :with_indifferent_access)
+        allow(stock).to receive(:update_days_profit)
+        stock.get_stock_data
+      end
+
       it 'should not update the trend' do
-        expect(stock.get_stock_data).not_to receive(:update)
+        expect(stock).not_to receive(:update_trend)
       end
     end
 
-    context 'when today is not after the last trending date' do
-      before { stock.get_stock_data }
+    context 'when the last trending date was prior to today' do
+      let(:date) { Date.yesterday }
 
-      it 'should update the trend' do
-        expect(stock.trending_upward).to eq true
-        expect(stock.last_trending_date).to eq(Date.today)
+      before do
+        allow(StockFetcher).to receive_message_chain(:new, :fetch_stock_data, :with_indifferent_access)
+        allow(stock).to receive(:update_days_profit)
+      end
+
+      describe 'when updating the model' do
+        before do
+          allow(stock).to receive(:trending_upward?).and_return true
+          stock.get_stock_data
+        end
+
+        it 'should update the last trend date' do
+          expect(stock.last_trending_date).to eq Date.today
+          expect(stock.trending_upward).to eq true
+        end
+      end
+
+      describe 'when the stock does not change to a downward trend' do
+        before do
+          allow(stock).to receive(:trending_downward?).and_return false
+        end
+
+        it 'should not send an alert to the user' do
+          expect(stock).not_to receive(:downward_trend_change_alert)
+        end
+      end
+
+      describe 'when the stock does change to a downward trend' do
+        before do
+          allow(stock).to receive(:trending_upward?).and_return false
+          stock.get_stock_data
+        end
+
+        # it 'should not send an alert to the user' do
+          # expect(UserMailer).to receive(:welcome_email).with(user)
+        # end
       end
     end
   end

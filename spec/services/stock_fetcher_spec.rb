@@ -57,7 +57,7 @@ RSpec.describe StockFetcher, type: :services do
       it 'should return stock data' do
         VCR.use_cassette('stock') do
           expect(stock_fetcher.fetch_stock_data['Name']).to eq 'Apple Inc.'
-          expect(stock_fetcher.fetch_stock_data['Ask']).to eq '144.60'
+          expect(stock_fetcher.fetch_stock_data['Ask']).to eq '143.40'
         end
       end
     end

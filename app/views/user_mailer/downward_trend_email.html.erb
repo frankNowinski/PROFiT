@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello, <%= @user.name %></h1>
+    <p class="lead">
+      We wanted to inform you that the 50 day moving average for <%= @stock.ticker.upcase %>
+      dipped below the 200 day moving average.
+    </p>
+
+    <p>View more <%= link_to 'Your portfolio', portfolio_url %></p>
+  </body>
+</html>
+

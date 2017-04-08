@@ -20,7 +20,7 @@ export default function NotifyTrendChangeCheckbox(props) {
     <div>
       <div className="row checkbox notify-trend-checkbox">
         <label className="col-10 text-right">
-          Receive an email when this stock changes trends:
+          Receive an email when this stock trends downward
         </label>
 
         <span className="col-2 text-left">

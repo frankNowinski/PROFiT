@@ -12,7 +12,7 @@ class Stock < ApplicationRecord
   def get_stock_data
     fetch_stock_data
     update_days_profit
-    update_trend if updatable?
+    update_trend if prior_last_trend_date?
 
     self.attributes.merge(stock_data: @stock_data)
   end
@@ -24,19 +24,24 @@ class Stock < ApplicationRecord
   end
 
   def update_days_profit
-    current_price  = @stock_data[:LastTradePriceOnly]
-    previous_close = @stock_data[:PreviousClose]
-    days_profit    = ((current_price.to_f - previous_close.to_f) * self.shares).round(2)
-
+    days_profit = ((current_price - previous_close) * self.shares).round(2)
     self.update(days_profit: days_profit)
   end
 
-  def updatable?
+  def current_price
+    @stock_data[:LastTradePriceOnly].to_f
+  end
+
+  def previous_close
+    @stock_data[:PreviousClose].to_f
+  end
+
+  def prior_last_trend_date?
     last_trending_date.nil? || Date.today > last_trending_date
   end
 
   def update_trend
-    send_trending_change_alert if trending_upward != trending_upward?
+    downward_trend_change_email if trending_downward?
     self.update(last_trending_date: Date.today, trending_upward: trending_upward?)
   end
 
@@ -44,8 +49,16 @@ class Stock < ApplicationRecord
     @stock_data[:FiftydayMovingAverage].to_f > @stock_data[:TwoHundreddayMovingAverage].to_f
   end
 
-  def send_trending_change_alert
-    puts '*' * 30
-    puts 'ALERT THE USER'
+  def trending_downward?
+    true
+    # !trending_upward?
+  end
+
+  def downward_trend_change_email
+    UserMailer.downward_trend_email(user, self).deliver_later
+  end
+
+  def user
+    @user = User.find(user_id)
   end
 end

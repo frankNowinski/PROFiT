@@ -8,7 +8,7 @@ export default function EmailInput(props) {
 
   return (
     <div className={classnames("form-group", "row", { 'has-danger': errors.notifyEmail })}>
-      <label className="col-5 col-form-label">Email to send alert: </label>
+      <label className="col-4 col-form-label">Email address:</label>
 
       <div className="col-7">
         <input

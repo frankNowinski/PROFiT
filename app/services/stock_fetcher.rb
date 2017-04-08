@@ -21,7 +21,7 @@ class StockFetcher
   private
 
   def stock_data_from_yahoo_api
-    stock_data = JSON.parse(yahoo_api_response)['query']['results']['quote']
+    stock_data = JSON.parse(yahoo_api_response)['query']['results']['quote'].first
     stock_data['StockExchange'].nil? ? {} : stock_data
   end
 
@@ -31,7 +31,7 @@ class StockFetcher
 
   def yahoo_api_url
     "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20"\
-    "yahoo.finance.quotes%20where%20symbol%20in%20(%22#{@ticker}%22)&"\
+    "yahoo.finance.quotes%20where%20symbol%20in%20(%22#{[@ticker, @ticker].join('+')}%22)&"\
     "format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&"\
     "callback="
   end
