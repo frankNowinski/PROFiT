@@ -88,9 +88,10 @@ RSpec.describe Stock, type: :model do
   end
 
   describe '#get_stock_data' do
-    let(:date)          { stubbed_purchased_date }
-    let(:stock)         { create(:stock, user: user, last_trending_date: date) }
-    let(:closing_price) { { 'Close': 100 } }
+    let(:date)             { stubbed_purchased_date }
+    let(:trending_upward?) { true }
+    let(:stock)            { create(:stock, user: user, trending_upward: trending_upward?, last_trending_date: date) }
+    let(:closing_price)    { { 'Close': 100 } }
     let(:stock_data) do
       {
         'symbol': 'AAPL',
@@ -145,7 +146,7 @@ RSpec.describe Stock, type: :model do
 
       describe 'when updating the model' do
         before do
-          allow(stock).to receive(:trending_upward?).and_return true
+          allow(stock).to receive(:currently_trending_upward?).and_return true
           stock.get_stock_data
         end
 
@@ -157,23 +158,27 @@ RSpec.describe Stock, type: :model do
 
       describe 'when the stock does not change to a downward trend' do
         before do
-          allow(stock).to receive(:trending_downward?).and_return false
+          allow(stock).to receive(:currently_trending_downward?).and_return false
         end
 
         it 'should not send an alert to the user' do
-          expect(stock).not_to receive(:downward_trend_change_alert)
+          expect(stock).not_to receive(:downward_trend_change_email)
         end
       end
 
-      describe 'when the stock does change to a downward trend' do
+      describe 'when the stock changes to a downward trend' do
         before do
+          allow(StockFetcher).to receive_message_chain(:new, :fetch_stock_data, :with_indifferent_access)
+            .and_return(stock_data)
+          allow(stock).to receive(:notify_trend_change).and_return true
           allow(stock).to receive(:trending_upward?).and_return false
+          allow(user_mailer).to receive(:downward_trend_email)
           stock.get_stock_data
         end
 
-        # it 'should not send an alert to the user' do
-          # expect(UserMailer).to receive(:welcome_email).with(user)
-        # end
+        it 'should not send an alert to the user' do
+          # expect(user_mailer).to have_received(:downward_trend_email).with(user, stock)
+        end
       end
     end
   end

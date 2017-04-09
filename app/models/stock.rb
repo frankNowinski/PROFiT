@@ -41,21 +41,25 @@ class Stock < ApplicationRecord
   end
 
   def update_trend
-    downward_trend_change_email if trending_downward?
-    self.update(last_trending_date: Date.today, trending_upward: trending_upward?)
+    downward_trend_change_email if change_from_upward_to_downward_trend?
+    self.update(last_trending_date: Date.today, trending_upward: currently_trending_upward?)
   end
 
-  def trending_upward?
-    @stock_data[:FiftydayMovingAverage].to_f > @stock_data[:TwoHundreddayMovingAverage].to_f
+  def change_from_upward_to_downward_trend?
+    notify_trend_change && trending_upward && currently_trending_downward?
   end
 
-  def trending_downward?
-    true
-    # !trending_upward?
+  def currently_trending_upward?
+    @trending_upward ||=
+      @stock_data[:FiftydayMovingAverage].to_f > @stock_data[:TwoHundreddayMovingAverage].to_f
+  end
+
+  def currently_trending_downward?
+    !trending_upward? && last_trending_date < Date.today
   end
 
   def downward_trend_change_email
-    UserMailer.downward_trend_email(user, self).deliver_later
+    UserMailer.downward_trend_email(user, self).deliver!
   end
 
   def user
