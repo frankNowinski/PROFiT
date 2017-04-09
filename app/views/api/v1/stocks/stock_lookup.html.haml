@@ -1,7 +1,7 @@
-- if @stock['Name'].present?
+- if @stock.present?
   = render 'stock_table'
 - else
   .container.text-center
     .alert.alert-danger
       %p.lead
-        = "#{@stock['symbol'].upcase} was not found"
+        = "Stock was not found"
