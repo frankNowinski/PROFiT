@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function AlertMessage(props) {
   const message = props.message;
@@ -31,6 +32,6 @@ export default function AlertMessage(props) {
 }
 
 AlertMessage.propTypes = {
-  invalid: React.PropTypes.bool.isRequired,
-  message: React.PropTypes.string.isRequired
+  invalid: PropTypes.bool.isRequired,
+  message: PropTypes.string.isRequired
 }

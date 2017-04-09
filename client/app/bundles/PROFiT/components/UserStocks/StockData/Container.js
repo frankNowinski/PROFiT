@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import EditStockForm from '../../forms/EditStockForm';
 import RemoveStock from '../../forms/RemoveStock';
 import classnames from 'classnames';
@@ -118,7 +119,7 @@ export default class StockDataContainer extends React.Component {
 }
 
 StockDataContainer.propTypes = {
-  stock: React.PropTypes.object.isRequired,
-  editStock: React.PropTypes.func.isRequired,
-  removeStock: React.PropTypes.func.isRequired
+  stock: PropTypes.object.isRequired,
+  editStock: PropTypes.func.isRequired,
+  removeStock: PropTypes.func.isRequired
 }

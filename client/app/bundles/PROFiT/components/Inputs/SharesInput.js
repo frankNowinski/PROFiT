@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 export default function SharesInput(props) {
@@ -43,9 +44,9 @@ export default function SharesInput(props) {
 }
 
 SharesInput.propTypes = {
-  shares: React.PropTypes.string.isRequired,
-  errors: React.PropTypes.object.isRequired,
-  handleChange: React.PropTypes.func.isRequired,
-  setInvalidState: React.PropTypes.func.isRequired,
-  setErrorsState: React.PropTypes.func.isRequired
+  shares: PropTypes.string.isRequired,
+  errors: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  setInvalidState: PropTypes.func.isRequired,
+  setErrorsState: PropTypes.func.isRequired
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SharesInput from '../inputs/SharesInput';
 import PurchasedDateCalendar from '../inputs/PurchasedDateCalendar';
 import AlertMessage from '../forms/AlertMessage';
@@ -111,7 +112,7 @@ export default class EditStock extends React.Component {
 }
 
 EditStock.propTypes = {
-  stock: React.PropTypes.object.isRequired,
-  editStock: React.PropTypes.func.isRequired
+  stock: PropTypes.object.isRequired,
+  editStock: PropTypes.func.isRequired
 }
 

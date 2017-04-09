@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import parseCurrency from '../utils/parseCurrency';
 import calculateTotalReturn from '../utils/calculateReturns';
@@ -65,5 +66,5 @@ export default class TotalProfit extends React.Component {
 }
 
 TotalProfit.propTypes = {
-  stocks: React.PropTypes.object.isRequired
+  stocks: PropTypes.object.isRequired
 }

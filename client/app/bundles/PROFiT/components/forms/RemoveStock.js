@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function RemoveStock(props) {
   const ticker = props.stock.get('ticker').toUpperCase();
@@ -25,7 +26,7 @@ export default function RemoveStock(props) {
 }
 
 RemoveStock.propTypes = {
-  stock: React.PropTypes.object.isRequired,
-  removeStock: React.PropTypes.func.isRequired,
-  closePrompt: React.PropTypes.func.isRequired
+  stock: PropTypes.object.isRequired,
+  removeStock: PropTypes.func.isRequired,
+  closePrompt: PropTypes.func.isRequired
 }

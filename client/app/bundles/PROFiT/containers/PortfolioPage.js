@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
@@ -39,9 +40,9 @@ const PortfolioPage = (props) => {
 };
 
 PortfolioPage.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  $$stocksStore: React.PropTypes.instanceOf(Immutable.Map).isRequired,
-  $$userStore: React.PropTypes.instanceOf(Immutable.Map).isRequired
+  dispatch: PropTypes.func.isRequired,
+  $$stocksStore: PropTypes.instanceOf(Immutable.Map).isRequired,
+  $$userStore: PropTypes.instanceOf(Immutable.Map).isRequired
 };
 
 export default connect(select)(PortfolioPage);

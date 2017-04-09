@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import moment from 'moment';
 import classnames from 'classnames';
@@ -69,7 +70,7 @@ export default class StockItem extends React.Component {
 }
 
 StockItem.propTypes = {
-  stock: React.PropTypes.object.isRequired,
-  editStock: React.PropTypes.func.isRequired,
-  removeStock: React.PropTypes.func.isRequired
+  stock: PropTypes.object.isRequired,
+  editStock: PropTypes.func.isRequired,
+  removeStock: PropTypes.func.isRequired
 }

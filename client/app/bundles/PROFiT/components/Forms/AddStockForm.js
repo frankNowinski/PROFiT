@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AlertMessage from './AlertMessage';
 import StockInput from '../inputs/StockInput';
 import SharesInput from '../inputs/SharesInput';
@@ -180,9 +181,9 @@ export default class AddStockForm extends React.Component {
 }
 
 AddStockForm.propTypes = {
-  user: React.PropTypes.object.isRequired,
-  stocks: React.PropTypes.object.isRequired,
-  addStock: React.PropTypes.func.isRequired,
-  updateEmail: React.PropTypes.func.isRequired
+  user: PropTypes.object.isRequired,
+  stocks: PropTypes.object.isRequired,
+  addStock: PropTypes.func.isRequired,
+  updateEmail: PropTypes.func.isRequired
 }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import validateEmail from '../../utils/validations/validateEmail';
 
@@ -26,10 +27,10 @@ export default function EmailInput(props) {
 }
 
 EmailInput.propTypes = {
-  errors: React.PropTypes.object.isRequired,
-  notifyEmail: React.PropTypes.string.isRequired,
-  notifyTrendChange: React.PropTypes.bool.isRequired,
-  handleChange: React.PropTypes.func.isRequired
+  errors: PropTypes.object.isRequired,
+  notifyEmail: PropTypes.string.isRequired,
+  notifyTrendChange: PropTypes.bool.isRequired,
+  handleChange: PropTypes.func.isRequired
 }
 
 

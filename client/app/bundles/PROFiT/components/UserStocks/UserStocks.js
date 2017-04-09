@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import StockItem from './StockItem';
 
 export default function UserStocks(props) {
@@ -38,7 +39,7 @@ export default function UserStocks(props) {
 }
 
 UserStocks.propTypes = {
-  stocks: React.PropTypes.object.isRequired,
-  editStock: React.PropTypes.func.isRequired,
-  removeStock: React.PropTypes.func.isRequired
+  stocks: PropTypes.object.isRequired,
+  editStock: PropTypes.func.isRequired,
+  removeStock: PropTypes.func.isRequired
 }

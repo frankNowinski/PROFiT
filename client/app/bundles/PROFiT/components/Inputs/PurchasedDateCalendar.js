@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import classnames from 'classnames';
 import futureDate from '../../utils/validations/datePurchasedValidator';
@@ -44,10 +45,10 @@ export default function PurchasedDateCalendar(props) {
 }
 
 PurchasedDateCalendar.propTypes = {
-  purchasedDate: React.PropTypes.object.isRequired,
-  errors: React.PropTypes.object.isRequired,
-  handleCalendarChange: React.PropTypes.func.isRequired,
-  setInvalidState: React.PropTypes.func.isRequired,
-  setErrorsState: React.PropTypes.func.isRequired
+  purchasedDate: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+  handleCalendarChange: PropTypes.func.isRequired,
+  setInvalidState: PropTypes.func.isRequired,
+  setErrorsState: PropTypes.func.isRequired
 }
 

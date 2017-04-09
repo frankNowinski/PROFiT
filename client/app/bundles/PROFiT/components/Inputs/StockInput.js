@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import stockExists from '../../utils/validations/stockValidator';
 
@@ -61,11 +62,11 @@ export default function StockInput(props) {
 }
 
 StockInput.propTypes = {
-  ticker: React.PropTypes.string.isRequired,
-  errors: React.PropTypes.object.isRequired,
-  handleChange: React.PropTypes.func.isRequired,
-  alreadyOwned: React.PropTypes.func.isRequired,
-  setErrorsState: React.PropTypes.func.isRequired,
-  setInvalidState: React.PropTypes.func.isRequired
+  ticker: PropTypes.string.isRequired,
+  errors: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  alreadyOwned: PropTypes.func.isRequired,
+  setErrorsState: PropTypes.func.isRequired,
+  setInvalidState: PropTypes.func.isRequired
 }
 

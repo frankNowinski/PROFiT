@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import EmailInput from './EmailInput';
 import validateEmail from '../../utils/validations/validateEmail';
@@ -49,13 +50,13 @@ export default function NotifyTrendChangeCheckbox(props) {
 }
 
 NotifyTrendChangeCheckbox.propTypes = {
-  user: React.PropTypes.object.isRequired,
-  errors: React.PropTypes.object.isRequired,
-  updateEmail: React.PropTypes.func.isRequired,
-  notifyEmail: React.PropTypes.string.isRequired,
-  notifyTrendChange: React.PropTypes.bool.isRequired,
-  submitted: React.PropTypes.bool.isRequired,
-  handleChange: React.PropTypes.func.isRequired,
-  handleCheckboxClick: React.PropTypes.func.isRequired
+  user: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+  updateEmail: PropTypes.func.isRequired,
+  notifyEmail: PropTypes.string.isRequired,
+  notifyTrendChange: PropTypes.bool.isRequired,
+  submitted: PropTypes.bool.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleCheckboxClick: PropTypes.func.isRequired
 }
 
