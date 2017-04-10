@@ -1,32 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { removeStock } from '../../actions/stockActions';
 
-export default function RemoveStock(props) {
-  const ticker = props.stock.get('ticker').toUpperCase();
-  const { removeStock, closePrompt } = props;
-
-  const callRemoveStock = () => {
-    let stockId = props.stock.get('id');
-    removeStock(stockId);
+class RemoveStock extends React.Component {
+  callRemoveStock = () => {
+    const stockId = this.props.stock.get('id');
+    this.props.removeStock(stockId);
   }
 
-  const closeRemoveStockPrompt = () => {
-    closePrompt('removeStockPrompt');
+  closeRemoveStockPrompt = () => {
+    this.props.closePrompt('removeStockPrompt');
   }
 
-  return (
-    <div>
-      <h3 className="card-header">Are you sure you want to remove {ticker} from your portfolio?</h3>
-      <div className="card-text remove-stock-container">
-        <button className="btn btn-outline-primary remove-stock-btn yes" onClick={callRemoveStock}>Yes</button>
-        <button className="btn btn-outline-danger remove-stock-btn" onClick={closeRemoveStockPrompt}>No</button>
+  render() {
+    const ticker = this.props.stock.get('ticker').toUpperCase();
+
+    return (
+      <div>
+        <h3 className="card-header">Are you sure you want to remove {ticker} from your portfolio?</h3>
+        <div className="card-text remove-stock-container">
+          <button className="btn btn-outline-primary remove-stock-btn yes" onClick={this.callRemoveStock}>Yes</button>
+          <button className="btn btn-outline-danger remove-stock-btn" onClick={this.closeRemoveStockPrompt}>No</button>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 RemoveStock.propTypes = {
   stock: PropTypes.object.isRequired,
-  removeStock: PropTypes.func.isRequired,
   closePrompt: PropTypes.func.isRequired
 }
+
+export default connect(null, { removeStock })(RemoveStock);

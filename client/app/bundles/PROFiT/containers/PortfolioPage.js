@@ -21,19 +21,18 @@ const PortfolioPage = (props) => {
   const { dispatch, $$stocksStore, $$userStore } = props;
   const allActions = Object.assign({}, stockActions, userActions);
   const actions = bindActionCreators(allActions, dispatch);
-  const { addStock, editStock, removeStock, updateEmail } = actions;
   const stocks = $$stocksStore.get('stocks');
   const user   = $$userStore.get('user');
 
   return (
     <div className="row">
       <div className="col-3">
-        <AddStockForm {...{ stocks, user, addStock, updateEmail }} />
-        <TotalProfit {...{ stocks }} />
+        <AddStockForm {... { stocks, user }} />
+        <TotalProfit {... {stocks }} />
       </div>
 
       <div className="col-9">
-        <UserStocks {... { stocks, editStock, removeStock }} />
+        <UserStocks {... { stocks }} />
       </div>
     </div>
   );

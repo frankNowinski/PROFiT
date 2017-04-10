@@ -1,5 +1,6 @@
 import axios from 'axios';
 import actionTypes from '../constants/stockConstants';
+import fetchStock from '../utils/validations/stockValidator';
 
 export function addStock(stock) {
   let formattedStock = formatKeys(stock);
@@ -44,6 +45,22 @@ export function removeStock(stockId) {
       console.log(error);
     });
   }
+}
+
+export function fetchStockData(ticker, stockId) {
+  return dispatch => {
+    return fetchStock(ticker)
+      .then(response => {
+        let stockData = response.data.query.results.quote;
+        stockData.stockId = stockId;
+        if (valid(response)) {
+          dispatch({ type: actionTypes.FETCH_STOCK_DATA, payload: stockData })
+        }
+        return response.data;
+      }).catch(error => {
+        console.log(error);
+      });
+    };
 }
 
 function formatKeys(stock) {

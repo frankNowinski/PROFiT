@@ -30,6 +30,19 @@ export default function stocksReducer($$state = $$initialState, action) {
       });
 
       return $$state.set('stocks', stockList);
+    case actionTypes.FETCH_STOCK_DATA:
+      let updatedStockDataId = action.payload.stockId;
+      let updatedStockData   = action.payload;
+
+      let newStockData = $$state.get('stocks').update(
+        $$state.get('stocks').findIndex(function(item) {
+          return item.get("id") === updatedStockDataId;
+        }), function(item) {
+          return item.set("stock_data", Map(updatedStockData));
+        }
+      );
+
+      return $$state.set('stocks', newStockData);
     default:
       return $$state;
   }

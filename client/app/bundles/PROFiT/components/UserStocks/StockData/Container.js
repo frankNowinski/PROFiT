@@ -119,7 +119,5 @@ export default class StockDataContainer extends React.Component {
 }
 
 StockDataContainer.propTypes = {
-  stock: PropTypes.object.isRequired,
-  editStock: PropTypes.func.isRequired,
-  removeStock: PropTypes.func.isRequired
+  stock: PropTypes.object.isRequired
 }

@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 import EmailInput from './EmailInput';
 import validateEmail from '../../utils/validations/validateEmail';
+import { updateEmail } from '../../actions/userActions';
 
-export default function NotifyTrendChangeCheckbox(props) {
-  const { notifyEmail, notifyTrendChange, handleChange, handleCheckboxClick, updateEmail, errors } = props;
+function NotifyTrendChangeCheckbox(props) {
+  const { notifyEmail, notifyTrendChange, handleChange, handleCheckboxClick, errors, updateEmail } = props;
   const checked = notifyTrendChange === true ? true : false;
 
   const updateUserEmail = (user) => {
@@ -59,4 +61,6 @@ NotifyTrendChangeCheckbox.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleCheckboxClick: PropTypes.func.isRequired
 }
+
+export default connect(null, { updateEmail })(NotifyTrendChangeCheckbox);
 

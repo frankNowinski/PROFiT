@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import AlertMessage from './AlertMessage';
 import StockInput from '../inputs/StockInput';
 import SharesInput from '../inputs/SharesInput';
@@ -8,8 +9,9 @@ import NotifyTrendChangeCheckbox from '../inputs/NotifyTrendChangeCheckbox';
 import futureDate from '../../utils/validations/datePurchasedValidator';
 import validateEmail from '../../utils/validations/validateEmail';
 import moment from 'moment';
+import { addStock } from '../../actions/stockActions';
 
-export default class AddStockForm extends React.Component {
+class AddStockForm extends React.Component {
   state = {
       ticker: '',
       shares: '',
@@ -182,8 +184,8 @@ export default class AddStockForm extends React.Component {
 
 AddStockForm.propTypes = {
   user: PropTypes.object.isRequired,
-  stocks: PropTypes.object.isRequired,
-  addStock: PropTypes.func.isRequired,
-  updateEmail: PropTypes.func.isRequired
+  stocks: PropTypes.object.isRequired
 }
+
+export default connect(null, { addStock })(AddStockForm);
 

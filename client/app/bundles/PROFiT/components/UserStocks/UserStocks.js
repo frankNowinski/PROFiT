@@ -8,11 +8,7 @@ export default function UserStocks(props) {
 
     return sortedStocks.map(stock => {
       return (
-        <StockItem
-          key={stock.get('id')}
-          stock={stock}
-          editStock={props.editStock}
-          removeStock={props.removeStock} />
+        <StockItem key={stock.get('id')} stock={stock} />
       )
     });
   }
@@ -39,7 +35,5 @@ export default function UserStocks(props) {
 }
 
 UserStocks.propTypes = {
-  stocks: PropTypes.object.isRequired,
-  editStock: PropTypes.func.isRequired,
-  removeStock: PropTypes.func.isRequired
+  stocks: PropTypes.object.isRequired
 }

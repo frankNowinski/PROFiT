@@ -1,33 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import moment from 'moment';
 import classnames from 'classnames';
 import parseCurrency from '../../utils/parseCurrency';
 import calculateTotalReturn from '../../utils/calculateReturns';
 import StockDataContainer from './stockData/Container';
+import { fetchStockData } from '../../actions/stockActions';
 
-export default class StockItem extends React.Component {
+class StockItem extends React.Component {
+  state = {
+    stock: this.props.stock
+  }
+
+  componentWillMount = () => {
+    this.startPoll();
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    clearTimeout(this.timeout);
+    this.setState({ stock: nextProps.stock });
+    this.startPoll();
+  }
+
+  componentWillUnmount= () => {
+    clearTimeout(this.timeout);
+  }
+
+  startPoll = () => {
+    const fetchStockData = this.props.fetchStockData;
+    const { ticker, id } = this.state.stock.toJS();
+
+    this.timeout = setTimeout(() => fetchStockData(ticker, id), 5000);
+  }
+
   getTodaysProfit = (lastTradedPrice, PreviousClose) => {
-    let profit = (lastTradedPrice - PreviousClose) * this.props.stock.get('shares');
+    let profit = (lastTradedPrice - PreviousClose) * this.state.stock.get('shares');
     return parseFloat(profit).toFixed(2)
   }
 
   formatUniqueId = (hashtag) => {
-    const id = this.props.stock.toObject().id;
+    const id = this.state.stock.get('id');
     return hashtag ? `#stock-container-${id}` : `stock-container-${id}`
   }
 
   render() {
-    const { stock, editStock, removeStock } = this.props;
-    const { ticker, shares, purchased_date, purchased_price } = stock.toJS();
-    const { PercentChange, PreviousClose, LastTradePriceOnly, LastTradeDate, LastTradeTime } = stock.get('stock_data').toJS();
+    const stock = this.state.stock;
+    const fetchStockData = this.props.fetchStockData;
+    const { ticker, shares, purchased_date, purchased_price, days_profit, stock_data } = this.state.stock.toJS();
+    const { PercentChange, PreviousClose, LastTradePriceOnly, LastTradeDate, LastTradeTime } = stock_data;
     const todaysProfit = this.getTodaysProfit(LastTradePriceOnly, PreviousClose);
     const totalProfit  = calculateTotalReturn(stock.toJS());
-    const cardOutlineColor  = stock.get('days_profit') >= 0 ? 'card-outline-success' : 'card-outline-danger';
-    const textColor         = stock.get('days_profit') >= 0 ? 'card-header-col-positive' : 'card-header-col-negative';
-    const priceTextColor    = stock.get('days_profit') >= 0 ? 'card-header-col-price-positive' : 'card-header-col-price-negative';
-    const todaysProfitColor = stock.get('days_profit') >= 0 ? 'todays-profit-col-positive' : 'todays-profit-col-negative';
+    const cardOutlineColor  = days_profit >= 0 ? 'card-outline-success' : 'card-outline-danger';
+    const textColor         = days_profit >= 0 ? 'card-header-col-positive' : 'card-header-col-negative';
+    const priceTextColor    = days_profit >= 0 ? 'card-header-col-price-positive' : 'card-header-col-price-negative';
+    const todaysProfitColor = days_profit >= 0 ? 'todays-profit-col-positive' : 'todays-profit-col-negative';
 
     return (
       <div className={classnames('card', 'text-center', cardOutlineColor)}>
@@ -62,7 +90,7 @@ export default class StockItem extends React.Component {
         </div>
 
          <div id={this.formatUniqueId()} className="collapse" role="tabpanel" aria-labelledby="headingOne">
-          <StockDataContainer stock={stock} editStock={editStock} removeStock={removeStock} />
+          <StockDataContainer stock={stock} />
         </div>
       </div>
     )
@@ -70,7 +98,7 @@ export default class StockItem extends React.Component {
 }
 
 StockItem.propTypes = {
-  stock: PropTypes.object.isRequired,
-  editStock: PropTypes.func.isRequired,
-  removeStock: PropTypes.func.isRequired
+  stock: PropTypes.object.isRequired
 }
+
+export default connect(null, { fetchStockData })(StockItem);

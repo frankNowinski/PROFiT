@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import SharesInput from '../inputs/SharesInput';
 import PurchasedDateCalendar from '../inputs/PurchasedDateCalendar';
 import AlertMessage from '../forms/AlertMessage';
 import futureDate from '../../utils/validations/datePurchasedValidator';
 import moment from 'moment';
+import { editStock } from '../../actions/stockActions';
 
-export default class EditStock extends React.Component {
+class EditStock extends React.Component {
   state = {
     stockId: this.props.stock.get('id'),
     shares: this.props.stock.get('shares'),
@@ -112,7 +114,7 @@ export default class EditStock extends React.Component {
 }
 
 EditStock.propTypes = {
-  stock: PropTypes.object.isRequired,
-  editStock: PropTypes.func.isRequired
+  stock: PropTypes.object.isRequired
 }
 
+export default connect(null, { editStock })(EditStock);

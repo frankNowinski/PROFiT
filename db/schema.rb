@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170405074955) do
+ActiveRecord::Schema.define(version: 20170409051012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20170405074955) do
     t.date     "last_trending_date"
     t.boolean  "notify_trend_change", default: false
     t.string   "notify_email"
+    t.boolean  "wishlist",            default: false
     t.index ["user_id"], name: "index_stocks_on_user_id", using: :btree
   end
 
