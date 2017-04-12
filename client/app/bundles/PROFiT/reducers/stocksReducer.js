@@ -38,9 +38,11 @@ export default function stocksReducer($$state = $$initialState, action) {
         let currentStock = $$state.getIn(['stocks', i]) || false;
         let stockData    = allStockData[i];
         let previousTime = currentStock.getIn(['stock_data', 'LastTradeTime']);
+        let previousDate = currentStock.getIn(['stock_data', 'LastTradeDate']);
         let currentTime  = stockData['LastTradeTime'];
+        let currentDate  = stockData['LastTradeDate'];
 
-        if (currentTime > previousTime) {
+        if (currentDate >= previousDate && currentTime > previousTime) {
           allStocks.push(currentStock.set('stock_data', Map(stockData)));
         } else {
           allStocks.push(currentStock);

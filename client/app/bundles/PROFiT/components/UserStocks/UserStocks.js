@@ -10,7 +10,7 @@ class UserStocks extends React.Component {
 
   componentWillMount = () => {
     this.tickers = this.getTickers(this.props.stocks);
-    this.seconds = 3000;
+    this.secondsDelay = 3000;
     this.startPoll();
   }
 
@@ -21,11 +21,11 @@ class UserStocks extends React.Component {
     clearTimeout(this.timeout);
 
     if (propsChanged) {
-      this.seconds = 3000;
+      this.secondsDelay = 3000;
       this.setState({ stocks: nextProps.stocks });
     }
     else {
-      this.seconds *= 2;
+      this.secondsDelay *= 2;
     }
 
     this.tickers = this.getTickers(nextProps.stocks);
@@ -45,7 +45,7 @@ class UserStocks extends React.Component {
     const fetchStockData = this.props.fetchStockData;
 
     if (this.tickers.length > 0) {
-      this.timeout = setTimeout(() => fetchStockData(this.tickers), this.seconds);
+      this.timeout = setTimeout(() => fetchStockData(this.tickers), this.secondsDelay);
     }
   }
 
