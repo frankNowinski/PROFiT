@@ -10,7 +10,7 @@ class RemoveStock extends React.Component {
   }
 
   closeRemoveStockPrompt = () => {
-    this.props.closePrompt('removeStockPrompt');
+    this.props.closePrompt('removeStockForm');
   }
 
   render() {

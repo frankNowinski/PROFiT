@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import fetchStock from '../../utils/validations/stockValidator';
+import validStock from '../../utils/validations/stockValidator';
 
 export default function StockInput(props) {
   const { ticker, alreadyOwned, setInvalidState, setErrorsState, errors, handleChange } = props;
@@ -20,8 +20,8 @@ export default function StockInput(props) {
 
       setErrors(errors, invalid);
     } else if (ticker != '') {
-      fetchStock(ticker).then(response => {
-        if (response.data.query.results.quote.StockExchange !== null) {
+      validStock(ticker).then(response => {
+        if (response.StockExchange !== null) {
           errors.ticker = '';
           invalid = false;
         } else {

@@ -6,21 +6,20 @@ import calculateTotalReturn from '../utils/calculateReturns';
 
 export default class TotalProfit extends React.Component {
   state = {
+    stocks: this.props.stocks,
     todaysProfit: '',
     totalProfit: ''
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (this.props != nextProps) {
-      this.writeToState(nextProps.stocks);
-    }
+    this.writePropsToState(nextProps.stocks);
   }
 
   componentWillMount = () => {
-    this.writeToState(this.props.stocks);
+    this.writePropsToState(this.state.stocks);
   }
 
-  writeToState = (stocks) => {
+  writePropsToState = (stocks) => {
     let todaysProfits = [];
     let totalProfits  = [];
 

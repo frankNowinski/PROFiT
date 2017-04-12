@@ -1,5 +1,5 @@
 import actionTypes from '../constants/stockConstants';
-import Immutable, { Map }from 'immutable';
+import Immutable, { Map, List }from 'immutable';
 
 export const $$initialState = Immutable.fromJS({
   stocks: Immutable.List
@@ -31,18 +31,23 @@ export default function stocksReducer($$state = $$initialState, action) {
 
       return $$state.set('stocks', stockList);
     case actionTypes.FETCH_STOCK_DATA:
-      let updatedStockDataId = action.payload.stockId;
-      let updatedStockData   = action.payload;
+      let allStockData = action.payload;
+      let allStocks    = [];
 
-      let newStockData = $$state.get('stocks').update(
-        $$state.get('stocks').findIndex(function(item) {
-          return item.get("id") === updatedStockDataId;
-        }), function(item) {
-          return item.set("stock_data", Map(updatedStockData));
+      for(let i = 0; i < allStockData.length; i++) {
+        let currentStock = $$state.getIn(['stocks', i]) || false;
+        let stockData    = allStockData[i];
+        let previousTime = currentStock.getIn(['stock_data', 'LastTradeTime']);
+        let currentTime  = stockData['LastTradeTime'];
+
+        if (currentTime > previousTime) {
+          allStocks.push(currentStock.set('stock_data', Map(stockData)));
+        } else {
+          allStocks.push(currentStock);
         }
-      );
+      }
 
-      return $$state.set('stocks', newStockData);
+      return $$state.set('stocks', List(allStocks));
     default:
       return $$state;
   }

@@ -32,7 +32,9 @@ const PortfolioPage = (props) => {
       </div>
 
       <div className="col-9">
-        <UserStocks {... { stocks }} />
+        { stocks.size > 0 ?
+          <UserStocks {... { stocks }} /> :
+          <div className="text-center zero-owned-stocks-display">You don't have any stocks in your portfolio.</div> }
       </div>
     </div>
   );

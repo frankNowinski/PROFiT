@@ -1,6 +1,6 @@
 import axios from 'axios';
 import actionTypes from '../constants/stockConstants';
-import fetchStock from '../utils/validations/stockValidator';
+import fetchStock from '../utils/fetchStock';
 
 export function addStock(stock) {
   let formattedStock = formatKeys(stock);
@@ -47,16 +47,11 @@ export function removeStock(stockId) {
   }
 }
 
-export function fetchStockData(ticker, stockId) {
+export function fetchStockData(tickers) {
   return dispatch => {
-    return fetchStock(ticker)
+    return fetchStock(tickers)
       .then(response => {
-        let stockData = response.data.query.results.quote;
-        stockData.stockId = stockId;
-        if (valid(response)) {
-          dispatch({ type: actionTypes.FETCH_STOCK_DATA, payload: stockData })
-        }
-        return response.data;
+        dispatch({ type: actionTypes.FETCH_STOCK_DATA, payload: response })
       }).catch(error => {
         console.log(error);
       });

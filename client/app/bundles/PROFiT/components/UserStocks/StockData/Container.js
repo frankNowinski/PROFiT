@@ -8,12 +8,12 @@ import moment from 'moment';
 
 export default class StockDataContainer extends React.Component {
   state = {
-    removeStockPrompt: false,
+    removeStockForm: false,
     editStockForm: false
   }
 
   handleRemoveStock = () => {
-    this.setState({ removeStockPrompt: true });
+    this.setState({ removeStockForm: true });
   }
 
   handleEditStock = () => {
@@ -21,8 +21,8 @@ export default class StockDataContainer extends React.Component {
   }
 
   closePrompt = (prompt) => {
-    if (prompt == 'removeStockPrompt') {
-      this.setState({ removeStockPrompt: false });
+    if (prompt == 'removeStockForm') {
+      this.setState({ removeStockForm: false });
     } else if (prompt === 'editStockForm') {
       this.setState({ editStockForm: false });
     }
@@ -47,8 +47,23 @@ export default class StockDataContainer extends React.Component {
   }
 
   stockDataView = () => {
-    const { stock, alreadyOwned } = this.props;
-    const { DaysHigh, DaysLow, EarningsShare, FiftydayMovingAverage, TwoHundreddayMovingAverage, Name, OneyrTargetPrice, Open, PERatio, Volume, AverageDailyVolume, YearHigh, YearLow, LastTradePriceOnly } = stock.get('stock_data').toJS();
+    const stock = this.props.stock;
+    const {
+      DaysHigh,
+      DaysLow,
+      EarningsShare,
+      FiftydayMovingAverage,
+      TwoHundreddayMovingAverage,
+      Name,
+      OneyrTargetPrice,
+      Open,
+      PERatio,
+      Volume,
+      AverageDailyVolume,
+      YearHigh,
+      YearLow,
+      LastTradePriceOnly
+    } = stock.get('stock_data').toJS();
     const purchased_date = moment(stock.get('purchased_date')).format('MM/DD/YYYY');
     const totalReturn = this.calculateTotalReturn(LastTradePriceOnly);
 
@@ -88,15 +103,16 @@ export default class StockDataContainer extends React.Component {
   }
 
   renderStockDataView = () => {
+    const { editStockForm, removeStockForm } = this.state;
     const { stock, editStock, removeStock } = this.props;
 
-    if (this.state.editStockForm) {
+    if (editStockForm) {
       return (
         <EditStockForm stock={stock}
                        editStock={editStock}
                        closePrompt={this.closePrompt} />
       )
-    } else if (this.state.removeStockPrompt) {
+    } else if (removeStockForm) {
       return (
         <RemoveStock stock={stock}
                      removeStock={removeStock}
