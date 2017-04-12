@@ -109,13 +109,6 @@ RSpec.describe Stock, type: :model do
         .and_return(stock_data)
     end
 
-    it 'should update the days profit' do
-      VCR.use_cassette('stock') do
-        stock.get_stock_data
-        expect(stock.days_profit).to eq 3.0
-      end
-    end
-
     it 'should merge stock data to the stock object' do
       VCR.use_cassette('stock') do
         expect(stock.get_stock_data[:stock_data][:symbol]).to eq 'AAPL'
@@ -127,7 +120,6 @@ RSpec.describe Stock, type: :model do
 
       before do
         allow(StockFetcher).to receive_message_chain(:new, :fetch_stock_data, :with_indifferent_access)
-        allow(stock).to receive(:update_days_profit)
         stock.get_stock_data
       end
 
@@ -141,7 +133,6 @@ RSpec.describe Stock, type: :model do
 
       before do
         allow(StockFetcher).to receive_message_chain(:new, :fetch_stock_data, :with_indifferent_access)
-        allow(stock).to receive(:update_days_profit)
       end
 
       describe 'when updating the model' do
@@ -172,7 +163,6 @@ RSpec.describe Stock, type: :model do
             .and_return(stock_data)
           allow(stock).to receive(:notify_trend_change).and_return true
           allow(stock).to receive(:trending_upward?).and_return false
-          allow(user_mailer).to receive(:downward_trend_email)
           stock.get_stock_data
         end
 

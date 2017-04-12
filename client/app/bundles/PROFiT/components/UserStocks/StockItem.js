@@ -3,25 +3,20 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import classnames from 'classnames';
 import parseCurrency from '../../utils/parseCurrency';
-import calculateTotalReturn from '../../utils/calculateReturns';
+import calculateTotalReturn from '../../utils/calculations/totalReturn';
+import calculateTodaysReturn from '../../utils/calculations/todaysReturn';
 import StockDataContainer from './stockData/Container';
 
 export default function StockItem(props) {
   const stock = props.stock;
-  const { ticker, shares, purchased_date, purchased_price, days_profit, stock_data } = stock.toJS();
+  const { ticker, shares, purchased_date, purchased_price, stock_data } = stock.toJS();
   const { PercentChange, PreviousClose, LastTradePriceOnly, LastTradeDate, LastTradeTime } = stock_data;
-  const cardOutlineColor  = days_profit >= 0 ? 'card-outline-success' : 'card-outline-danger';
-  const textColor         = days_profit >= 0 ? 'card-header-col-positive' : 'card-header-col-negative';
-  const priceTextColor    = days_profit >= 0 ? 'card-header-col-price-positive' : 'card-header-col-price-negative';
-  const todaysProfitColor = days_profit >= 0 ? 'todays-profit-col-positive' : 'todays-profit-col-negative';
   const totalProfit  = calculateTotalReturn(stock.toJS());
-
-  const getTodaysProfit = (lastTradedPrice, PreviousClose) => {
-    let profit = (lastTradedPrice - PreviousClose) * shares;
-    return parseFloat(profit).toFixed(2)
-  }
-
-  const todaysProfit = getTodaysProfit(LastTradePriceOnly, PreviousClose);
+  const todaysProfit = calculateTodaysReturn(stock.toJS());
+  const cardOutlineColor  = todaysProfit >= 0 ? 'card-outline-success' : 'card-outline-danger';
+  const textColor         = todaysProfit >= 0 ? 'card-header-col-positive' : 'card-header-col-negative';
+  const priceTextColor    = todaysProfit >= 0 ? 'card-header-col-price-positive' : 'card-header-col-price-negative';
+  const todaysProfitColor = todaysProfit >= 0 ? 'todays-profit-col-positive' : 'todays-profit-col-negative';
 
   const formatUniqueId = (hashtag) => {
     const id = stock.get('id');

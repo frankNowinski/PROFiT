@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import parseCurrency from '../utils/parseCurrency';
-import calculateTotalReturn from '../utils/calculateReturns';
+import calculateTotalReturn from '../utils/calculations/totalReturn';
+import calculateTodaysReturn from '../utils/calculations/todaysReturn';
 
 export default class TotalProfit extends React.Component {
   state = {
@@ -24,10 +25,11 @@ export default class TotalProfit extends React.Component {
     let totalProfits  = [];
 
     stocks.map(stock => {
+      let today = calculateTodaysReturn(stock.toJS());
       let total = calculateTotalReturn(stock.toJS());
 
       totalProfits.push(total);
-      todaysProfits.push(stock.get('days_profit'));
+      todaysProfits.push(today);
     });
 
     let todaysProfit = this.computeProfit(todaysProfits);

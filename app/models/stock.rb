@@ -11,7 +11,6 @@ class Stock < ApplicationRecord
 
   def get_stock_data
     fetch_stock_data
-    update_days_profit
     update_trend if prior_last_trend_date?
 
     self.attributes.merge(stock_data: @stock_data)
@@ -21,19 +20,6 @@ class Stock < ApplicationRecord
 
   def fetch_stock_data
     @stock_data = StockFetcher.new(ticker).fetch_stock_data.with_indifferent_access
-  end
-
-  def update_days_profit
-    days_profit = ((current_price - previous_close) * self.shares).round(2)
-    self.update(days_profit: days_profit)
-  end
-
-  def current_price
-    @stock_data[:LastTradePriceOnly].to_f
-  end
-
-  def previous_close
-    @stock_data[:PreviousClose].to_f
   end
 
   def prior_last_trend_date?

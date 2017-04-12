@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409051012) do
+ActiveRecord::Schema.define(version: 20170412195146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 20170409051012) do
     t.datetime "updated_at",                          null: false
     t.date     "purchased_date"
     t.string   "purchased_price"
-    t.float    "days_profit",         default: 0.0
     t.boolean  "trending_upward",     default: false
     t.date     "last_trending_date"
     t.boolean  "notify_trend_change", default: false

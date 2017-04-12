@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import StockItem from './StockItem';
 import { fetchStockData } from '../../actions/stockActions';
+import calculateTodaysReturn from '../../utils/calculations/todaysReturn';
 import Immutable from 'immutable';
 
 class UserStocks extends React.Component {
@@ -50,7 +51,7 @@ class UserStocks extends React.Component {
   }
 
   stockList = () => {
-    let sortedStocks = this.state.stocks.sortBy(stock => stock.get('days_profit')).reverse();
+    let sortedStocks = this.state.stocks.sortBy(stock => calculateTodaysReturn(stock.toJS())).reverse();
 
     return sortedStocks.map(stock => {
       return (

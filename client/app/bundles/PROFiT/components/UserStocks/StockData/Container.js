@@ -4,6 +4,7 @@ import EditStockForm from '../../forms/EditStockForm';
 import RemoveStock from '../../forms/RemoveStock';
 import classnames from 'classnames';
 import parseCurrency from '../../../utils/parseCurrency';
+import calculateTodaysReturn from '../../../utils/calculations/todaysReturn';
 import moment from 'moment';
 
 export default class StockDataContainer extends React.Component {
@@ -124,7 +125,8 @@ export default class StockDataContainer extends React.Component {
   }
 
   render() {
-    const cardColor = this.props.stock.get('days_profit') >= 0 ? 'card-block-positive' : 'card-block-negative';
+    const stock = this.props.stock.toJS();
+    const cardColor = calculateTodaysReturn(stock) >= 0 ? 'card-block-positive' : 'card-block-negative';
 
     return (
       <div className={classnames(cardColor)}>
