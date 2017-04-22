@@ -6,7 +6,9 @@ A Ruby on Rails and React application that monitors the performance of your stoc
 
 In the root directory, execute `foreman start -f Procfile.dev` in the terminal. 
 
-You can visit this website at https://profit-app.herokuapp.com/.
+## Deployment 
+
+You can visit a live version of this app here: https://profit-app.herokuapp.com/
 
 ## Contributing
 
