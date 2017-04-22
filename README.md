@@ -8,7 +8,7 @@ In the root directory, execute `foreman start -f Procfile.dev` in the terminal.
 
 ## Deployment 
 
-You can visit a live version of this app here: https://profit-app.herokuapp.com/
+You can visit a live version of this app here: https://profit-app.herokuapp.com
 
 ## Contributing
 
