@@ -38,7 +38,7 @@ class Api::V1::StocksController < ApplicationController
   private
 
   def stock_params
-    params.require(:stock).permit(:ticker, :shares, :purchased_date, :notify_trend_change, :notify_email)
+    params.require(:stock).permit(:ticker, :shares, :purchased_date, :purchased_price, :notify_trend_change, :notify_email)
   end
 
   def stock_ticker_params

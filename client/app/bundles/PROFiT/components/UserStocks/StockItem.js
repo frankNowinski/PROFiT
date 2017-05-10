@@ -11,8 +11,8 @@ export default function StockItem(props) {
   const stock = props.stock;
   const { ticker, shares, purchased_date, purchased_price, stock_data } = stock.toJS();
   const { PercentChange, PreviousClose, LastTradePriceOnly, LastTradeDate, LastTradeTime } = stock_data;
-  const totalProfit  = calculateTotalReturn(stock.toJS());
-  const todaysProfit = calculateTodaysReturn(stock.toJS());
+  const totalProfit       = calculateTotalReturn(stock.toJS());
+  const todaysProfit      = calculateTodaysReturn(stock.toJS());
   const cardOutlineColor  = todaysProfit >= 0 ? 'card-outline-success' : 'card-outline-danger';
   const textColor         = todaysProfit >= 0 ? 'card-header-col-positive' : 'card-header-col-negative';
   const priceTextColor    = todaysProfit >= 0 ? 'card-header-col-price-positive' : 'card-header-col-price-negative';

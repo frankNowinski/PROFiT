@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import AlertMessage from './AlertMessage';
 import StockInput from '../inputs/StockInput';
 import SharesInput from '../inputs/SharesInput';
-import PurchasedDateCalendar from '../inputs/PurchasedDateCalendar';
+import StockPriceView from '../inputs/StockPriceView';
 import NotifyTrendChangeCheckbox from '../inputs/NotifyTrendChangeCheckbox';
 import futureDate from '../../utils/validations/datePurchasedValidator';
 import validateEmail from '../../utils/validations/validateEmail';
@@ -16,6 +16,9 @@ class AddStockForm extends React.Component {
       ticker: '',
       shares: '',
       purchasedDate: moment(),
+      purchasedPrice: '',
+      displayDateInput: true,
+      displayPriceInput: false,
       notifyTrendChange: false,
       notifyEmail: this.props.user.get('email'),
       invalid: false,
@@ -51,6 +54,13 @@ class AddStockForm extends React.Component {
     this.setState({ purchasedDate: date });
   }
 
+  handleInputChange = (e) => {
+    this.setState({
+      displayDateInput: !this.state.displayDateInput,
+      displayPriceInput: !this.state.displayPriceInput
+    });
+  }
+
   handleCheckboxClick = (e) =>{
     let checked = e.target.value === 'false' ? true : false;
     this.setState({ notifyTrendChange: checked });
@@ -81,6 +91,9 @@ class AddStockForm extends React.Component {
             this.setState({
               shares: '',
               purchasedDate: moment(),
+              purchasedPrice: '',
+              displayDateInput: true,
+              displayPriceInput: false,
               notifyTrendChange: false,
               invalid: false,
               submitted: true,
@@ -104,7 +117,7 @@ class AddStockForm extends React.Component {
   validForm() {
     const { ticker, shares, purchasedDate } = this.state;
 
-    return ( ticker !== '' && !this.alreadyOwned(ticker) && shares !== '' && !futureDate(purchasedDate))
+    return (ticker !== '' && !this.alreadyOwned(ticker) && shares !== '' && !futureDate(purchasedDate))
   }
 
   notifyUserWithInvalidEmail() {
@@ -112,7 +125,20 @@ class AddStockForm extends React.Component {
   }
 
   render() {
-    const { ticker, shares, purchasedDate, notifyEmail, notifyTrendChange, message, submitted, invalid, errors, loading } = this.state;
+    const { ticker,
+            shares,
+            purchasedDate,
+            purchasedPrice,
+            displayDateInput,
+            displayPriceInput,
+            notifyEmail,
+            notifyTrendChange,
+            message,
+            submitted,
+            invalid,
+            errors,
+            loading
+          } = this.state;
 
     return (
       <div className="text-center">
@@ -151,9 +177,14 @@ class AddStockForm extends React.Component {
                     setErrorsState={this.setErrorsState}
                     setInvalidState={this.setInvalidState} />
 
-                  <PurchasedDateCalendar
+                  <StockPriceView
                     errors={errors}
+                    purchasedPrice={purchasedPrice}
                     purchasedDate={purchasedDate}
+                    displayDateInput={displayDateInput}
+                    displayPriceInput={displayPriceInput}
+                    handleChange={this.handleChange}
+                    handleInputChange={this.handleInputChange}
                     handleCalendarChange={this.handleCalendarChange}
                     setErrorsState={this.setErrorsState}
                     setInvalidState={this.setInvalidState} />

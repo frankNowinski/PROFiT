@@ -19,7 +19,8 @@ class StockValidator < ActiveModel::Validator
     if stock_data.empty?
       false
     else
-      @stock.purchased_price = stock_data['Close']
+      purchased_price =  @stock.purchased_price.empty? ? stock_data['Close'] : @stock.purchased_price
+      @stock.purchased_price = purchased_price
       true
     end
   end

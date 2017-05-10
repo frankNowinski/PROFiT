@@ -74,7 +74,7 @@ class EditStock extends React.Component {
 
   render() {
     const ticker = this.props.stock.get('ticker').toUpperCase();
-    const { shares, purchasedDate, message, errors } = this.state;
+    const { shares, purchasedDate, message, errors, submitted, invalid } = this.state;
 
     return (
       <div>
@@ -82,10 +82,7 @@ class EditStock extends React.Component {
         <br />
 
         <div className="card-text container">
-          { this.state.submitted ?
-            <AlertMessage invalid={this.state.invalid} message={message}/>
-            : null
-          }
+          { submitted ? <AlertMessage invalid={this.state.invalid} message={message}/> : null }
 
           <form onSubmit={this.handleSubmit}>
             <SharesInput

@@ -28,8 +28,8 @@ export default class TotalProfit extends React.Component {
       let today = calculateTodaysReturn(stock.toJS());
       let total = calculateTotalReturn(stock.toJS());
 
-      totalProfits.push(total);
       todaysProfits.push(today);
+      totalProfits.push(total);
     });
 
     let todaysProfit = this.computeProfit(todaysProfits);

@@ -13,12 +13,14 @@ RSpec.describe Stock, type: :model do
         ticker: ticker,
         shares: shares,
         purchased_date: purchased_date,
+        purchased_price: purchased_price,
         user_id: user.id
       })
     end
 
     before do
       allow(stock).to receive(:purchased_date=).with(purchased_date)
+      allow(stock).to receive(:purchased_price=).with(purchased_price)
       allow(User).to receive(:find).and_return(user)
     end
 
@@ -65,6 +67,15 @@ RSpec.describe Stock, type: :model do
       it 'should return false and add an error msg' do
         expect(stock.save).to be_falsey
         expect(stock.errors[:base]).to include('Invalid stock.')
+      end
+    end
+
+    context 'when a stock is created with a purchased price' do
+      let(:purchased_price)  { '100' }
+
+      it 'should return false and add an error msg' do
+        expect(stock.save).to be_truthy
+        expect(stock.purchased_price).to eq '100'
       end
     end
 

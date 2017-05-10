@@ -60,6 +60,7 @@ export function fetchStockData(tickers) {
 
 function formatKeys(stock) {
   stock.purchased_date      = stock.purchasedDate;
+  stock.purchased_price     = stock.purchasedPrice;
   stock.notify_email        = stock.notifyEmail;
   stock.notify_trend_change = stock.notifyTrendChange;
 
